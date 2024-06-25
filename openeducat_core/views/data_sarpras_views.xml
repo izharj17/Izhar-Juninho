@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_data_sarpras_tree" model="ir.ui.view">
+            <field name="name">data.sarpras.tree</field>
+            <field name="model">data.sarpras</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Data Sarpras">
+                    <field name="sekolah_id"/>
+                    <field name="jenis_sarpras_id"/>
+                    <field name="semester"/>
+                    <field name="juml_ganjil"/>
+                    <field name="juml_genap"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_data_sarpras_form" model="ir.ui.view">
+            <field name="name">data.sarpras.form</field>
+            <field name="model">data.sarpras</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Data Sarpras">
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <group col="4" name="main">
+                            <field name="sekolah_id"/>
+                            <field name="jenis_sarpras_id"/>
+                            <field name="semester"/>
+                            <field name="juml_ganjil"/>
+                            <field name="juml_genap"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_data_sarpras_search" model="ir.ui.view">
+            <field name="name">data.sarpras.search</field>
+            <field name="model">data.sarpras</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Data Sarpras">
+                    <field name="sekolah_id"/>
+                    <field name="jenis_sarpras_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_sekolah_id"
+                                string="Sekolah" domain="[]"
+                                context="{'group_by':'sekolah_id'}"/>
+                        <filter name="group_by_jenis_sarpras_id"
+                                string="Jenis Sarpras" domain="[]"
+                                context="{'group_by':'jenis_sarpras_id'}"/>
+                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_data_sarpras_pivot" model="ir.ui.view">
+            <field name="name">data.sarpras.pivot</field>
+            <field name="model">data.sarpras</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <pivot string="Data Sarpras">
+
+                </pivot>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_data_sarpras_view">
+            <field name="name">Data Sarpras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">data.sarpras</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="view_data_sarpras_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_data_sarpras_view_form">
+            <field name="act_window_id" ref="act_open_data_sarpras_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_data_sarpras_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_data_sarpras_view_tree">
+            <field name="act_window_id" ref="act_open_data_sarpras_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_data_sarpras_tree"/>
+        </record>
+    </data>
+</odoo>

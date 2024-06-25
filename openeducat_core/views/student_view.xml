@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="kanban_view_student" model="ir.ui.view">
+            <field name="name">Student Kanban</field>
+            <field name="model">op.student</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                    <field name="id"/>
+                    <field name="image_1920"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click o_res_partner_kanban">
+                                <div class="o_kanban_image">
+                                    <t t-if="record.image_1920.value">
+                                        <img t-att-src="kanban_image('op.student', 'image_1920', record.id.raw_value)"
+                                             alt="Student"/>
+                                    </t>
+                                    <t t-if="!record.image_1920.value">
+                                        <img t-att-src='_s + "/base/static/img/avatar.png"' alt="Student"/>
+                                    </t>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="name"/>
+                                        </a>
+                                    </h4>
+                                    <ul>
+                                        <li t-if="record.contact_address.raw_value">
+                                            <field name="contact_address"/>
+                                        </li>
+                                        <li t-if="record.phone.raw_value">
+                                            <field name="phone"/>
+                                        </li>
+                                        <li t-if="record.mobile.raw_value">
+                                            <field name="mobile"/>
+                                        </li>
+                                        <li t-if="record.email.raw_value">
+                                            <a t-attf-href="mailto:#{record.email.value}">
+                                                <field name="email"/>
+                                            </a>
+                                        </li>
+                                        <li t-if="record.lang.raw_value">
+                                            <field name="lang"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_op_student_tree" model="ir.ui.view">
+            <field name="name">op.student.tree</field>
+            <field name="model">op.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Student">
+                    <field name="title"/>
+                    <field name="name"/>
+                    <field name="blood_group"/>
+                    <field name="emergency_contact"/>
+                    <field name="nationality"/>
+                    <field name="lang"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_op_student_form" model="ir.ui.view">
+            <field name="name">op.student.form</field>
+            <field name="model">op.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Student">
+                    <header>
+                        <button type="object" name="create_student_user"
+                                string="Create Student User"
+                                class="oe_highlight"
+                                groups="openeducat_core.group_op_back_office_admin,openeducat_core.group_op_back_office"
+                                attrs="{'invisible': [('user_id', '!=', False)]}"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div name="smart_button" class="oe_button_box">
+
+                        </div>
+                        <field name="image_1920" widget="image" class="oe_left oe_avatar"/>
+                        <div class="oe_title w-auto">
+                            <h3>
+                                <field name="title" placeholder="Title"/>
+                            </h3>
+                            <h1>
+                                <field name="name" placeholder="Name" required="1" invisible="1"/>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field name="first_name" required="1" placeholder="First Name"/>
+                                        </td>
+                                        <td style="padding-right:10px;">
+                                            <field name="middle_name" placeholder="Middle Name"/>
+                                        </td>
+                                        <td style="padding-right:10px;">
+                                            <field name="last_name" placeholder="Last Name" required="1"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <h3>
+                                    <td style="padding-right:10px;">
+                                        <field name="nama_panggilan" />
+                                    </td>
+                                </h3>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="personal_information"
+                                  string="Personal Information">
+                                <group col="6" colspan="6" name="personal_detail">
+                                    <field name="nik"/>
+                                    <field name="no_kk"/>
+                                    <field name="no_akta_lahir"/>
+                                    <field name="gender" required="1"/>
+                                    <field name="agama"/>
+                                    <field name="kewarganegaraan"/>
+                                    <field name="birth_date" required="1"/>
+                                    <field name="age"/>
+                                    <field name="birth_place" required="1"/>
+                                    <field name="rt_rw"/>
+                                    <field name="kecamatan_id"/>
+                                    <field name="kelurahan_id"/>
+                                    <field name="kode_pos"/>
+                                    <field name="tempat_tinggal"/>
+                                    <field name="moda_transport"/>
+                                    <field name="anak_ke"/>
+                                    <field name="punya_kia"/>
+                                    <field name="nationality"/>
+                                    <!--field name="visa_info"/-->
+                                    <field name="blood_group"/>
+                                </group>
+                                <group string="Orang Tua">
+                                    <field name="ayah_id"/>
+                                    <field name="ibu_id"/>
+                                    <field name="wali_id"/>
+                                </group>
+                                <group string="Address Detail" name="address">
+                                    <label for="type"/>
+                                    <div name="div_type">
+                                        <field class="oe_inline" name="type"/>
+                                    </div>
+                                    <label for="street" string="Address"/>
+                                    <div name="div_address">
+                                        <field name="street" placeholder="Street..."/>
+                                        <field name="street2" placeholder="Street2"/>
+                                        <div class="address_format">
+                                            <field name="city" placeholder="City" style="width: 40%%"/>
+                                            <field name="state_id" class="oe_no_button" placeholder="State"
+                                                   style="width: 37%%" options='{"no_open": True}'/>
+                                            <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                        </div>
+                                        <field name="country_id"
+                                               placeholder="Country" class="oe_no_button"
+                                               options='{"no_open": True}'/>
+                                    </div>
+                                </group>
+                            </page>
+                            <page name="personal_information_school"
+                                  string="Personal Information School">
+                                <group col="6" colspan="6" name="personal_detail_school">
+                                    <field name="nis" required="1"/>
+				                    <field name="nisn" required="1"/>
+                                    <field name="nationality"/>
+                                    <!--field name="visa_info"/-->
+                                    <field name="lang"/>
+                                    <field name="category_id" string="Category"/>
+                                    <field name="grade" string="Grade"/>
+                                    <field name="rombel" string="Rombel"/>
+                                    <field name="emergency_contact" context="{'show_address': 1}"
+                                           options='{"always_reload": True}'/>
+                                    <field name="mobile" required="1"/>
+                                    <field name="user_id" string="User" readonly="0"/>
+                                    <field name="email" required="1"/>
+                                    <field name="partner_id" placeholder="Partner" required="0" string="Partner"/>
+                                    <field name="barcode"/>
+                                </group>
+                                <group string="Orang Tua">
+                                    <field name="ayah_id"/>
+                                    <field name="ibu_id"/>
+                                    <field name="wali_id"/>
+                                </group>
+                                <group string="Address Detail" name="address">
+                                    <label for="type"/>
+                                    <div name="div_type">
+                                        <field class="oe_inline" name="type"/>
+                                    </div>
+                                    <label for="street" string="Address"/>
+                                    <div name="div_address">
+                                        <field name="street" placeholder="Street..."/>
+                                        <field name="street2" placeholder="Street2"/>
+                                        <div class="address_format">
+                                            <field name="city" placeholder="City" style="width: 40%%"/>
+                                            <field name="state_id" class="oe_no_button" placeholder="State"
+                                                   style="width: 37%%" options='{"no_open": True}'/>
+                                            <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                        </div>
+                                        <field name="country_id"
+                                               placeholder="Country" class="oe_no_button"
+                                               options='{"no_open": True}'/>
+                                    </div>
+                                </group>
+                            </page>
+                            <page name="data_priodik" string="Data Priodik">
+                                <group col="4" colspan="4">
+                                    <field name="tinggi_bdn"/>
+                                    <field name="berat_bdn"/>
+                                    <field name="lingkar_kpl"/>
+                                    <field name="jrk_tmpt_plhn"/>
+                                    <field name="jrk_tmpt_km"/>
+                                    <field name="waktu_tempuh"/>
+                                    <field name="jmlh_saudara_kandung"/>
+                                </group>
+                            </page>
+                            <page name="educational" string="Educational">
+                                <group>
+                                    <group colspan="3">
+                                        <!--field name="gr_no"/-->
+                                    </group>
+                                </group>
+                                <group>
+                                    <separator string="Admission Details"
+                                               colspan="4"/>
+                                    <field name="course_detail_ids"
+                                           nolabel="1">
+                                        <tree string="Course Details">
+                                            <field name="course_id"/>
+                                            <field name="batch_id"/>
+                                            <field name="roll_number"/>
+                                            <field name="subject_ids" widget="many2many_tags"/>
+                                            <field name="state"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group>
+                                        <separator string="Data Graduasi" colspan="4"/>
+                                                <field name="status_graduasi"/>
+                                                <field name="graduate"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_op_student_search" model="ir.ui.view">
+            <field name="name">op.student.search</field>
+            <field name="model">op.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Student">
+                    <field name="name"/>
+                    <field name="blood_group"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="blood_group" string="Blood Group"
+                                domain="[]" context="{'group_by':'blood_group'}"/>
+                        <filter name="nationality" string="Nationality"
+                                domain="[]" context="{'group_by':'nationality'}"/>
+                        <filter name="language" string="Language"
+                                domain="[]" context="{'group_by':'lang'}"/>
+                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_op_student_view">
+            <field name="name">Students</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.student</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_op_student_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_op_student_view_form">
+            <field name="act_window_id" ref="act_open_op_student_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_op_student_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_op_student_view_tree">
+            <field name="act_window_id" ref="act_open_op_student_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_op_student_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_op_student_view_kanban">
+            <field name="act_window_id" ref="act_open_op_student_view"/>
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="kanban_view_student"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_op_student_view_2">
+            <field name="name">Students</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.student</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_op_student_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>

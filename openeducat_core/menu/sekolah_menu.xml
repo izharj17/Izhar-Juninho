@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_op_sekolah_root"
+                  name="Sekolah"
+                  sequence="20"
+                  web_icon="openeducat_core,static/description/icon_sekolah.png"/>
+
+        <menuitem id="menu_op_sekolah_details"
+                  name="Sekolah"
+                  parent="openeducat_core.menu_op_sekolah_root"
+                  sequence="20"
+                  action="act_open_profile_sekolah_view_2"
+                  groups="openeducat_core.group_op_faculty"/>
+
+    </data>
+</odoo>

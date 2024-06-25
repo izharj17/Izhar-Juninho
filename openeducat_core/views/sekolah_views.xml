@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="kanban_view_sekolah">
+            <field name="name">Profile Sekolah Kanban</field>
+            <field name="model">profile.sekolah</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                    <field name="id"/>
+                    <field name="image_1920"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_res_partner_kanban">
+                                <div class="o_kanban_image">
+                                    <t t-if="record.image_1920.value">
+                                        <img t-att-src="kanban_image('profile.sekolah', 'image_1920', record.id.raw_value)"
+                                             alt="Profile Sekolah"/>
+                                    </t>
+                                    <t t-if="!record.image_1920.value">
+                                        <img t-att-src='_s + "/base/static/img/avatar.png"' alt="Profile Sekolah"/>
+                                    </t>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="name"/>
+                                        </a>
+                                    </h4>
+                                    <ul>
+                                        <li t-if="record.yayasan_id.raw_value">
+                                            <field name="yayasan_id"/>
+                                        </li>
+                                        <li t-if="record.kepsek_id.raw_value">
+                                            <field name="kepsek_id"/>
+                                        </li>
+                                        <li t-if="record.operator_id.raw_value">
+                                            <field name="operator_id"/>
+                                        </li>
+                                        <li t-if="record.akreditasi.raw_value">
+                                            <field name="akreditasi"/>
+                                        </li>
+                                        <li t-if="record.kurikulum.raw_value">
+                                            <field name="kurikulum"/>
+                                        </li>
+                                        <li t-if="record.waktu.raw_value">
+                                            <field name="waktu"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_profile_sekolah_tree" model="ir.ui.view">
+            <field name="name">profile.sekolah.tree</field>
+            <field name="model">profile.sekolah</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Profile Sekolah">
+                    <field name="kepsek_id"/>
+                    <field name="operator_id"/>
+                    <field name="akreditasi"/>
+                    <field name="kurikulum"/>
+                    <field name="waktu" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_profile_sekolah_form" model="ir.ui.view">
+            <field name="name">profile.sekolah.form</field>
+            <field name="model">profile.sekolah</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Profile Sekolah">
+                    <header groups="openeducat_core.group_op_back_office_admin">
+<!--                        <button name="%(faculty_create_employee_act)d" string="Create Employee" type="action"-->
+<!--                                class="oe_highlight" attrs="{'invisible': [('emp_id', '!=', False)]}"/>-->
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div name="smart_button" class="oe_button_box">
+
+                        </div>
+                        <field name="image_1920" widget="image" class="oe_left oe_avatar"/>
+                        <div class="oe_title w-auto">
+                            <h1>
+                                <field name="name" placeholder="Name" required="1" invisible="1"/>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px">
+                                            <field name="first_name" required="1" placeholder="First Name"/>
+                                        </td>
+                                        <td style="padding-right:10px">
+                                            <field name="middle_name" placeholder="Middle Name"/>
+                                        </td>
+                                        <td style="padding-right:10px">
+                                            <field name="last_name" placeholder="Last Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <group col="6" colspan="4">
+                            <field name="yayasan_id"/>
+                            <field name="kepsek_id"/>
+                            <field name="operator_id"/>
+                            <field name="akreditasi"/>
+                            <field name="kurikulum"/>
+                            <field name="waktu"/>
+                        </group>
+                        <notebook colspan="6">
+                            <page name="personal_information" string="Profil">
+                                <group string="Identitas Sekolah" name="identitas" col="4">
+                                    <field name="npsn"/>
+                                    <field name="status"/>
+                                    <field name="bentuk_pendidikan"/>
+                                    <field name="status_kepemilikan"/>
+                                    <field name="sk_pendirian"/>
+                                    <field name="tgl_sk_pendirian"/>
+                                    <field name='sk_izin_oprs'/>
+                                    <field name="tgl_sk_izin_oprs" />
+                                </group>
+                                <group string="Data Pelengkap" name="pelengkap">
+                                    <group col="2">
+                                        <field name="keb_khusus_layanan"/>
+                                        <field name="bank_id"/>
+                                        <field name="cab_kcp"/>
+                                        <field name="rek"/>
+                                    </group>
+                                </group>
+                                <group string="Data Rinci" name="data_rinci">
+                                    <group col="2">
+                                        <field name="status_bos"/>
+                                        <field name="waktu_penyelenggaraan"/>
+                                        <field name="sertifikasi_iso"/>
+                                        <field name="sumber_listrik"/>
+                                        <field name="daya_listerik"/>
+                                        <field name="kec_internet"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="rekapitulasi" string="Rekapitulasi">
+                                <notebook>
+                                    <page name="data_ptk" string="Data PTK dan PD">
+                                        <separator string="Data PTK dan PD" />
+                                        <newline />
+                                        <group string="Jumlah">
+                                            <field name="guru_count"/>
+                                            <field name="tendik_count"/>
+                                            <field name="total_count"/>
+                                            <field name="pd_count"/>
+                                        </group>
+                                        <group string="Guru">
+                                            <field name="teacher_ids" nolabel="1" options="{'reload_on_button': True}">
+                                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                                    <field name="name"/>
+                                                    <field name="jenis_tenaga_kerja"/>
+                                                    <field name="gender"/>
+                                                    <field name="phone"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                        <group string="Peserta Didik">
+                                            <field name="student_ids" nolabel="1" options="{'reload_on_button': True}">
+                                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                                    <field name="name"/>
+                                                    <field name="gender"/>
+                                                    <field name="phone"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </page>
+                                    <page name="data_sarpras" string="Data Sarpras">
+                                        <separator string="Data Sarpras" />
+                                        <newline />
+                                        <group >
+                                            <field name="sarpras_ids" nolabel="1" options="{'reload_on_button': True}">
+                                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                                    <field name="jenis_sarpras_id"/>
+                                                    <field name="juml_ganjil"/>
+                                                    <field name="juml_genap"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </page>
+                                    <page name="data_sanitasi" string="Data Sanitasi">
+                                        <separator string="Data Sanitasi" />
+                                        <newline />
+                                        <group >
+                                            <field name="sanitasi_ids" nolabel="1" options="{'reload_on_button': True}">
+                                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                                    <field name="jenis_sanitasi_id"/>
+                                                    <field name="uraian"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </page>
+                                    <page name="data_rombel" string="Data Rombel">
+                                        <separator string="Data Rombel" />
+                                        <newline />
+                                        <group >
+                                            <field name="rombel_ids" nolabel="1" options="{'reload_on_button': True}">
+                                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                                    <field name="rombel"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </page>
+                            <page name="kontak" string="Kontak">
+                                <notebook>
+                                    <page name="kontak" string="Kontak">
+                                        <separator string="Kontak Utama" />
+                                        <newline />
+                                        <group>
+                                            <field name="alamat"/>
+                                            <field name="rtw"/>
+                                            <field name="region_id"/>
+                                            <field name="provinsi_id"/>
+                                            <field name="kabkota_id"/>
+                                            <field name="kecamatan_id"/>
+                                            <field name="kelurahan_id"/>
+                                            <field name="dusun_id"/>
+                                            <field name="kodepos"/>
+                                            <field name="lintang"/>
+                                            <field name="bujur"/>
+                                        </group>
+                                    </page>
+                                    <page name="map" string="Peta Lokasi">
+                                        <separator string="Peta Lokasi" />
+                                        <newline />
+                                        <group>
+
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_profile_sekolah_search" model="ir.ui.view">
+            <field name="name">profile.sekolah.search</field>
+            <field name="model">profile.sekolah</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Profile Sekolah">
+                    <field name="name"/>
+                    <field name="status"/>
+                    <field name="bentuk_pendidikan"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="name" string="Nama Sekolah" domain="[]"
+                                context="{'group_by':'name'}"/>
+                        <filter name="status" string="Status" domain="[]"
+                                context="{'group_by':'status'}"/>
+                        <filter name="bentuk_pendidikan" string="Bentuk Pendidikan" domain="[]" context="{'group_by':'bentuk_pendidikan'}"/>
+                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_profile_sekolah_pivot" model="ir.ui.view">
+            <field name="name">profile.sekolah.pivot</field>
+            <field name="model">profile.sekolah</field>
+            <field name="arch" type="xml">
+                <pivot>
+
+                </pivot>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_profile_sekolah_view">
+            <field name="name">Data Sekolah</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">profile.sekolah</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">kanban,tree,form,pivot</field>
+            <field name="search_view_id" ref="view_profile_sekolah_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_profile_sekolah_view_form">
+            <field name="act_window_id" ref="act_open_profile_sekolah_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_profile_sekolah_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_profile_sekolah_view_tree">
+            <field name="act_window_id" ref="act_open_profile_sekolah_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_profile_sekolah_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_profile_sekolah_view_kanban">
+            <field name="act_window_id" ref="act_open_profile_sekolah_view"/>
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="kanban_view_sekolah"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_profile_sekolah_view_2">
+            <field name="name">Sekolah</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">profile.sekolah</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_profile_sekolah_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

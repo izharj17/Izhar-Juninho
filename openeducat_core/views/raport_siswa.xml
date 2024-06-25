@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_raport_siswa_tree" model="ir.ui.view">
+            <field name="name">raport.siswa.tree</field>
+            <field name="model">raport.siswa</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Raport">
+                    <field name="student_id"/>
+                    <field name="nis_nisn"/>
+                    <field name="kelas_id"/>
+                    <field name="semester_id"/>
+                    <field name="tahun_pelajaran"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_raport_siswa_form" model="ir.ui.view">
+            <field name="name">raport.siswa.form</field>
+            <field name="model">raport.siswa</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                            <group col="4">
+                                <field name="student_id"/>
+                                <field name="nis_nisn"/>
+                                <field name="sekolah_id"/>
+                                <field name="alamat_sekolah"/>
+                                <field name="kelas_id"/>
+                                <field name="grade_id"/>
+                                <field name="semester_id"/>
+                                <field name="tahun_pelajaran"/>
+                            </group>
+                        <group string="Mata Pelajaran">
+                                <field name="raport_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                    <tree edit="true" editable="bottom" create="true" delete="true">
+                                        <field name="subject_id"/>
+                                        <field name="nilai_akhir"/>
+                                        <field name="note"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        <group string="Mulok">
+                                <field name="mulok_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                    <tree edit="true" editable="bottom" create="true" delete="true">
+                                        <field name="subject_id"/>
+                                        <field name="nilai_akhir"/>
+                                        <field name="note"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        <group string="Pilar Karakter">
+                                <field name="karakter_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                    <tree edit="true" editable="bottom" create="true" delete="true">
+                                        <field name="sikap"/>
+                                        <field name="note"/>
+                                    </tree>
+                                </field>
+                            </group>
+<!--                        <group string="Kegiatan Sekolah">-->
+<!--                                <field name="kegiatan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">-->
+<!--                                    <tree edit="true" editable="bottom" create="true" delete="true">-->
+<!--                                        <field name="type_id"/>-->
+<!--                                        <field name="description"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </group>-->
+<!--                        <group string="Kehadiran">-->
+<!--                                <field name="kehadiran_siswa_ids" nolabel="1" options="{'reload_on_button': True}">-->
+<!--                                    <tree edit="true" editable="bottom" create="true" delete="true">-->
+<!--                                        <field name="status_kehadiran"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </group>-->
+                        <group string="Perkembangan Fisik dan Kesehatan">
+                                <field name="perkembangan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                    <tree edit="true" editable="bottom" create="true" delete="true">
+                                        <field name="tinggi_bdn"/>
+                                        <field name="berat_bdn"/>
+                                        <field name="lingkar_kpl"/>
+                                        <field name="pendengaran"/>
+                                        <field name="penglihatan"/>
+                                        <field name="gigi"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        <group string="Catatan Prestasi">
+                                <field name="prestasi_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                    <tree edit="true" editable="bottom" create="true" delete="true">
+                                        <field name="prestasi"/>
+                                        <field name="note"/>
+                                    </tree>
+                                </field>
+                            </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="raport_siswa_action" model="ir.actions.act_window">
+            <field name="name">Raport Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">raport.siswa</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_raport_siswa"
+                  name="Raport"
+                  parent="menu_op_report_main"
+                  sequence="1"
+                  action="raport_siswa_action"
+                  groups="openeducat_core.group_op_faculty"/>
+
+    </data>
+</odoo>
