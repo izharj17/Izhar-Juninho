@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_kpi_supervisi_tree" model="ir.ui.view">
+            <field name="name">kpi.supervisi.tree</field>
+            <field name="model">kpi.supervisi</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Supervisi">
+                    <field name="guru_id"/>
+                    <field name="department_id"/>
+                    <field name="tahun_kpi"/>
+                    <field name="semester_kpi"/>
+                    <field name="nama_sekolah"/>
+                    <field name="nilai_akhir"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kpi_supervisi_form" model="ir.ui.view">
+            <field name="name">kpi.supervisi.form</field>
+            <field name="model">kpi.supervisi</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Supervisi">
+                    <sheet>
+                        <group col="4">
+                            <field name="guru_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="department_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="tahun_kpi" options='{"no_open": True, "no_create": True}'/>
+                            <field name="semester_kpi" options='{"no_open": True, "no_create": True}'/>
+                            <field name="nama_sekolah" options='{"no_open": True, "no_create": True}'/>
+                            <field name="nilai_akhir"/>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Pedagogik)">
+                            <field name="kpi_ids_rekap" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap" widget="text"/>
+                                    <field name="skor_rekap"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Kepribadian)">
+                            <field name="kpi_ids_rekap_1" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap_1" widget="text"/>
+                                    <field name="skor_rekap_1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Sosial)">
+                            <field name="kpi_ids_rekap_2" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap_2" widget="text"/>
+                                    <field name="skor_rekap_2"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Profesional)">
+                            <field name="kpi_ids_rekap_3" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap_3" widget="text"/>
+                                    <field name="skor_rekap_3"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <sheet>
+                        <group col="4" string="Kompetensi 1 : Mengenal karakteristik peserta didik">
+                            <field name="kpi_ids_1" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_1" widget="text"/>
+                                    <field name="skor_1"/>
+                                    <field name="skor_2"/>
+                                    <field name="skor_3"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 2 : Menguasai teori belajar dan prinsip - prinsip pembelajaran yang mendidik">
+                            <field name="kpi_ids_2" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_2" widget="text"/>
+                                    <field name="skor_4"/>
+                                    <field name="skor_5"/>
+                                    <field name="skor_6"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 3 : Pengembangan Kurikulum">
+                            <field name="kpi_ids_3" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_3" widget="text"/>
+                                    <field name="skor_7"/>
+                                    <field name="skor_8"/>
+                                    <field name="skor_9"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 4 : Kegiatan Pembelajaran yang Mendidik">
+                            <field name="kpi_ids_4" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_4" widget="text"/>
+                                    <field name="skor_10"/>
+                                    <field name="skor_11"/>
+                                    <field name="skor_12"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 5 : Memahami dan Mengembangkan Potensi">
+                            <field name="kpi_ids_5" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_5" widget="text"/>
+                                    <field name="skor_13"/>
+                                    <field name="skor_14"/>
+                                    <field name="skor_15"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 6 : Komunikasi dengan Peserta Didik">
+                            <field name="kpi_ids_6" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_6" widget="text"/>
+                                    <field name="skor_16"/>
+                                    <field name="skor_17"/>
+                                    <field name="skor_18"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 7 : Penilaian dan Evaluasi">
+                            <field name="kpi_ids_7" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_7" widget="text"/>
+                                    <field name="skor_19"/>
+                                    <field name="skor_20"/>
+                                    <field name="skor_21"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 8 : Bertindak sesuai norma agama, hukum, sosial dan kebudayaan nasional Indonesia">
+                            <field name="kpi_ids_8" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_8" widget="text"/>
+                                    <field name="skor_22"/>
+                                    <field name="skor_23"/>
+                                    <field name="skor_24"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 9 : Menunjukkan pribadi yang dewasa dan teladan">
+                            <field name="kpi_ids_9" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_9" widget="text"/>
+                                    <field name="skor_25"/>
+                                    <field name="skor_26"/>
+                                    <field name="skor_27"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 10 : Etos kerja, tanggung jawab yang tinggi dan rasa bangga menjadi guru ">
+                            <field name="kpi_ids_10" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_10" widget="text"/>
+                                    <field name="skor_28"/>
+                                    <field name="skor_29"/>
+                                    <field name="skor_30"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 11 : Bersikap inklusif, bertindak objektif serta tidak diskriminatif ">
+                            <field name="kpi_ids_11" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_11" widget="text"/>
+                                    <field name="skor_31"/>
+                                    <field name="skor_32"/>
+                                    <field name="skor_33"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 12 : Komunikasi dengan sesama guru, tenaga pendidikan, orang tua peserta didik dan masyarakat ">
+                            <field name="kpi_ids_12" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_12" widget="text"/>
+                                    <field name="skor_34"/>
+                                    <field name="skor_35"/>
+                                    <field name="skor_36"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 13 : Penguasaan materi struktur konsep dan pola pikir keilmuan yang mendukung mata pelajaran ">
+                            <field name="kpi_ids_13" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_13" widget="text"/>
+                                    <field name="skor_37"/>
+                                    <field name="skor_38"/>
+                                    <field name="skor_39"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Kompetensi 14 : Mengembangkan keprofesian melalui tindakan ">
+                            <field name="kpi_ids_14" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_14" widget="text"/>
+                                    <field name="skor_40"/>
+                                    <field name="skor_41"/>
+                                    <field name="skor_42"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kpi_supervisi_search" model="ir.ui.view">
+            <field name="name">kpi.supervisi.search</field>
+            <field name="model">kpi.supervisi</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Supervisi">
+                    <field name="guru_id"/>
+                    <field name="department_id"/>
+                    <field name="tahun_kpi"/>
+                    <field name="semester_kpi"/>
+                    <field name="nama_sekolah"/>
+                    <field name="nilai_akhir"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Guru" name="group_by_kpi_supervisi_guru_id"
+                                domain="[]" context="{'group_by':'guru_id'}"/>
+                        <filter string="Bagian" name="group_by_kpi_supervisi_department_id"
+                                domain="[]" context="{'group_by':'department_id'}"/>
+<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_kpi_supervisi_view">
+            <field name="name">Supervisi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kpi.supervisi</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_kpi_supervisi_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_kpi_supervisi_view_form">
+            <field name="act_window_id" ref="act_kpi_supervisi_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_kpi_supervisi_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_kpi_supervisi_view_tree">
+            <field name="act_window_id" ref="act_kpi_supervisi_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_kpi_supervisi_tree"/>
+        </record>
+
+        <record id="menu_item_id" model="ir.ui.menu">
+            <field name="name">KPI</field>
+            <field name="sequence" eval="10"/>
+            <field name="parent_id" ref="hr.menu_hr_root"/>
+        </record>
+
+        <menuitem id="menu_kpi_supervisi_details"
+                    name="Supervisi"
+                    parent="menu_item_id"
+                    sequence="10"
+                    action="act_kpi_supervisi_view"/>
+
+    </data>
+</odoo>
