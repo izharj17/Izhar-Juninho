@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_wilayah_user" model="res.groups">
+        <field name="name">Wilayah Officer</field>
+        <field name="category_id" ref="base.module_category_wilayah"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <record id="group_wilayah_manager" model="res.groups">
+        <field name="name">Wilayah Manager</field>
+        <field name="category_id" ref="base.module_category_wilayah"/>
+        <field name="implied_ids" eval="[(4, ref('asa_wilayah.group_wilayah_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+</odoo>

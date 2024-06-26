@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_provinsi_user,wilayah.provinsi.user,model_wilayah_provinsi,asa_wilayah.group_wilayah_user,1,0,0,0
+access_provinsi_manager,wilayah.provinsi.manager,model_wilayah_provinsi,asa_wilayah.group_wilayah_manager,1,1,1,1
+access_kakotai_user,wilayah.kabkota.user,model_wilayah_kabkota,asa_wilayah.group_wilayah_user,1,0,0,0
+access_kabkota_manager,wilayah.kabkota.manager,model_wilayah_kabkota,asa_wilayah.group_wilayah_manager,1,1,1,1
+access_kecamatan_user,wilayah.kecamatan.user,model_wilayah_kecamatan,asa_wilayah.group_wilayah_user,1,0,0,0
+access_kecamatan_manager,wilayah.kecamatan.manager,model_wilayah_kecamatan,asa_wilayah.group_wilayah_manager,1,1,1,1
+access_kelurahan_user,wilayah.kelurahan.user,model_wilayah_kelurahan,asa_wilayah.group_wilayah_user,1,0,0,0
+access_kelurahan_manager,wilayah.kelurahan.manager,model_wilayah_kelurahan,asa_wilayah.group_wilayah_manager,1,1,1,1
+access_region_user,wilayah.region.user,model_master_region,asa_wilayah.group_wilayah_user,1,0,0,0
+access_region_manager,wilayah.region.manager,model_master_region,asa_wilayah.group_wilayah_manager,1,1,1,1
+
