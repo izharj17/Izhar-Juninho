@@ -28,7 +28,7 @@
                             <field name="department_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="template_question_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="tanggal_kpi"/>
-                            <field name="nilai_total_kpi"/>
+                            <field name="nilai_total_kpi"/>  <!-- Set readonly to True -->
                             <field name="nama_sekolah"/>
                         </group>
                         <group col="4" string="Indikator Kinerja">
@@ -67,7 +67,6 @@
                                 domain="[]" context="{'group_by':'guru_id'}"/>
                         <filter string="Bagian" name="group_by_kpi_teacher_department_id"
                                 domain="[]" context="{'group_by':'department_id'}"/>
-<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
                     </group>
                 </search>
             </field>
@@ -103,10 +102,9 @@
         </record>
 
         <menuitem id="menu_kpi_teacher_details"
-                    name="KPI Teacher"
-                    parent="menu_item_id"
-                    sequence="10"
-                    action="act_kpi_teacher_view"/>
-
+                  name="KPI Teacher"
+                  parent="menu_item_id"
+                  sequence="10"
+                  action="act_kpi_teacher_view"/>
     </data>
 </odoo>
