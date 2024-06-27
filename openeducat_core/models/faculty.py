@@ -126,6 +126,26 @@ class OpFaculty(models.Model):
             'template': '/openeducat_core/static/xls/op_faculty.xls'
         }]
         
+## Jurnal SD/SM 
+class OpFacultyJurnalLine(models.Model):
+    _name = "op.faculty.jurnal.line"
+    _description = "Faculty Jurnal Line"
+
+    material = fields.Many2one('op.subject', 'Materi')
+    ketuntasan = fields.Boolean('Ketuntasan')
+    catatan = fields.Text('Catatan')
+    jurnal_id = fields.Many2one('op.faculty.jurnal', 'Jurnal', default=lambda self: self._context.get('jurnal_id', False))
+
+class OpFacultySiswaLine(models.Model):
+    _name = "op.faculty.siswa.line"
+    _description = "Faculty Siswa Line"
+
+    siswa = fields.Many2one('op.student', 'Nama Siswa')
+    catatan = fields.Text('Catatan')
+    taper = fields.Text('Taper/TM')
+    jurnal_id = fields.Many2one('op.faculty.jurnal', 'Jurnal', default=lambda self: self._context.get('jurnal_id', False))
+
+
 class OpFacultyJurnal(models.Model):
     _name = "op.faculty.jurnal"
     _description = "Faculty Jurnal"
@@ -134,5 +154,92 @@ class OpFacultyJurnal(models.Model):
 
     faculty_id = fields.Many2one('op.faculty', 'Nama Guru')
     course_id = fields.Many2one('op.course', 'Kelas')
-    date_id = fields.Date('Tanggal', required=True, default=lambda self: fields.Date.today(),
-        tracking=True)
+    date_id = fields.Date('Tanggal', required=True, default=lambda self: fields.Date.today(), tracking=True)
+    jurnal_line_ids = fields.One2many('op.faculty.jurnal.line', 'jurnal_id', 'Journal Lines')
+    faculty_siswa_line_ids = fields.One2many('op.faculty.siswa.line', 'jurnal_id', 'Siswa Lines')
+
+
+## Jurnal TK
+
+class OpFacultyJurnalTk(models.Model):
+    _name = "op.faculty.jurnal_tk"
+    _description = "Faculty Jurnal TK"
+    _inherit = "mail.thread"
+    _rec_name = 'faculty_id'
+
+    faculty_id = fields.Many2one('op.faculty', 'Nama Guru')
+    course_id = fields.Many2one('op.course', 'Kelas')
+    date_id = fields.Date('Tanggal', required=True, default=lambda self: fields.Date.today(), tracking=True)
+    materi_line_ids = fields.One2many('op.faculty.materi_tk.line', 'jurnal_id', string='Materi Lines')
+    tujuan_line_ids = fields.One2many('op.faculty.tujuan_line', 'jurnal_id', string='Tujuan Lines')
+    siswa_tk_line_ids = fields.One2many('op.faculty.siswa.tk.line', 'jurnal_id', string='Siswa TK Lines')
+
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        
+        # Include related One2many records in the copy
+        default['materi_line_ids'] = [(0, 0, {
+            'subject_id': line.subject_id.id,
+        }) for line in self.materi_line_ids]
+        
+        default['tujuan_line_ids'] = [(0, 0, {
+            'tujuan': line.tujuan,
+            'absen_1': line.absen_1,
+            'absen_2': line.absen_2,
+            'absen_3': line.absen_3,
+            'absen_4': line.absen_4,
+            'absen_5': line.absen_5,
+            'absen_6': line.absen_6,
+            'absen_7': line.absen_7,
+            'absen_8': line.absen_8,
+            'absen_9': line.absen_9,
+            'absen_10': line.absen_10,
+        }) for line in self.tujuan_line_ids]
+        
+        default['siswa_tk_line_ids'] = [(0, 0, {
+            'siswa': line.siswa.id,
+            'catatan': line.catatan,
+        }) for line in self.siswa_tk_line_ids]
+
+        return super(OpFacultyJurnalTk, self).copy(default=default)
+
+class OpFacultyTkMateriLine(models.Model):
+    _name = "op.faculty.materi_tk.line"
+    _description = "Faculty Materi Line"
+
+    subject_id = fields.Many2one('op.subject', 'Materi')
+    jurnal_id = fields.Many2one('op.faculty.jurnal_tk', 'Jurnal', default=lambda self: self._context.get('jurnal_id', False))
+    sequence = fields.Integer(string='No', compute='_compute_sequence', store=True)
+
+    @api.depends('jurnal_id.materi_line_ids')
+    def _compute_sequence(self):
+        for record in self:
+            if record.jurnal_id:
+                for idx, line in enumerate(record.jurnal_id.materi_line_ids, start=1):
+                    line.sequence = idx
+                    
+class OpFacultyTujuanLine(models.Model):
+    _name = "op.faculty.tujuan_line"
+    _description = "Faculty Tujuan Line"
+
+    tujuan = fields.Char('Tujuan')
+    absen_1 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 1')
+    absen_2 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 2')
+    absen_3 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 3')
+    absen_4 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 4')
+    absen_5 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 5')
+    absen_6 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 6')
+    absen_7 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 7')
+    absen_8 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 8')
+    absen_9 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 9')
+    absen_10 = fields.Selection([('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], 'Anak 10')
+    jurnal_id = fields.Many2one('op.faculty.jurnal_tk', 'Jurnal', default=lambda self: self._context.get('jurnal_id', False))
+
+class OpFacultySiswaTKLine(models.Model):
+    _name = "op.faculty.siswa.tk.line"
+    _description = "Faculty Siswa TK Line"
+
+    siswa = fields.Many2one('op.student', 'Nama Siswa')
+    catatan = fields.Text('Catatan')
+    jurnal_id = fields.Many2one('op.faculty.jurnal_tk', 'Jurnal', default=lambda self: self._context.get('jurnal_id', False))

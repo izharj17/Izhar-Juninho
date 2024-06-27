@@ -1,0 +1,152 @@
+<odoo>
+    <data>
+
+        <!-- Tree View -->
+        <record id="view_op_faculty_jurnal_tk_tree" model="ir.ui.view">
+            <field name="name">op.faculty.jurnal.tktree</field>
+            <field name="model">op.faculty.jurnal_tk</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Jurnal Guru TK">
+                    <field name="faculty_id"/>
+                    <field name="course_id"/>
+                    <field name="date_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_op_faculty_jurnal_tk_form" model="ir.ui.view">
+            <field name="name">op.faculty.jurnal_tk.form</field>
+            <field name="model">op.faculty.jurnal_tk</field>
+            <field name="arch" type="xml">
+                <form string="Faculty Jurnal TK">
+                    <sheet>
+                        <group>
+                            <field name="faculty_id"/>
+                            <field name="course_id"/>
+                            <field name="date_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Materi Lines">
+                                <field name="materi_line_ids" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="sequence" string="No" readonly="1"/>
+                                        <field name="subject_id"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="subject_id"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                        
+        
+                        <notebook>
+                            <!-- New page for OpFacultyTujuanLine -->
+                            <page string="Tujuan dan Absen">
+                                <field name="tujuan_line_ids" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="tujuan" class="wider-field"/>
+                                        <field name="absen_1"/>
+                                        <field name="absen_2"/>
+                                        <field name="absen_3"/>
+                                        <field name="absen_4"/>
+                                        <field name="absen_5"/>
+                                        <field name="absen_6"/>
+                                        <field name="absen_7"/>
+                                        <field name="absen_8"/>
+                                        <field name="absen_9"/>
+                                        <field name="absen_10"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="tujuan" class="wider-field"/>
+                                            <field name="absen_1"/>
+                                            <field name="absen_2"/>
+                                            <field name="absen_3"/>
+                                            <field name="absen_4"/>
+                                            <field name="absen_5"/>
+                                            <field name="absen_6"/>
+                                            <field name="absen_7"/>
+                                            <field name="absen_8"/>
+                                            <field name="absen_9"/>
+                                            <field name="absen_10"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+
+                        <notebook>
+                            <!-- Existing pages... -->
+                        
+                            <page string="Detail Siswa">
+                                <field name="siswa_tk_line_ids" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="siswa"/>
+                                        <field name="catatan"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="siswa"/>
+                                            <field name="catatan"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_op_faculty_jurnal_tk_search" model="ir.ui.view">
+            <field name="name">op.faculty.jurnal.tksearch</field>
+            <field name="model">op.faculty.jurnal_tk</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Jurnal Guru TK">
+                    <field name="faculty_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Jurnal Guru TK" name="group_by_faculty_id"
+                                domain="[]" context="{'group_by':'faculty_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record model="ir.actions.act_window" id="act_open_op_faculty_jurnal_tk_view">
+            <field name="name">Jurnal Guru TK</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.faculty.jurnal_tk</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_op_faculty_jurnal_tk_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Action Views -->
+        <record model="ir.actions.act_window.view" id="act_open_op_faculty_jurnal_tk_view_form">
+            <field name="act_window_id" ref="act_open_op_faculty_jurnal_tk_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_op_faculty_jurnal_tk_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_op_faculty_jurnal_tk_view_tree">
+            <field name="act_window_id" ref="act_open_op_faculty_jurnal_tk_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_op_faculty_jurnal_tk_tree"/>
+        </record>
+
+    </data>
+</odoo>
