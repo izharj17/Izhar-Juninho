@@ -31,85 +31,69 @@
                         <button name="func_set_draft" type="object" string="Set To Draft" class="btn-danger" confirm="Yakin mau di set ke draft?" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approve,publish,cancel"/>
                     </header>
-                    <sheets>
+                    <sheet>
                         <group>
                             <!-- <field name="kode_seq" invisible="1"/> -->
                             <field name="jenis_raport"/>
                         </group>
-                            <group col="4">
-                                <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
-                                <field name="nis_nisn"/>
-                                <field name="sekolah_id" options='{"no_create_edit": True, "no_create": True}'/>
-                                <field name="alamat_sekolah"/>
-                                <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
-                                <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/>
-                                <field name="semester_id"/>
-                                <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
-                            </group>
+                        <group col="4">
+                            <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="nis_nisn"/>
+                            <field name="sekolah_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="alamat_sekolah"/>
+                            <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="semester_id"/>
+                            <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
+                        </group>
                         <group string="Mata Pelajaran">
-                                <field name="raport_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
-                                    <tree edit="true" editable="bottom" create="true" delete="true">
-                                        <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
-                                        <field name="nilai_akhir"/>
-                                        <field name="note" widget="text"/>
-                                        <field name="note2" widget="text"/>
-                                    </tree>
-                                </field>
-                            </group>
+                            <field name="raport_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                    <field name="nilai_akhir"/>
+                                    <field name="note" widget="text"/>
+                                    <field name="note2" widget="text"/>
+                                </tree>
+                            </field>
+                        </group>
                         <group string="Mulok">
-                                <field name="mulok_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
-                                    <tree edit="true" editable="bottom" create="true" delete="true">
-                                        <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
-                                        <field name="nilai_akhir"/>
-                                        <field name="note"/>
-                                        <field name="note2"/>
-                                    </tree>
-                                </field>
-                            </group>
+                            <field name="mulok_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                    <field name="nilai_akhir"/>
+                                    <field name="note"/>
+                                    <field name="note2"/>
+                                </tree>
+                            </field>
+                        </group>
                         <group string="Pilar Karakter" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
-                                <field name="karakter_siswa_ids" nolabel="1" options="{'reload_on_button': True}" >
-                                    <tree edit="true" editable="bottom" create="true" delete="true">
-                                        <field name="sikap"/>
-                                        <field name="note"/>
-                                    </tree>
-                                </field>
-                            </group>
-                       <!-- <group string="Kegiatan Sekolah" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
-                               <field name="kegiatan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
-                                   <tree edit="true" editable="bottom" create="true" delete="true">
-                                       <field name="type_id"/>
-                                       <field name="description"/>
-                                   </tree>
-                               </field>
-                            </group>
-                        <group string="Kehadiran" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}"/>
-                               <field name="kehadiran_siswa_ids" nolabel="1" options="{'reload_on_button': True}"/>
-                                   <tree edit="true" editable="bottom" create="true" delete="true"/>
-                                       <field name="status_kehadiran"/>
-                                       <field name="jumlah_kehadiran"/>
-                                   </sheets>
-                               </field>
-                           </group> -->
+                            <field name="karakter_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="sikap"/>
+                                    <field name="note"/>
+                                </tree>
+                            </field>
+                        </group>
                         <group string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
-                                <field name="perkembangan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
-                                    <tree edit="true" editable="bottom" create="true" delete="true">
-                                        <field name="tinggi_bdn"/>
-                                        <field name="berat_bdn"/>
-                                        <field name="lingkar_kpl"/>
-                                        <field name="pendengaran"/>
-                                        <field name="penglihatan"/>
-                                        <field name="gigi"/>
-                                    </tree>
-                                </field>
-                            </group>
+                            <field name="perkembangan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="tinggi_bdn"/>
+                                    <field name="berat_bdn"/>
+                                    <field name="lingkar_kpl"/>
+                                    <field name="pendengaran"/>
+                                    <field name="penglihatan"/>
+                                    <field name="gigi"/>
+                                </tree>
+                            </field>
+                        </group>
                         <group string="Catatan Prestasi" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
-                                <field name="prestasi_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
-                                    <tree edit="true" editable="bottom" create="true" delete="true">
-                                        <field name="prestasi"/>
-                                        <field name="note"/>
-                                    </tree>
-                                </field>
-                            </group>
+                            <field name="prestasi_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <!-- Removed the prestasi field -->
+                                    <field name="note"/>
+                                </tree>
+                            </field>
+                        </group>
                         <group string="Kesimpulan / Saran :" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="ksmpln_saran"/>
                             <field name="keputusan_siswa"/>
@@ -119,7 +103,7 @@
                             <field name="ttd_kepsek"/>
                             <field name="ttd_walas"/>
                         </group>
-                    </sheets>
+                    </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
                         <field name="activity_ids" widget="mail_activity"/>
@@ -136,25 +120,20 @@
             <field name="arch" type="xml">
                 <search string="Raport Siswa">
                     <field name="grade_id"/>
-                    <!-- <filter string="Present" name="group_by_attendance_present"
-                            domain="[('present', '=', True)]"/> -->
                     <group expand="0" string="Group By...">
-                        <filter string="Rombel" name="group_by_grade_id"
-                                domain="[]" context="{'group_by':'grade_id'}"/>
+                        <filter string="Rombel" name="group_by_grade_id" domain="[]" context="{'group_by':'grade_id'}"/>
                     </group>
                 </search>
             </field>
         </record>
-        
+
         <record id="raport_siswa_sts_action" model="ir.actions.act_window">
             <field name="name">Raport Siswa</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">raport.siswa.sts</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-
-                </p>
+                <p class="oe_view_nocontent_create"></p>
             </field>
         </record>
 
@@ -164,6 +143,18 @@
                   sequence="2"
                   action="raport_siswa_sts_action"
                   groups="openeducat_core.group_op_faculty"/>
+
+        <record id="action_report_siswa_sts" model="ir.actions.report">
+        <field name="name">Raport Siswa STS</field>
+        <field name="model">raport.siswa.sts</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">raport_siswa.print_raport_siswa_sts</field>
+        <field name="report_file">raport_siswa.print_raport_siswa_sts</field>
+        <field name="binding_model_id" ref="model_raport_siswa_sts"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
 
     </data>
 </odoo>

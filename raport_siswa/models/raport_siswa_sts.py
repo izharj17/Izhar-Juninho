@@ -55,13 +55,13 @@ class RaportSiswaSTS(models.Model):
             if course_detail:
                 record.kelas_id = course_detail.course_id
 
-    # Menambahkan fungsi on_change untuk mengupdate kelas_id saat course_detail_ids berubah
-    @api.onchange('student_course_ids')
-    def _onchange_student_course_ids(self):
-        # Mengambil kelas dari course_detail_ids pertama (jika ada)
-        course_detail = self.student_id.course_detail_ids and self.student_id.course_detail_ids[0]
-        if course_detail:
-            self.kelas_id = course_detail.course_id
+    # # Menambahkan fungsi on_change untuk mengupdate kelas_id saat course_detail_ids berubah
+    # @api.onchange('student_course_ids')
+    # def _onchange_student_course_ids(self):
+    #     # Mengambil kelas dari course_detail_ids pertama (jika ada)
+    #     course_detail = self.student_id.course_detail_ids and self.student_id.course_detail_ids[0]
+    #     if course_detail:
+    #         self.kelas_id = course_detail.course_id
 
     @api.onchange('student_id')
     def _onchange_student_id(self):
