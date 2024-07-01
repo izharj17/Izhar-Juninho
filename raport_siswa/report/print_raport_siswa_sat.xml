@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <template id="print_raport_siswa_sts">
+    <template id="print_raport_siswa_sat">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
@@ -17,7 +17,8 @@
                         .full-width-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-left: 12.5%;
+                            margin-left: 14%;
+                            page-break-inside: avoid;
                         }
                         .full-width-table th {
                             background-color: lightgrey;
@@ -33,6 +34,7 @@
                             width: 100%;
                             border-collapse: collapse;
                             margin-top: 20px;
+                            page-break-inside: avoid;
                         }
                         .raport-details th {
                             background-color: lightgrey;
@@ -51,10 +53,11 @@
                         /* Styles for the footer table */
                         .footer-table {
                             width: 80%;
-                            margin-top: 100px; /* Ensure at least 30px spacing from element above */
+                            margin-top: 200px; /* Ensure at least 30px spacing from element above */
                             border-collapse: collapse;
                             margin-left: 11.5%; /* Center horizontally */
                             background-color: white;
+                            page-break-inside: avoid
                         }
                     
                         .footer-table th,
@@ -111,7 +114,7 @@
                         <p>Email : test@test.com Telp. 026283725</p>
                     </div>
                     <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
-                    <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">Raport Siswa STS</h1>
+                    <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">Raport Siswa SAT</h1>
                    
                     
                     <table class="full-width-table">
@@ -121,7 +124,7 @@
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <td><![CDATA[Student&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td><![CDATA[Nama&nbsp;&nbsp;&nbsp;]]></td>
                                                 <td>:<![CDATA[&nbsp;]]><span t-field="o.student_id.name"/></td>
                                             </tr>
                                             <tr>
@@ -157,7 +160,7 @@
                         </tbody>
                     </table>
                     
-                    <h2 style="text-align: center; font-size: 2em; font-weight: bold; text-decoration: underline;">Raport Details</h2>
+                    <h2 style="text-align: center; font-size: 1em; font-weight: bold; text-decoration: underline;">Raport Details</h2>
                     <table class="raport-details">
                         <thead>
                             <tr>
@@ -179,27 +182,111 @@
                         </tbody>
                     </table>
 
-                    <h2 style="text-align: center; font-size: 2em; font-weight: bold; text-decoration: underline;">Mulok</h2>
-                    <table class="raport-details">
-                        <thead>
-                            <tr>
-                                <th>Mata Pelajaran</th>
-                                <th>Nilai Akhir</th>
-                                <th>Capaian Kompetensi</th>
-                                <th>Catatan Kompetensi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-foreach="o.mulok_siswa_ids" t-as="line">
+                    <div style="page-break-inside: avoid;">
+                        <h2 style="text-align: center; font-size: 1em; font-weight: bold; text-decoration: underline;">Mulok</h2>
+                        <table class="raport-details">
+                            <thead>
                                 <tr>
-                                    <td><span t-field="line.subject_id.name"/></td>
-                                    <td><span t-field="line.nilai_akhir"/></td>
-                                    <td><span t-field="line.note"/></td>
-                                    <td><span t-field="line.note2"/></td>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Nilai Akhir</th>
+                                    <th>Capaian Kompetensi</th>
+                                    <th>Catatan Kompetensi</th>
                                 </tr>
-                            </t>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.mulok_siswa_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.subject_id.name"/></td>
+                                        <td><span t-field="line.nilai_akhir"/></td>
+                                        <td><span t-field="line.note"/></td>
+                                        <td><span t-field="line.note2"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="page-break-inside: avoid;">
+                        <h2 style="text-align: center; font-size: 1em; font-weight: bold; text-decoration: underline;">Karakter</h2>
+                        <table class="raport-details">
+                            <thead>
+                                <tr>
+                                    <th>Sikap</th>
+                                    <th>Deskripsi Karakter</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.karakter_siswa_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.sikap"/></td>
+                                        <td><span t-field="line.note"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="page-break-inside: avoid;">
+                        <h2 style="text-align: center; font-size: 1em; font-weight: bold; text-decoration: underline;">Perkembangan Fisik</h2>
+                        <table class="raport-details">
+                            <thead>
+                                <tr>
+                                    <th>Tinggi Badan</th>
+                                    <th>Berat Badan</th>
+                                    <th>Lingkar Kepala</th> 
+                                    <th>Pendengaran</th> 
+                                    <th>Penglihatan</th> 
+                                    <th>Gigi</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.perkembangan_siswa_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.tinggi_bdn"/></td>
+                                        <td><span t-field="line.berat_bdn"/></td>
+                                        <td><span t-field="line.lingkar_kpl"/></td>
+                                        <td><span t-field="line.pendengaran"/></td>
+                                        <td><span t-field="line.penglihatan"/></td>
+                                        <td><span t-field="line.gigi"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="page-break-inside: avoid;">
+                        <h2 style="text-align: center; font-size: 1em; font-weight: bold; text-decoration: underline;">Prestasi</h2>
+                        <table class="raport-details">
+                            <tbody>
+                                <t t-foreach="o.prestasi_siswa_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.note"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <table class="full-width-table" style="margin-left: 0%; margin-top: 70px; border-collapse: collapse; width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid black;">
+                                    <table style="border-collapse: collapse; width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="border: 1px solid black; background-color: lightgrey;"><![CDATA[Kesimpulan Saran&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="border: 1px solid black;">:<![CDATA[&nbsp;]]><span t-field="o.ksmpln_saran"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid black; background-color: lightgrey;"><![CDATA[Keputusan&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="border: 1px solid black;">:<![CDATA[&nbsp;]]><span t-field="o.keputusan_siswa"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                    
                     
                     
                     <!-- Footer table -->

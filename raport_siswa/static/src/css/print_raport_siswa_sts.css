@@ -1,0 +1,47 @@
+/* CSS styles for Raport Siswa STS report */
+.page {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Comic Sans font */
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.raport-details {
+    margin-top: 30px;
+}
+
+.raport-details table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.raport-details th, .raport-details td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.raport-details th {
+    background-color: #f2f2f2;
+    color: #333;
+}

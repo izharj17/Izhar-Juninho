@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raport Siswa STS</title>
+    <style>
+        .full-width-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .full-width-table th {
+            background-color: lightgrey;
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .full-width-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .raport-details {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .raport-details th, .raport-details td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .footer-box-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .footer-box {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .footer-box h2 {
+            margin-bottom: 10px;
+        }
+        .empty-box {
+            height: 100px; /* Adjust height as needed */
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 5em;">Raport Siswa STS</h1>
+    <hr style="border: none; border-top: 2px solid #ccc; margin: 20px auto;">
+
+    <table class="full-width-table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>NIS</th>
+                <th>Kelas</th>
+                <th>Semester</th>
+                <th>Tahun Pelajaran</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ student_name }}</td>
+                <td>{{ student_nis }}</td>
+                <td>{{ kelas_name }}</td>
+                <td>{{ semester }}</td>
+                <td>{{ tahun_pelajaran }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Raport Details</h2>
+    <table class="raport-details">
+        <thead>
+            <tr>
+                <th>Mata Pelajaran</th>
+                <th>Nilai Akhir</th>
+                <th>Capaian Kompetensi</th>
+                <th>Catatan Kompetensi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in raport_lines %}
+            <tr>
+                <td>{{ line.subject_name }}</td>
+                <td>{{ line.nilai_akhir }}</td>
+                <td>{{ line.note }}</td>
+                <td>{{ line.note2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Footer boxes -->
+    <div class="footer-box-container">
+        <div class="footer-box">
+            <h2>Orang Tua</h2>
+            <div class="empty-box"></div>
+        </div>
+        <div class="footer-box">
+            <h2>Wali Kelas</h2>
+            <div class="empty-box"></div>
+        </div>
+        <div class="footer-box">
+            <h2>Kepala Sekolah</h2>
+            <div class="empty-box"></div>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raport Siswa STS</title>
+    <style>
+        .full-width-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .full-width-table th {
+            background-color: lightgrey;
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .full-width-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .raport-details {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .raport-details th, .raport-details td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .footer-box-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .footer-box {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .footer-box h2 {
+            margin-bottom: 10px;
+        }
+        .empty-box {
+            height: 100px; /* Adjust height as needed */
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 5em;">Raport Siswa STS</h1>
+    <hr style="border: none; border-top: 2px solid #ccc; margin: 20px auto;">
+
+    <table class="full-width-table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>NIS</th>
+                <th>Kelas</th>
+                <th>Semester</th>
+                <th>Tahun Pelajaran</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ student_name }}</td>
+                <td>{{ student_nis }}</td>
+                <td>{{ kelas_name }}</td>
+                <td>{{ semester }}</td>
+                <td>{{ tahun_pelajaran }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Raport Details</h2>
+    <table class="raport-details">
+        <thead>
+            <tr>
+                <th>Mata Pelajaran</th>
+                <th>Nilai Akhir</th>
+                <th>Capaian Kompetensi</th>
+                <th>Catatan Kompetensi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in raport_lines %}
+            <tr>
+                <td>{{ line.subject_name }}</td>
+                <td>{{ line.nilai_akhir }}</td>
+                <td>{{ line.note }}</td>
+                <td>{{ line.note2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Footer boxes -->
+    <div class="footer-box-container">
+        <div class="footer-box">
+            <h2>Orang Tua</h2>
+            <div class="empty-box"></div>
+        </div>
+        <div class="footer-box">
+            <h2>Wali Kelas</h2>
+            <div class="empty-box"></div>
+        </div>
+        <div class="footer-box">
+            <h2>Kepala Sekolah</h2>
+            <div class="empty-box"></div>
+        </div>
+    </div>
+</body>
+</html>

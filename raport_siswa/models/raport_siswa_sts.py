@@ -1,3 +1,4 @@
+import datetime
 from odoo import models, fields, api
 
 
@@ -32,6 +33,7 @@ class RaportSiswaSTS(models.Model):
     raport_siswa_ids = fields.One2many('raport.siswa.line', 'raport_id', 'Raport Line')
     mulok_siswa_ids = fields.One2many('op.student.mulok', 'raport_id', 'Mulok')
     karakter_siswa_ids = fields.One2many('op.student.karakter', 'raport_id', 'Karakter')
+    # Kegiatan siswa disable dlu gara2 bikin error pas input mulok
     # kegiatan_siswa_ids = fields.One2many('op.activity', 'raport_id', 'Kegiatan')
     perkembangan_siswa_ids = fields.One2many('op.student.priodik', 'raport_id', 'Priodik')
     prestasi_siswa_ids = fields.One2many('op.student.prestasi', 'raport_id', 'Prestasi')
@@ -47,6 +49,33 @@ class RaportSiswaSTS(models.Model):
         ('cancel', 'Cancel'),
     ], string='State', readonly=True, default='draft', required=True, tracking=True)
 
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = self.env['raport.siswa.sts'].browse(docids)
+        return {
+            'doc_ids': docids,
+            'doc_model': 'raport.siswa.sts',
+            'docs': docs,
+        }
+
+    @api.model
+    def get_report_sts_filename(self):
+        # Assuming `self` is a single record
+        filename = 'Raport STS_{}_{}'.format(self.student_id.name, datetime.datetime.now().strftime('%d-%m-%Y'))
+        return filename
+    
+    @api.model
+    def get_report_sas_filename(self):
+        # Assuming `self` is a single record
+        filename = 'Raport SAS_{}_{}'.format(self.student_id.name, datetime.datetime.now().strftime('%d-%m-%Y'))
+        return filename
+    
+    @api.model
+    def get_report_sat_filename(self):
+        # Assuming `self` is a single record
+        filename = 'Raport SAT_{}_{}'.format(self.student_id.name, datetime.datetime.now().strftime('%d-%m-%Y'))
+        return filename
+    
     @api.depends('student_id.course_detail_ids')
     def _compute_kelas_id(self):
         for record in self:

@@ -33,7 +33,9 @@
         'views/raport_siswa_sts.xml',
         'views/student_inherit_raport_view.xml',
         'data/ir_sequence_data.xml',
-        'report/print_raport_siswa_sts.xml'
+        'report/print_raport_siswa_sts.xml',
+        'report/print_raport_siswa_sas.xml',
+        'report/print_raport_siswa_sat.xml'
     ],
     'demo': [
 

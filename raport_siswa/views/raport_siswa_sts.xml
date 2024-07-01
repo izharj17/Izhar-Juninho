@@ -30,7 +30,18 @@
                         <button name="func_cancel" type="object" string="Cancel" class="btn-danger" confirm="Yakin mau di Cancel?" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
                         <button name="func_set_draft" type="object" string="Set To Draft" class="btn-danger" confirm="Yakin mau di set ke draft?" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approve,publish,cancel"/>
+                        <button name="%(action_report_siswa_sts)d" string="Print STS" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'STS')]}">
+                            <i class="fa fa-print"/> Print STS
+                        </button>
+                        <button name="%(action_report_siswa_sas)d" string="Print SAS" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'SAS')]}">
+                            <i class="fa fa-print"/> Print SAS
+                        </button>
+                        <button name="%(action_report_siswa_sat)d" string="Print SAT" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'SAT')]}">
+                            <i class="fa fa-print"/> Print SAT
+                        </button>
+
                     </header>
+                    
                     <sheet>
                         <group>
                             <!-- <field name="kode_seq" invisible="1"/> -->
@@ -137,6 +148,7 @@
             </field>
         </record>
 
+        <!-- Menu item to access Raport Siswa -->
         <menuitem id="menu_raport_siswa_sts"
                   name="Raport SD"
                   parent="openeducat_core.menu_op_report_main"
@@ -144,15 +156,71 @@
                   action="raport_siswa_sts_action"
                   groups="openeducat_core.group_op_faculty"/>
 
+        <!-- Report action for generating PDF -->
         <record id="action_report_siswa_sts" model="ir.actions.report">
-        <field name="name">Raport Siswa STS</field>
-        <field name="model">raport.siswa.sts</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">raport_siswa.print_raport_siswa_sts</field>
-        <field name="report_file">raport_siswa.print_raport_siswa_sts</field>
-        <field name="binding_model_id" ref="model_raport_siswa_sts"/>
-        <field name="binding_type">report</field>
-    </record>
+            <field name="name">Format STS</field>
+            <field name="model">raport.siswa.sts</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_siswa_sts</field>
+            <field name="report_file">raport_siswa.print_raport_siswa_sts</field>
+            <field name="binding_model_id" eval ="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_sts_filename()</field>
+        </record>
+        
+
+        <record id="action_report_siswa_sas" model="ir.actions.report">
+            <field name="name">Format SAS</field>
+            <field name="model">raport.siswa.sts</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_siswa_sas</field>
+            <field name="report_file">raport_siswa.print_raport_siswa_sas</field>
+            <field name="binding_model_id" eval ="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_sas_filename()</field>
+        </record>
+
+        <record id="action_report_siswa_sat" model="ir.actions.report">
+            <field name="name">Format SAT</field>
+            <field name="model">raport.siswa.sts</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_siswa_sat</field>
+            <field name="report_file">raport_siswa.print_raport_siswa_sat</field>
+            <field name="binding_model_id" eval ="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_sat_filename()</field>
+        </record>
+
+        <!-- New actions for custom report preview and download
+        <record id="action_custom_report_preview" model="ir.actions.server">
+            <field name="name">Preview Custom Report</field>
+            <field name="model_id" ref="model_raport_siswa_sts"/>
+            <field name="state">code</field>
+            <field name="code">model.custom_report_preview(record.id)</field>
+        </record>
+        
+
+        <record id="action_custom_report_download" model="ir.actions.server">
+            <field name="name">Download Custom Report</field>
+            <field name="model_id" ref="model_raport_siswa_sts"/>
+            <field name="state">code</field>
+            <field name="code">model.custom_report_download(record.id)</field>
+        </record> -->
+
+        <!-- Add these actions to the existing action -->
+        <record id="raport_siswa_sts_action" model="ir.actions.act_window">
+            <field name="name">Raport Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">raport.siswa.sts</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create"></p>
+            </field>
+            <field name="context">{
+                'custom_report_preview_action': 'action_custom_report_preview',
+                'custom_report_download_action': 'action_custom_report_download',
+            }</field>
+        </record>
 
 
 
