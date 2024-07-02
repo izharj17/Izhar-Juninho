@@ -26,6 +26,7 @@
                             <field name="master_question_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="question" widget="text" colspan="2"/>
+                                    <field name="bobot_pekan"/>
                                 </tree>
                             </field>
                         </group>

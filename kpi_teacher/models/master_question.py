@@ -15,5 +15,6 @@ class MasterQuestionLine(models.Model):
 
     master_question_id = fields.Many2one('master.question', 'Master Question ID')
     question = fields.Text('Nama Kegiatan')
+    bobot_pekan = fields.Integer('Bobot')
 
 

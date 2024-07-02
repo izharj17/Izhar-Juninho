@@ -10,8 +10,8 @@
                     <field name="guru_id"/>
                     <field name="department_id"/>
                     <field name="tanggal_kpi"/>
-                    <field name="nilai_total_kpi"/>
-                    <field name="nama_sekolah"/>
+                    <field name="nilai_total_pekanan"/>
+                    <field name="nilai_total_bulanan"/>
                 </tree>
             </field>
         </record>
@@ -28,13 +28,15 @@
                             <field name="department_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="template_question_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="tanggal_kpi"/>
-                            <field name="nilai_total_kpi"/>  <!-- Set readonly to True -->
-                            <field name="nama_sekolah"/>
+                            <field name="nilai_total_pekanan"/>
+                            <field name="nilai_total_bulanan"/>
+                            <field name="nama_sekolah" readonly="1" options='{"no_open": True, "no_create": True}'/>
                         </group>
                         <group col="4" string="Indikator Kinerja">
                             <field name="kpi_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="false" create="false" delete="false">
                                     <field name="question" readonly="1" widget="text"/>
+                                    <field name="bobot" readonly="1"/>
                                     <field name="file_kpi" widget="binary" filename="unggahan"/>
                                     <field name="ketuntasan"/>
                                 </tree>
@@ -59,7 +61,8 @@
                     <field name="guru_id"/>
                     <field name="department_id"/>
                     <field name="tanggal_kpi"/>
-                    <field name="nilai_total_kpi"/>
+                    <field name="nilai_total_pekanan"/>
+                    <field name="nilai_total_bulanan"/>
                     <field name="nama_sekolah"/>
                     <newline/>
                     <group expand="0" string="Group By...">
@@ -67,13 +70,14 @@
                                 domain="[]" context="{'group_by':'guru_id'}"/>
                         <filter string="Bagian" name="group_by_kpi_teacher_department_id"
                                 domain="[]" context="{'group_by':'department_id'}"/>
+<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
                     </group>
                 </search>
             </field>
         </record>
 
         <record model="ir.actions.act_window" id="act_kpi_teacher_view">
-            <field name="name">KPI Teacher</field>
+            <field name="name">KPI Arrasyid</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">kpi.teacher</field>
             <field name="binding_view_types">form</field>
@@ -102,9 +106,10 @@
         </record>
 
         <menuitem id="menu_kpi_teacher_details"
-                  name="KPI Teacher"
-                  parent="menu_item_id"
-                  sequence="10"
-                  action="act_kpi_teacher_view"/>
+                    name="KPI Arrasyid"
+                    parent="menu_item_id"
+                    sequence="10"
+                    action="act_kpi_teacher_view"/>
+
     </data>
 </odoo>
