@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_kpi_supervisi_tree" model="ir.ui.view">
+            <field name="name">kpi.supervisi.tree</field>
+            <field name="model">kpi.supervisi</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Supervisi">
+                    <field name="guru_id"/>
+                    <field name="department_id"/>
+                    <field name="tahun_kpi"/>
+                    <field name="semester_kpi"/>
+                    <field name="nama_sekolah"/>
+                    <field name="nilai_akhir"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kpi_supervisi_form" model="ir.ui.view">
+            <field name="name">kpi.supervisi.form</field>
+            <field name="model">kpi.supervisi</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Supervisi">
+                    <sheet>
+                        <group col="4">
+                            <field name="guru_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="department_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="tahun_kpi" options='{"no_open": True, "no_create": True}'/>
+                            <field name="semester_kpi" options='{"no_open": True, "no_create": True}'/>
+                            <field name="nama_sekolah" options='{"no_open": True, "no_create": True}'/>
+                            <field name="nilai_akhir"/>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Pedagogik)">
+                            <field name="kpi_ids_rekap" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap" widget="text"/>
+                                    <field name="skor_rekap"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Kepribadian)">
+                            <field name="kpi_ids_rekap_1" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap_1" widget="text"/>
+                                    <field name="skor_rekap_1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Sosial)">
+                            <field name="kpi_ids_rekap_2" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap_2" widget="text"/>
+                                    <field name="skor_rekap_2"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Rekap Penilaian Supervisi Guru (Profesional)">
+                            <field name="kpi_ids_rekap_3" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="true" create="true" delete="true">
+                                    <field name="question_rekap_3" widget="text"/>
+                                    <field name="skor_rekap_3"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kpi_supervisi_search" model="ir.ui.view">
+            <field name="name">kpi.supervisi.search</field>
+            <field name="model">kpi.supervisi</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Supervisi">
+                    <field name="guru_id"/>
+                    <field name="department_id"/>
+                    <field name="tahun_kpi"/>
+                    <field name="semester_kpi"/>
+                    <field name="nama_sekolah"/>
+                    <field name="nilai_akhir"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Guru" name="group_by_kpi_supervisi_guru_id"
+                                domain="[]" context="{'group_by':'guru_id'}"/>
+                        <filter string="Bagian" name="group_by_kpi_supervisi_department_id"
+                                domain="[]" context="{'group_by':'department_id'}"/>
+<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_kpi_supervisi_view">
+            <field name="name">Supervisi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kpi.supervisi</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_kpi_supervisi_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_kpi_supervisi_view_form">
+            <field name="act_window_id" ref="act_kpi_supervisi_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_kpi_supervisi_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_kpi_supervisi_view_tree">
+            <field name="act_window_id" ref="act_kpi_supervisi_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_kpi_supervisi_tree"/>
+        </record>
+
+        <record id="menu_item_id" model="ir.ui.menu">
+            <field name="name">KPI</field>
+            <field name="sequence" eval="10"/>
+            <field name="parent_id" ref="hr.menu_hr_root"/>
+        </record>
+
+        <menuitem id="menu_kpi_supervisi_details"
+                    name="Supervisi"
+                    parent="menu_item_id"
+                    sequence="10"
+                    action="act_kpi_supervisi_view"/>
+
+    </data>
+</odoo>

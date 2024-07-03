@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kpi_teacher,access_kpi_teacher,model_kpi_teacher,,1,1,1,1
+access_kpi_teacher_line,access_kpi_teacher_line,model_kpi_teacher_line,,1,1,1,1
+access_master_question,access_master_question,model_master_question,,1,1,1,1
+access_master_question_line,access_master_question_line,model_master_question_line,,1,1,1,1
+acces_kpi_supervisi,acces_kpi_supervisi,model_kpi_supervisi,,1,1,1,1
+acces_kpi_supervisi_rekap,acces_kpi_supervisi_rekap,model_kpi_supervisi_rekap,,1,1,1,1
+acces_kpi_supervisi_rekap_1,acces_kpi_supervisi_rekap_1,model_kpi_supervisi_rekap_1,,1,1,1,1
+acces_kpi_supervisi_rekap_2,acces_kpi_supervisi_rekap_2,model_kpi_supervisi_rekap_2,,1,1,1,1
+acces_kpi_supervisi_rekap_3,acces_kpi_supervisi_rekap_3,model_kpi_supervisi_rekap_3,,1,1,1,1
