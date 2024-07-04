@@ -89,7 +89,7 @@
                         <group string="Catatan Prestasi">
                                 <field name="prestasi_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                     <tree edit="true" editable="bottom" create="true" delete="true">
-                                        <field name="prestasi"/>
+                                        <field name="name"/>
                                         <field name="note"/>
                                     </tree>
                                 </field>

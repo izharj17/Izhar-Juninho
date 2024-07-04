@@ -17,18 +17,14 @@ class RaportSiswa(models.Model):
         ('2', '2 (Genap)'),
     ], 'Semester')
     tahun_pelajaran = fields.Many2one('op.academic.year', 'Tahun Pelajaran')
-    # jenis_raport = fields.Selection([
-    #     ('1', 'STS'),
-    #     ('2', 'SAT'),
-    #     ('3', 'SAT'),
-    # ], 'Raport')
-    raport_siswa_ids = fields.One2many('raport.siswa.line', 'raport_id', 'Raport Line')
-    mulok_siswa_ids = fields.One2many('op.student.mulok', 'raport_id', 'Mulok')
-    karakter_siswa_ids = fields.One2many('op.student.karakter', 'raport_id', 'Karakter')
-    # kegiatan_siswa_ids = fields.One2many('op.activity', 'student_id', 'Kegiatan')
-    # kehadiran_siswa_ids = fields.One2many('op.attendance.register.siswa', 'raport_siswa_id', 'Kehadiran')
-    perkembangan_siswa_ids = fields.One2many('op.student.priodik', 'raport_id', 'Priodik')
-    prestasi_siswa_ids = fields.One2many('op.student.prestasi', 'raport_id', 'Prestasi')
+
+    # raport_siswa_ids = fields.One2many('raport.siswa.line', 'raport_id', 'Raport Line')
+    # mulok_siswa_ids = fields.One2many('op.student.mulok', 'raport_id', 'Mulok')
+    # karakter_siswa_ids = fields.One2many('op.student.karakter', 'raport_id', 'Karakter')
+    # # kegiatan_siswa_ids = fields.One2many('op.activity', 'student_id', 'Kegiatan')
+    # # kehadiran_siswa_ids = fields.One2many('op.attendance.register.siswa', 'raport_siswa_id', 'Kehadiran')
+    # perkembangan_siswa_ids = fields.One2many('op.student.priodik', 'raport_id', 'Priodik')
+    # prestasi_siswa_ids = fields.One2many('op.student.prestasi', 'raport_id', 'Prestasi')
 
 class RaportSiswaline(models.Model):
     _name = "raport.siswa.line"

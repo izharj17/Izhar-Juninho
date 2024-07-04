@@ -3,219 +3,214 @@
     <template id="print_raport_siswa_sts">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <div class="page">
-                    <style>
-
-                        .page {
-                            display: flex;
-                            flex-direction: column;
-                            min-height: 100vh; /* Ensure the page covers the viewport height */
-                            justify-content: space-between; /* Push content to the top and footer to the bottom */
-                            position: relative; /* Needed for absolute positioning within */
-                        }
+                <t t-call="web.basic_layout">
+                    <t t-set="data_report_margin_top" t-value="1"/>
+                    <div class="page">
+                        <style>
+                            .page {
+                                display: flex;
+                                flex-direction: column;
+                                min-height: 100vh; /* Ensure the page covers the viewport height */
+                                justify-content: space-between; /* Push content to the top and footer to the bottom */
+                                position: relative; /* Needed for absolute positioning within */
+                            }
+                            
+                            .full-width-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+                            .full-width-table th {
+                                background-color: #a9d08e;
+                                border: 1px solid black;
+                                padding: 8px;
+                                text-align: center;
+                            }
+                            .full-width-table td {
+                                padding: 8px;
+                                text-align: left;
+                            }
+                            .raport-details {
+                                width: 100%;
+                                border-collapse: collapse;
+                                margin-top: 20px;
+                            }
+                            .raport-details th {
+                                background-color: #a9d08e;
+                                border: 1px solid black;
+                                padding: 8px;
+                                text-align: center;
+                            }
+                            .raport-details td {
+                                border: 1px solid black;
+                                padding: 8px;
+                                text-align: center;
+                            }
+                            .raport-details tbody {
+                                /* No specific styling for tbody to keep it default */
+                            }
+                            /* Styles for the footer table */
+                            .footer-table {
+                                width: 80%;
+                                border-collapse: collapse;
+                                margin-left: 11.5%; /* Center horizontally */
+                            }
                         
-                        .full-width-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-left: 12.5%;
-                        }
-                        .full-width-table th {
-                            background-color: lightgrey;
-                            border: 1px solid black;
-                            padding: 8px;
-                            text-align: center;
-                        }
-                        .full-width-table td {
-                            padding: 8px;
-                            text-align: left;
-                        }
-                        .raport-details {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-top: 20px;
-                        }
-                        .raport-details th {
-                            background-color: lightgrey;
-                            border: 1px solid black;
-                            padding: 8px;
-                            text-align: center;
-                        }
-                        .raport-details td {
-                            border: 1px solid black;
-                            padding: 8px;
-                            text-align: center;
-                        }
-                        .raport-details tbody {
-                            /* No specific styling for tbody to keep it default */
-                        }
-                        /* Styles for the footer table */
-                        .footer-table {
-                            width: 80%;
-                            margin-top: 100px; /* Ensure at least 30px spacing from element above */
-                            border-collapse: collapse;
-                            margin-left: 11.5%; /* Center horizontally */
-                            background-color: white;
-                        }
-                    
-                        .footer-table th,
-                        .footer-table td {
-                            text-align: center;
-                            vertical-align: top;
-                            border: 1px solid black;
-                            padding: 10px;
-                        }
-                    
-                        .footer-table th {
-                            background-color: lightgrey;
-                        }
-                    
-                        .small-cell {
-                            height: 50px; /* Smaller height for header cells */
-                        }
-                    
-                        .large-cell {
-                            height: 150px; /* Larger height for the empty cells */
-                        }
-                    
-                        .footer-table th.orang-tua,
-                        .footer-table td.orang-tua,
-                        .footer-table th.wali-kelas,
-                        .footer-table td.wali-kelas,
-                        .footer-table th.kepala-sekolah,
-                        .footer-table td.kepala-sekolah {
-                            width: calc(28% - 2px); /* Adjusted width to accommodate space between columns */
-                            /* Subtract 2px to compensate for border width */
-                            padding: 10px;
-                        }
-                    
-                        /* Add margin-right to create space between columns */
-                        .footer-table th.orang-tua,
-                        .footer-table td.orang-tua {
-                            margin-right: 2px;
-                        }
-                    
-                        .footer-table th.wali-kelas,
-                        .footer-table td.wali-kelas {
-                            margin-right: 2px;
-                        }
-                    
-                        /* No margin-right for the last column to prevent extra space */
-                        .footer-table th.kepala-sekolah,
-                        .footer-table td.kepala-sekolah {
-                            margin-right: 0;
-                        }
-                    </style>
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <h1 style="font-size: 3em; font-weight: bold;">NAMA SEKOLAH</h1>
-                        <p style="font-weight: bold;">alamat sekolah</p>
-                        <p>Email : test@test.com Telp. 026283725</p>
-                    </div>
-                    <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
-                    <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">Raport Siswa STS</h1>
-                   
-                    
-                    <table class="full-width-table">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td><![CDATA[Student&nbsp;&nbsp;&nbsp;]]></td>
-                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.student_id.name"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><![CDATA[NIS&nbsp;&nbsp;&nbsp;]]></td>
-                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.student_id.nis"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><![CDATA[Kelas&nbsp;&nbsp;&nbsp;]]></td>
-                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.kelas_id.name"/></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td><![CDATA[Semester&nbsp;&nbsp;&nbsp;]]></td>
-                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.semester_id"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><![CDATA[Tahun Pelajaran&nbsp;&nbsp;&nbsp;]]></td>
-                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.tahun_pelajaran.name"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><![CDATA[Rombel&nbsp;&nbsp;&nbsp;]]></td>
-                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.grade_id.name"/></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <h2 style="text-align: center; font-size: 2em; font-weight: bold; text-decoration: underline;">Raport Details</h2>
-                    <table class="raport-details">
-                        <thead>
-                            <tr>
-                                <th>Mata Pelajaran</th>
-                                <th>Nilai Akhir</th>
-                                <th>Capaian Kompetensi</th>
-                                <th>Catatan Kompetensi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-foreach="o.raport_siswa_ids" t-as="line">
-                                <tr>
-                                    <td><span t-field="line.subject_id.name"/></td>
-                                    <td><span t-field="line.nilai_akhir"/></td>
-                                    <td><span t-field="line.note"/></td>
-                                    <td><span t-field="line.note2"/></td>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>
+                            .footer-table th,
+                            .footer-table td {
+                                text-align: center;
+                                vertical-align: top;
+                                border: 1px solid black;
+                                padding: 10px;
+                            }
+                        
+                            .footer-table th {
+                                background-color: #a9d08e;
+                            }
+                        
+                            .small-cell {
+                                height: 50px; /* Smaller height for header cells */
+                            }
+                        
+                            .large-cell {
+                                height: 150px; /* Larger height for the empty cells */
+                            }
+                        
+                            .footer-table th.orang-tua,
+                            .footer-table td.orang-tua,
+                            .footer-table th.wali-kelas,
+                            .footer-table td.wali-kelas,
+                            .footer-table th.kepala-sekolah,
+                            .footer-table td.kepala-sekolah {
+                                width: 33.33%; /* Set all columns to equal width */
+                                padding: 10px;
+                            }
+                        
+                            /* Hide the middle column */
+                            .footer-table .hidden-column {
+                                border: none;
+                                background-color: white;
+                            }
+                        </style>
+                        
+                        
+                        <img src="/raport_siswa/static/src/img/header.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
 
-                    <h2 style="text-align: center; font-size: 2em; font-weight: bold; text-decoration: underline;">Mulok</h2>
-                    <table class="raport-details">
-                        <thead>
-                            <tr>
-                                <th>Mata Pelajaran</th>
-                                <th>Nilai Akhir</th>
-                                <th>Capaian Kompetensi</th>
-                                <th>Catatan Kompetensi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-foreach="o.mulok_siswa_ids" t-as="line">
+                        
+                        <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
+                        
+                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
+                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">TENGAH SEMESTER</h1>
+                        <table class="full-width-table">
+                            <tbody>
                                 <tr>
-                                    <td><span t-field="line.subject_id.name"/></td>
-                                    <td><span t-field="line.nilai_akhir"/></td>
-                                    <td><span t-field="line.note"/></td>
-                                    <td><span t-field="line.note2"/></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><![CDATA[Student&nbsp;&nbsp;&nbsp;]]></td>
+                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.student_id.name"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><![CDATA[NIS&nbsp;&nbsp;&nbsp;]]></td>
+                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.student_id.nis"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><![CDATA[Kelas&nbsp;&nbsp;&nbsp;]]></td>
+                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.kelas_id.name"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><![CDATA[Semester&nbsp;&nbsp;&nbsp;]]></td>
+                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.semester_id"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><![CDATA[Tahun Pelajaran&nbsp;&nbsp;&nbsp;]]></td>
+                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.tahun_pelajaran.name"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><![CDATA[Rombel&nbsp;&nbsp;&nbsp;]]></td>
+                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.grade_id.name"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
                                 </tr>
-                            </t>
-                        </tbody>
-                    </table>
-                    
-                    
-                    <!-- Footer table -->
-                    <table class="footer-table">
-                        <tr>
-                            <th class="small-cell orang-tua">Orang Tua</th>
-                            <th class="small-cell wali-kelas">Wali Kelas</th>
-                            <th class="small-cell kepala-sekolah">Kepala Sekolah</th>
-                        </tr>
-                        <tr>
-                            <td class="large-cell orang-tua"></td>
-                            <td class="large-cell wali-kelas"></td>
-                            <td class="large-cell kepala-sekolah"></td>
-                        </tr>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+
+                        <table class="raport-details">
+                            <thead>
+                                <tr>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Nilai Akhir</th>
+                                    <th>Capaian Kompetensi</th>
+                                    <th>Catatan Kompetensi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.raport_siswa_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.subject_id.name"/></td>
+                                        <td><span t-field="line.nilai_akhir"/></td>
+                                        <td><span t-field="line.note"/></td>
+                                        <td><span t-field="line.note2"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div style="page-break-inside: avoid;">
+                                <h2 style="text-align: center; margin-top: 35px; font-size: 1em; font-weight: bold; text-decoration: underline;">Mulok</h2>
+                                <table class="raport-details">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2">Mata Pelajaran</th>
+                                            <th rowspan="2">Nilai Akhir</th>
+                                            <th colspan="2">Kompetensi</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Capaian Kompetensi</th>
+                                            <th>Catatan Kompetensi 2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.mulok_siswa_ids" t-as="line">
+                                            <tr>
+                                                <td><span t-field="line.subject_id.name"/></td>
+                                                <td><span t-field="line.nilai_akhir"/></td>
+                                                <td><span t-field="line.note"/></td>
+                                                <td><span t-field="line.note2"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            
+                            
+                            <!-- Text above footer table -->
+                                <div style="text-align: right; margin-top: 20px; margin-right: 45px; margin-bottom: 10px; margin-top: 50px;">
+                                    Tangerang Selatan, <span t-esc="time.strftime('%d')" /> <span t-esc="time.strftime('%B')" /> <span t-esc="time.strftime('%Y')" />
+                                </div>
+                                
+                                <!-- Footer table -->
+                                <table class="footer-table">
+                                    <tr>
+                                        <th class="small-cell wali-kelas">Wali Kelas</th>
+                                        <th class="small-cell orang-tua hidden-column"></th>
+                                        <th class="small-cell kepala-sekolah">Kepala Sekolah</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="large-cell wali-kelas"></td>
+                                        <td class="large-cell orang-tua hidden-column"></td>
+                                        <td class="large-cell kepala-sekolah"></td>
+                                    </tr>
+                                </table>
+                        </div>
+                    </div>
+                </t>
             </t>
         </t>
     </template>

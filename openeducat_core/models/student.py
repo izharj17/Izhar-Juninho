@@ -97,8 +97,6 @@ class OpStudent(models.Model):
     emergency_contact = fields.Many2one('res.partner', 'Emergency Contact')
     visa_info = fields.Char('Visa Info', size=64)
     id_number = fields.Char('ID Card Number', size=64)
-    # partner_id = fields.Many2one('res.partner', 'Partner',
-    #                              required=True, ondelete="cascade")
     user_id = fields.Many2one('res.users', 'User', ondelete="cascade")
     gr_no = fields.Char("NIS", size=20)
     category_id = fields.Many2one('op.category', 'Category')
@@ -225,10 +223,9 @@ class OpStudent(models.Model):
 class OpStudentPriodik(models.Model):
     _name = "op.student.priodik"
     _description = "Student Course Priodik"
-    _inherit = "mail.thread"
+    _inherit = "mail.thread"  # Inherited here
     _rec_name = 'student_id'
 
-    raport_id = fields.Many2one('raport.siswa.sts')
     student_id = fields.Many2one('op.student', 'Student')
     tinggi_bdn = fields.Integer('Tinggi Badan')
     berat_bdn = fields.Integer('Berat Badan')
@@ -246,14 +243,12 @@ class OpStudentPriodik(models.Model):
         ('2', 'Tidak Berlubang'),
     ], 'Gigi')
 
-
 class OpStudentMulok(models.Model):
     _name = "op.student.mulok"
     _description = "Student Course Mulok"
-    _inherit = "mail.thread"
+    _inherit = "mail.thread"  # Inherited here
     _rec_name = 'student_id'
 
-    raport_id = fields.Many2one('raport.siswa.sts')
     student_id = fields.Many2one('op.student', 'Student')
     subject_id = fields.Many2one('op.subject', 'Mata Pelajaran')
     nis_nisn = fields.Char('NIS/NISN')
@@ -265,14 +260,20 @@ class OpStudentMulok(models.Model):
     nilai_akhir = fields.Integer('Nilai Akhir')
     note = fields.Text('Capaian Kompetensi')
     note2 = fields.Text('Catatan Kompetensi')
+    
+    def add_follower(self, partner_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner not in self.message_partner_ids:
+            self.message_subscribe(partner_ids=partner_id)
+        else:
+            _logger.warning("Partner %s is already following this record.", partner.name)
 
 class OpStudentKarakter(models.Model):
     _name = "op.student.karakter"
     _description = "Student Pilar Karakter"
-    _inherit = "mail.thread"
+    _inherit = "mail.thread"  # Inherited here
     _rec_name = 'student_id'
 
-    raport_id = fields.Many2one('raport.siswa.sts')
     student_id = fields.Many2one('op.student', 'Nama Siswa', ondelete="cascade", tracking=True)
     nis_nisn = fields.Char('NIS/NISN')
     sikap = fields.Selection([
@@ -287,21 +288,35 @@ class OpStudentKarakter(models.Model):
     ], 'Semester')
     tahun_pelajaran = fields.Many2one('op.academic.year', 'Tahun Akademik')
     note = fields.Text('Deskripsi Karakter')
+    
+    def add_follower(self, partner_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner not in self.message_partner_ids:
+            self.message_subscribe(partner_ids=partner_id)
+        else:
+            _logger.warning("Partner %s is already following this record.", partner.name)
 
 class OpStudentPrestasi(models.Model):
     _name = "op.student.prestasi"
     _description = "Student Pilar Prestasi"
-    _inherit = "mail.thread"
+    _inherit = "mail.thread"  # Inherited here
     _rec_name = 'student_id'
 
-    raport_id = fields.Many2one('raport.siswa.sts')
+    nama = fields.Char('Nama')
     student_id = fields.Many2one('op.student', 'Nama Siswa', ondelete="cascade", tracking=True)
     nis_nisn = fields.Char('NISN')
-    instansi = fields.Char('Instansi Pemberi Penghargaan')
-    url = fields.Binary('Bukti Sertifikat')
+    url = fields.Char('url')
+    instansi = fields.Char('Nama Instansi')
     semester_id = fields.Selection([
         ('1', '1 (Ganjil)'),
         ('2', '2 (Genap)'),
     ], 'Semester')
     tahun_pelajaran = fields.Many2one('op.academic.year', 'Tahun Akademik')
-    note = fields.Text('Deskripsi Portofolio')
+    note = fields.Text('Catatan')
+
+    def add_follower(self, partner_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner not in self.message_partner_ids:
+            self.message_subscribe(partner_ids=partner_id)
+        else:
+            _logger.warning("Partner %s is already following this record.", partner.name)

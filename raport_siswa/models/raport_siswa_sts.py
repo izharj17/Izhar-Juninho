@@ -1,11 +1,11 @@
+import time
 import datetime
 from odoo import models, fields, api
-
 
 class RaportSiswaSTS(models.Model):
     _name = "raport.siswa.sts"
     _description = "Raport Siswa STS"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']  # Inherit mail.thread and mail.activity.mixin here
     _rec_name = 'jenis_raport'
 
     kode_seq = fields.Char(string="Raport ID", readonly=True)
@@ -14,6 +14,8 @@ class RaportSiswaSTS(models.Model):
         ('SAS', 'SAS'),
         ('SAT', 'SAT'),
     ], 'Jenis Raport')
+
+    # Identitas
     student_id = fields.Many2one('op.student', 'Student', tracking=True)
     nis_nisn = fields.Char('NIS/NISN', related='student_id.nis')
     sekolah_id = fields.Many2one('res.company', 'Sekolah', default=lambda self: self.env['res.company'].search([('name', '=', 'SD Islam Arrasyid')], limit=1).id)
@@ -25,20 +27,45 @@ class RaportSiswaSTS(models.Model):
         ('2', '2 (Genap)'),
     ], 'Semester')
     tahun_pelajaran = fields.Many2one('op.academic.year', 'Tahun Pelajaran')
-    # jenis_raport = fields.Selection([
-    #     ('1', 'STS'),
-    #     ('2', 'SAT'),
-    #     ('3', 'SAT'),
-    # ], 'Raport')
+
+    # Isi Raport
     raport_siswa_ids = fields.One2many('raport.siswa.line', 'raport_id', 'Raport Line')
     mulok_siswa_ids = fields.One2many('op.student.mulok', 'raport_id', 'Mulok')
-    karakter_siswa_ids = fields.One2many('op.student.karakter', 'raport_id', 'Karakter')
-    # Kegiatan siswa disable dlu gara2 bikin error pas input mulok
-    # kegiatan_siswa_ids = fields.One2many('op.activity', 'raport_id', 'Kegiatan')
-    perkembangan_siswa_ids = fields.One2many('op.student.priodik', 'raport_id', 'Priodik')
     prestasi_siswa_ids = fields.One2many('op.student.prestasi', 'raport_id', 'Prestasi')
+
+    # Periodik
+    tinggi_bdn = fields.Integer('Tinggi Badan')
+    berat_bdn = fields.Integer('Berat Badan')
+    lingkar_kpl = fields.Integer('Lingkar Kepala')
+    pendengaran = fields.Selection([
+        ('1', 'Normal'),
+        ('2', 'Tidak Normal'),
+    ], 'Pendengaran')
+    penglihatan = fields.Selection([
+        ('1', 'Normal'),
+        ('2', 'Tidak Normal'),
+    ], 'Penglihatan')
+    gigi = fields.Selection([
+        ('1', 'Berlubang'),
+        ('2', 'Tidak Berlubang'),
+    ], 'Gigi')
+
+    # Ketidakhadiran
+    sakit = fields.Integer(string="Sakit")
+    ijin = fields.Integer(string="Ijin")
+    tanpa_ket = fields.Integer(string="Tanpa Keterangan")
+    
+    #Karakter
+    mandiri = fields.Text('Mandiri')
+    disiplin = fields.Text('Disiplin')
+    tertib = fields.Text('Tertib')
+    percaya_diri = fields.Text('Percaya Diri')
+
+    # Keputusan dan Saran
     ksmpln_saran = fields.Text('Kesimpulan Saran')
     keputusan_siswa = fields.Text('Keputusan')
+
+    # Tanda Tangan
     ttd_ortu = fields.Text('Orang Tua / Wali')
     ttd_walas = fields.Text('Wali Kelas')
     ttd_kepsek = fields.Text('Kepala Sekolah')
@@ -49,6 +76,64 @@ class RaportSiswaSTS(models.Model):
         ('cancel', 'Cancel'),
     ], string='State', readonly=True, default='draft', required=True, tracking=True)
 
+
+    
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+
+        default.update({
+            'kode_seq': self.env['ir.sequence'].next_by_code('raport.siswa.sts'),
+            'raport_siswa_ids': [],  # Clear existing records if not supposed to duplicate
+            'mulok_siswa_ids': [],   # Clear existing records if not supposed to duplicate
+            'karakter_siswa_ids': [],  # Clear existing records if not supposed to duplicate
+            'perkembangan_siswa_ids': [],  # Clear existing records if not supposed to duplicate
+            'prestasi_siswa_ids': [],  # Clear existing records if not supposed to duplicate
+        })
+
+        # Add new records to default
+        default['raport_siswa_ids'] = [(0, 0, {
+            'subject_id': line.subject_id.id,
+            'nilai_akhir': line.nilai_akhir,
+            'note': line.note,
+            'note2': line.note2,
+        }) for line in self.raport_siswa_ids]
+
+        default['mulok_siswa_ids'] = [(0, 0, {
+            'student_id': line.student_id.id,
+            'subject_id': line.subject_id.id,
+            'nis_nisn': line.nis_nisn,
+            'semester_id': line.semester_id,
+            'tahun_pelajaran': line.tahun_pelajaran.id,
+            'nilai_akhir': line.nilai_akhir,
+            'note': line.note,
+            'note2': line.note2,
+        }) for line in self.mulok_siswa_ids]
+
+        default['karakter_siswa_ids'] = [(0, 0, {
+            'student_id': line.student_id.id,
+            'nis_nisn': line.nis_nisn,
+            'sikap': line.sikap,
+            'semester_id': line.semester_id,
+            'tahun_pelajaran': line.tahun_pelajaran.id,
+            'note': line.note,
+        }) for line in self.karakter_siswa_ids]
+
+
+        default['prestasi_siswa_ids'] = [(0, 0, {
+            'nama' : line.nama,
+            'student_id': line.student_id.id,
+            'nis_nisn': line.nis_nisn,
+            'instansi': line.instansi,
+            'url': line.url,
+            'semester_id': line.semester_id,
+            'tahun_pelajaran': line.tahun_pelajaran.id,
+            'note': line.note,
+        }) for line in self.prestasi_siswa_ids]
+
+        return super(RaportSiswaSTS, self).copy(default)
+    
+    
     @api.model
     def _get_report_values(self, docids, data=None):
         docs = self.env['raport.siswa.sts'].browse(docids)
@@ -121,6 +206,30 @@ class RaportSiswaSTS(models.Model):
     def func_set_draft(self):
         if self.state == 'cancel':
             self.state = 'draft'
+     
+     
+    @api.model
+    def get_current_date(self):
+        translations = {
+            'January': 'Januari',
+            'February': 'Februari',
+            'March': 'Maret',
+            'April': 'April',
+            'May': 'Mei',
+            'June': 'Juni',
+            'July': 'Juli',
+            'August': 'Agustus',
+            'September': 'September',
+            'October': 'Oktober',
+            'November': 'November',
+            'December': 'Desember'
+        }
+        
+        current_date = time.strftime('%d %B %Y')
+        month_name = time.strftime('%B')
+        translated_month = translations.get(month_name, '')
+        
+        return "{}".format(current_date.replace(month_name, translated_month))
 
     # @api.model
     # def create(self, vals):
@@ -131,7 +240,7 @@ class RaportSiswaSTS(models.Model):
     #     result = super(RaportSiswaSTS, self).create(vals)
     #     return result
 
-class RaportSiswaline(models.Model):
+class RaportSiswaLine(models.Model):
     _name = "raport.siswa.line"
     _description = "Raport Siswa Line"
 
@@ -140,6 +249,7 @@ class RaportSiswaline(models.Model):
     nilai_akhir = fields.Integer('Nilai Akhir', size=8)
     note = fields.Text('Capaian Kompetensi', size=8)
     note2 = fields.Text('Catatan Kompetensi', size=8)
+    
 
 class OpStudentRaport(models.Model):
     _inherit = "op.student"
@@ -156,3 +266,20 @@ class OpStudentRaport(models.Model):
         for record in self:
             record.raport_sts_count = self.env['raport.siswa.sts'].search_count(
                 [('student_id', '=', self.id)])
+            
+            
+class OpStudentPriodik(models.Model):
+    _inherit = "op.student.priodik"  # Do not inherit mail.thread and mail.activity.mixin again
+
+    raport_id = fields.Many2one('raport.siswa.sts')
+
+class OpStudentMulok(models.Model):
+    _inherit = "op.student.mulok"  # Do not inherit mail.thread and mail.activity.mixin again
+
+    raport_id = fields.Many2one('raport.siswa.sts')
+
+class OpStudentPrestasi(models.Model):
+    _inherit = "op.student.prestasi"  # Do not inherit mail.thread and mail.activity.mixin again
+
+    raport_id = fields.Many2one('raport.siswa.sts')
+    

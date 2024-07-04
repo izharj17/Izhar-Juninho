@@ -39,12 +39,10 @@
                         <button name="%(action_report_siswa_sat)d" string="Print SAT" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'SAT')]}">
                             <i class="fa fa-print"/> Print SAT
                         </button>
-
                     </header>
                     
                     <sheet>
                         <group>
-                            <!-- <field name="kode_seq" invisible="1"/> -->
                             <field name="jenis_raport"/>
                         </group>
                         <group col="4">
@@ -77,33 +75,32 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Pilar Karakter" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
-                            <field name="karakter_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
-                                <tree edit="true" editable="bottom" create="true" delete="true">
-                                    <field name="sikap"/>
-                                    <field name="note"/>
-                                </tree>
-                            </field>
+                        <group string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                            <field name="mandiri"/>
+                            <field name="disiplin"/>
+                            <field name="tertib"/>
+                            <field name="percaya_diri"/>
                         </group>
                         <group string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
-                            <field name="perkembangan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
-                                <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="tinggi_bdn"/>
                                     <field name="berat_bdn"/>
                                     <field name="lingkar_kpl"/>
                                     <field name="pendengaran"/>
                                     <field name="penglihatan"/>
                                     <field name="gigi"/>
-                                </tree>
-                            </field>
                         </group>
                         <group string="Catatan Prestasi" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="prestasi_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
-                                    <!-- Removed the prestasi field -->
+                                    <field name="nama"/>
                                     <field name="note"/>
                                 </tree>
                             </field>
+                        </group>
+                        <group string="Ketidakhadiran" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                            <field name="sakit"/>
+                            <field name="ijin"/>
+                            <field name="tanpa_ket"/>
                         </group>
                         <group string="Kesimpulan / Saran :" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="ksmpln_saran"/>
