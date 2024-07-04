@@ -48,8 +48,6 @@
                         <group col="4">
                             <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
                             <field name="nis_nisn"/>
-                            <field name="sekolah_id" options='{"no_create_edit": True, "no_create": True}'/>
-                            <field name="alamat_sekolah"/>
                             <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
                             <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/>
                             <field name="semester_id"/>
@@ -153,6 +151,21 @@
                   action="raport_siswa_sts_action"
                   groups="openeducat_core.group_op_faculty"/>
 
+
+                  <record id="paperformat_custom_a4" model="report.paperformat">
+                    <field name="name">Custom A4 (No Top Margin)</field>
+                    <field name="default" eval="True"/>
+                    <field name="format">A4</field>
+                    <field name="orientation">Portrait</field>
+                    <field name="margin_top">0</field>
+                    <field name="margin_bottom">10</field>
+                    <field name="margin_left">10</field>
+                    <field name="margin_right">10</field>
+                    <field name="header_line" eval="False"/>
+                    <field name="header_spacing">5</field>
+                    <field name="dpi">90</field>
+                </record>
+
         <!-- Report action for generating PDF -->
         <record id="action_report_siswa_sts" model="ir.actions.report">
             <field name="name">Format STS</field>
@@ -160,33 +173,36 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">raport_siswa.print_raport_siswa_sts</field>
             <field name="report_file">raport_siswa.print_raport_siswa_sts</field>
-            <field name="binding_model_id" eval ="False"/>
+            <field name="binding_model_id" eval="False"/>
             <field name="binding_type">report</field>
             <field name="print_report_name">object.get_report_sts_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4"/>
         </record>
         
-
         <record id="action_report_siswa_sas" model="ir.actions.report">
             <field name="name">Format SAS</field>
             <field name="model">raport.siswa.sts</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">raport_siswa.print_raport_siswa_sas</field>
             <field name="report_file">raport_siswa.print_raport_siswa_sas</field>
-            <field name="binding_model_id" eval ="False"/>
+            <field name="binding_model_id" eval="False"/>
             <field name="binding_type">report</field>
             <field name="print_report_name">object.get_report_sas_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4"/>
         </record>
-
+        
         <record id="action_report_siswa_sat" model="ir.actions.report">
             <field name="name">Format SAT</field>
             <field name="model">raport.siswa.sts</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">raport_siswa.print_raport_siswa_sat</field>
             <field name="report_file">raport_siswa.print_raport_siswa_sat</field>
-            <field name="binding_model_id" eval ="False"/>
+            <field name="binding_model_id" eval="False"/>
             <field name="binding_type">report</field>
             <field name="print_report_name">object.get_report_sat_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4"/>
         </record>
+        
 
         <!-- New actions for custom report preview and download
         <record id="action_custom_report_preview" model="ir.actions.server">

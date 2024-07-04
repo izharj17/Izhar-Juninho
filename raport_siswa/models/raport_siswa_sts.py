@@ -86,8 +86,6 @@ class RaportSiswaSTS(models.Model):
             'kode_seq': self.env['ir.sequence'].next_by_code('raport.siswa.sts'),
             'raport_siswa_ids': [],  # Clear existing records if not supposed to duplicate
             'mulok_siswa_ids': [],   # Clear existing records if not supposed to duplicate
-            'karakter_siswa_ids': [],  # Clear existing records if not supposed to duplicate
-            'perkembangan_siswa_ids': [],  # Clear existing records if not supposed to duplicate
             'prestasi_siswa_ids': [],  # Clear existing records if not supposed to duplicate
         })
 
@@ -109,15 +107,6 @@ class RaportSiswaSTS(models.Model):
             'note': line.note,
             'note2': line.note2,
         }) for line in self.mulok_siswa_ids]
-
-        default['karakter_siswa_ids'] = [(0, 0, {
-            'student_id': line.student_id.id,
-            'nis_nisn': line.nis_nisn,
-            'sikap': line.sikap,
-            'semester_id': line.semester_id,
-            'tahun_pelajaran': line.tahun_pelajaran.id,
-            'note': line.note,
-        }) for line in self.karakter_siswa_ids]
 
 
         default['prestasi_siswa_ids'] = [(0, 0, {

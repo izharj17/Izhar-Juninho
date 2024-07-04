@@ -88,6 +88,20 @@
                             border: none;
                             background-color: white;
                         }
+
+                        .invisible-column {
+                            width: 20px; /* Adjust width as needed */
+                        }
+                        
+                        /* Remove borders for invisible columns */
+                        .invisible-column {
+                            border: none !important;
+                        }
+                        
+                        .invisible-column::before {
+                            content: '\00a0'; /* Non-breaking space */
+                            visibility: hidden;
+                        }
                     </style>
                     <img src="/raport_siswa/static/src/img/header.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
 
@@ -95,7 +109,7 @@
                     <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
                     
                     <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
-                    <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">AKHIR SEMESTER</h1>
+                    <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">AKHIR TAHUN</h1>
                    
                     
                     <table class="full-width-table">
@@ -299,8 +313,8 @@
                         </table>
                         
 
-                        <div style="text-align: right; margin-top: 20px; margin-right: 45px; margin-bottom: 10px; margin-top: 50px;">
-                            Tangerang Selatan, <span t-esc="time.strftime('%d')" /> <span t-esc="time.strftime('%B')" /> <span t-esc="time.strftime('%Y')" />
+                        <div style="text-align: right; margin-top: 20px; margin-right: 90px; margin-bottom: 10px; margin-top: 50px;">
+                            Tangerang Selatan, <t t-esc="o.get_current_date()"/>
                         </div>
                         
                         
@@ -308,13 +322,17 @@
                         <table class="footer-table">
                             <tr>
                                 <th class="small-cell orang-tua">Orang Tua</th>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
                                 <th class="small-cell wali-kelas">Wali Kelas</th>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
                                 <th class="small-cell kepala-sekolah">Kepala Sekolah</th>
                             </tr>
                             <tr>
                                 <td class="large-cell orang-tua"></td>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
                                 <td class="large-cell wali-kelas"></td>
-                                <td class="large-cell kepala-sekolah" style="width: 50px;" ></td>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
                             </tr>
                         </table>
                     </div>
