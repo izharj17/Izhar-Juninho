@@ -12,7 +12,7 @@
                     <field name="pekan_kpi"/>
                     <field name="bulan_kpi"/>
                     <field name="nilai_total_pekanan"/>
-                    <field name="nilai_total_bulanan"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -23,16 +23,24 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="KPI Teacher">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+                        <button name="func_approve" string="Approve" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="func_back_to_draft" string="Back to Draft" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
+                    </header>
                     <sheet>
                         <group col="4">
                             <field name="guru_id" options='{"no_open": True, "no_create": True}'/>
-                            <field name="department_id" options='{"no_open": True, "no_create": True}'/>
-                            <field name="template_question_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="pekan_kpi"/>
+                            <field name="department_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="bulan_kpi"/>
-                            <field name="nilai_total_pekanan"/>
-                            <field name="nilai_total_bulanan"/>
+                            <field name="template_question_id" options='{"no_open": True, "no_create": True}'/>
                         </group>
+                        <div class="oe_center">
+                            <group col="2">
+                                <field name="nilai_total_pekanan"/>
+                            </group>
+                        </div>
                         <group col="4" string="Indikator Kinerja">
                             <field name="kpi_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="false" create="false" delete="false">
@@ -52,6 +60,7 @@
                 </form>
             </field>
         </record>
+        
 
         <record id="view_kpi_teacher_search" model="ir.ui.view">
             <field name="name">kpi.teacher.search</field>
@@ -65,13 +74,13 @@
                     <field name="bulan_kpi"/>
                     <field name="nilai_total_pekanan"/>
                     <field name="nilai_total_bulanan"/>
+                    <field name="state"/>
                     <newline/>
                     <group expand="0" string="Group By...">
                         <filter string="Guru" name="group_by_kpi_teacher_guru_id"
                                 domain="[]" context="{'group_by':'guru_id'}"/>
-                        <filter string="Bagian" name="group_by_kpi_teacher_department_id"
-                                domain="[]" context="{'group_by':'department_id'}"/>
-<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
+                        <filter string="Bulan KPI" name="group_by_kpi_teacher_bulan_kpi"
+                                domain="[]" context="{'group_by':'bulan_kpi'}"/>
                     </group>
                 </search>
             </field>
@@ -84,6 +93,7 @@
             <field name="binding_view_types">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_kpi_teacher_search"/>
+            <field name="context">{'group_by': ['guru_id', 'bulan_kpi']}</field>
         </record>
 
         <record model="ir.actions.act_window.view" id="act_kpi_teacher_view_form">
@@ -107,10 +117,9 @@
         </record>
 
         <menuitem id="menu_kpi_teacher_details"
-                    name="KPI Arrasyid"
-                    parent="menu_item_id"
-                    sequence="10"
-                    action="act_kpi_teacher_view"/>
-
+                  name="KPI Arrasyid"
+                  parent="menu_item_id"
+                  sequence="10"
+                  action="act_kpi_teacher_view"/>
     </data>
 </odoo>

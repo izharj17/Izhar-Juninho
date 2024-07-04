@@ -7,10 +7,17 @@ class KpiTeacher(models.Model):
     _description = "KPI Management"
     _rec_name = 'guru_id'
 
+    #Identitas
     guru_id = fields.Many2one('hr.employee', 'Guru')
     department_id = fields.Many2one('hr.department', 'Bagian', related='guru_id.department_id')
-    template_question_id = fields.Many2one('master.question', 'Jenis KPI ', required=True)
+    
+    #Jenis KPI
+    template_question_id = fields.Many2one('master.question', 'Jenis KPI', required=True)
+    
+    #Isi Tugas KPI
     kpi_ids = fields.One2many('kpi.teacher.line', 'kpi_teacher_id', string='KPI Line')
+    
+    #Validitas KPI
     pekan_kpi = fields.Selection([
         ('1', 'Pekan 1'),
         ('2', 'Pekan 2'),
@@ -33,6 +40,20 @@ class KpiTeacher(models.Model):
         ('11', 'November'),
         ('12', 'Desember'),
     ], 'Bulan')
+    
+    #Status KPI
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('approve', 'Approved')
+    ], string='State', readonly=True, default='draft', required=True, tracking=True)
+    
+    def func_approve(self):
+        if self.state == 'draft':
+            self.state = 'approve'
+
+    def func_back_to_draft(self):
+        if self.state == 'approve':
+            self.state = 'draft'
 
     @api.onchange('template_question_id')
     def _onchange_template_question_id(self):
@@ -51,14 +72,8 @@ class KpiTeacher(models.Model):
     @api.depends('kpi_ids.ketuntasan')
     def _compute_nilai_total_pekanan(self):
         for record in self:
-            number_of_questions = len(record.kpi_ids)
-            if number_of_questions > 0:
-                point_per_question = 100 / number_of_questions
-                completed_questions = sum(1 for line in record.kpi_ids if line.ketuntasan)
-                total_score = point_per_question * completed_questions
-                record.nilai_total_pekanan = min(total_score, 100)  # Cap the score at 100
-            else:
-                record.nilai_total_pekanan = 0
+            total_score = sum(line.bobot for line in record.kpi_ids if line.ketuntasan)
+            record.nilai_total_pekanan = min(total_score, 25)  # Cap the score at 25
 
 class KpiTeacherLine(models.Model):
     _name = 'kpi.teacher.line'
@@ -75,3 +90,4 @@ class KpiTeacherLine(models.Model):
     def _onchange_ketuntasan(self):
         if self.kpi_teacher_id:
             self.kpi_teacher_id._compute_nilai_total_pekanan()
+
