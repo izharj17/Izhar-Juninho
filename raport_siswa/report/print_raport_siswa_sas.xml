@@ -180,7 +180,7 @@
                     </table>
 
                     <div style="page-break-inside: avoid;">
-                        <h2 style="text-align: center; margin-top: 35px; font-size: 1em; font-weight: bold; text-decoration: underline;">Mulok</h2>
+                        <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; text-decoration: underline;">Mulok</h2>
                                 <table class="raport-details">
                                     <thead>
                                         <tr>
@@ -207,7 +207,7 @@
                     </div>
 
                     <div style="page-break-inside: avoid;">
-                        <h2 style="text-align: center; font-size: 1em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Karakter</h2>
+                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Karakter</h2>
                         <table class="raport-details">
                             <tbody>
                                 <tr>
@@ -232,7 +232,7 @@
                     
 
                     <div style="page-break-inside: avoid;">
-                        <h2 style="text-align: center; font-size: 1em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Perkembangan Fisik</h2>
+                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Perkembangan Fisik</h2>
                         <table class="raport-details">
                             <thead>
                                 <tr>
@@ -257,7 +257,7 @@
                         </table>
                     </div>
                     <div style="page-break-inside: avoid;">
-                        <h2 style="text-align: center; font-size: 1em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Prestasi</h2>
+                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Prestasi</h2>
                         <table class="raport-details">
                             <tbody>
                                 <t t-foreach="o.prestasi_siswa_ids" t-as="line">
@@ -271,7 +271,7 @@
                     </div>
 
                     <div style="page-break-inside: avoid;">
-                        <h2 style="text-align: center; font-size: 1em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Ketidakhadiran</h2>
+                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Ketidakhadiran</h2>
                         <table class="raport-details" style="width: 50%; border-collapse: collapse;">
                             <tbody>
                                 <tr>
