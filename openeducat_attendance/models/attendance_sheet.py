@@ -71,10 +71,29 @@ class OpAttendanceSheet(models.Model):
          'Sheet must be unique per Register/Session.'),
     ]
 
+    @api.onchange('register_id')
+    def onchange_register_id(self):
+        if self.register_id:
+            # Get all students enrolled in the same course as the register
+            students = self.env['op.student'].search([
+                ('course_detail_ids.course_id', '=', self.register_id.course_id.id)
+            ])
+            # Clear existing attendance lines and recreate for each student
+            self.attendance_line = [(5, 0, 0)]  # Clear existing lines
+            for student in students:
+                self.attendance_line = [(0, 0, {
+                    'student_id': student.id,
+                    'attendance_id': self.id,
+                    'present': False,  # Initialize defaults if needed
+                    'excused': False,
+                    'absent': False,
+                    'late': False,
+                    'sick': False,
+                })]
+
     @api.model
     def create(self, vals):
         sheet = self.env['ir.sequence'].next_by_code('op.attendance.sheet')
-        register = self.env['op.attendance.register']. \
-            browse(vals['register_id']).code
+        register = self.env['op.attendance.register'].browse(vals['register_id']).code
         vals['name'] = register + sheet
         return super(OpAttendanceSheet, self).create(vals)
