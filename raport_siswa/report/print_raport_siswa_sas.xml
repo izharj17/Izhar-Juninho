@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <template id="print_raport_siswa_sas">
+    <template id="print_raport_siswa_sat">
         <t t-call="web.basic_layout">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
@@ -103,13 +103,13 @@
                             visibility: hidden;
                         }
                     </style>
-                    <img src="/raport_siswa/static/src/img/header.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
+                    <img src="/raport_siswa/static/src/img/header 3.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
 
                         
                     <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
                     
-                    <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
-                    <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">AKHIR SEMESTER</h1>
+                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; text-decoration: underline;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
+                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; text-decoration: underline;">AKHIR TAHUN</h1>
                    
                     
                     <table class="full-width-table">
@@ -179,8 +179,8 @@
                         </tbody>
                     </table>
 
-                    <div style="page-break-inside: avoid;">
-                        <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; text-decoration: underline;">Mulok</h2>
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
+                        <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; text-decoration: underline;">Muatan Lokal</h2>
                                 <table class="raport-details">
                                     <thead>
                                         <tr>
@@ -206,7 +206,7 @@
                                 </table>
                     </div>
 
-                    <div style="page-break-inside: avoid;">
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
                         <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Karakter</h2>
                         <table class="raport-details">
                             <tbody>
@@ -231,7 +231,7 @@
                     </div>
                     
 
-                    <div style="page-break-inside: avoid;">
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
                         <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Perkembangan Fisik</h2>
                         <table class="raport-details">
                             <thead>
@@ -256,7 +256,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div style="page-break-inside: avoid;">
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
                         <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Prestasi</h2>
                         <table class="raport-details">
                             <tbody>
@@ -270,7 +270,7 @@
                         </table>
                     </div>
 
-                    <div style="page-break-inside: avoid;">
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
                         <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; text-decoration: underline;">Ketidakhadiran</h2>
                         <table class="raport-details" style="width: 50%; border-collapse: collapse;">
                             <tbody>
@@ -316,12 +316,12 @@
                         
                         <!-- Footer table -->
                         <table class="footer-table">
-                            <tr>
-                                <th class="small-cell orang-tua">Orang Tua</th>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
-                                <th class="small-cell wali-kelas">Wali Kelas</th>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
-                                <th class="small-cell kepala-sekolah">Kepala Sekolah</th>
+                            <tr style = "height: 12px; line-height: 12px;">
+                                <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell kepala-sekolah" style = "height: 12px; line-height: 12px;">Kepala Sekolah</th>
                             </tr>
                             <tr>
                                 <td class="large-cell orang-tua"></td>
@@ -330,7 +330,31 @@
                                 <td class="invisible-column"></td> <!-- Invisible column -->
                                 <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
                             </tr>
+                            <tr>
+                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 12px;"> <span t-field="o.ttd_ortu"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_walas"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_kepsek"/> </td>
+                            </tr>
                         </table>
+
+                        <div class="footer">
+                            <div class="row">
+                                <div align="center">
+                                    <i>
+                                        <span style="font: bold italic 14px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.student_id.name"></span> - <span style="font: bold italic 14px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.kelas_id.name"></span>
+                                    </i>
+                                </div>
+                                <div style="position: absolute; left: 51%;">
+                                    <span class="page" />
+                                </div>
+                                <div style="position: absolute; left: 75%;">
+                                    <span style="font: bold italic 14px Verdana, sans-serif !important;" > e-Rapor Arrasyid v.1.5.0 </span> 
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </t>

@@ -103,7 +103,7 @@
                             visibility: hidden;
                         }
                     </style>
-                    <img src="/raport_siswa/static/src/img/header.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
+                    <img src="/raport_siswa/static/src/img/header 3.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
 
                         
                     <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
@@ -180,7 +180,7 @@
                     </table>
 
                     <div style="page-break-inside: avoid; margin-top: 35px;">
-                        <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; text-decoration: underline;">Mulok</h2>
+                        <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; text-decoration: underline;">Muatan Lokal</h2>
                                 <table class="raport-details">
                                     <thead>
                                         <tr>
@@ -320,12 +320,12 @@
                         
                         <!-- Footer table -->
                         <table class="footer-table">
-                            <tr>
-                                <th class="small-cell orang-tua">Orang Tua</th>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
-                                <th class="small-cell wali-kelas">Wali Kelas</th>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
-                                <th class="small-cell kepala-sekolah">Kepala Sekolah</th>
+                            <tr style = "height: 12px; line-height: 12px;">
+                                <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell kepala-sekolah" style = "height: 12px; line-height: 12px;">Kepala Sekolah</th>
                             </tr>
                             <tr>
                                 <td class="large-cell orang-tua"></td>
@@ -334,7 +334,31 @@
                                 <td class="invisible-column"></td> <!-- Invisible column -->
                                 <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
                             </tr>
+                            <tr>
+                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 12px;"> <span t-field="o.ttd_ortu"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_walas"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_kepsek"/> </td>
+                            </tr>
                         </table>
+
+                        <div class="footer">
+                            <div class="row">
+                                <div align="center">
+                                    <i>
+                                        <span style="font: bold italic 14px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.student_id.name"></span> - <span style="font: bold italic 14px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.kelas_id.name"></span>
+                                    </i>
+                                </div>
+                                <div style="position: absolute; left: 51%;">
+                                    <span class="page" />
+                                </div>
+                                <div style="position: absolute; left: 75%;">
+                                    <span style="font: bold italic 14px Verdana, sans-serif !important;" > e-Rapor Arrasyid v.1.5.0 </span> 
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </t>
