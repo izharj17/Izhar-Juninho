@@ -92,7 +92,7 @@
                             }
     
                             .invisible-column {
-                                width: 20px; /* Adjust width as needed */
+                                width: 25px; /* Adjust width as needed */
                             }
                             
                             /* Remove borders for invisible columns */
@@ -112,8 +112,8 @@
                         
                         <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
                         
-                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
-                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold; text-decoration: underline;">TENGAH SEMESTER</h1>
+                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
+                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold;">TENGAH SEMESTER</h1>
                         <table class="full-width-table">
                             <tbody>
                                 <tr>
@@ -160,10 +160,13 @@
                         <table class="raport-details">
                             <thead>
                                 <tr>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Nilai Akhir</th>
-                                    <th>Capaian Kompetensi</th>
-                                    <th>Catatan Kompetensi</th>
+                                    <th rowspan="2">Mata Pelajaran</th>
+                                    <th rowspan="2" style="width 10%!important">Nilai Akhir</th>
+                                    <th colspan="2">Kompetensi</th>
+                                </tr>
+                                <tr>
+                                    <th>Capaian </th>
+                                    <th>Catatan </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -178,17 +181,17 @@
                             </tbody>
                         </table>
                         <div style="page-break-inside: avoid;">
-                                <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; text-decoration: underline;">Muatan Lokal</h2>
+                                <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold;">Muatan Lokal</h2>
                                 <table class="raport-details">
                                     <thead>
                                         <tr>
                                             <th rowspan="2">Mata Pelajaran</th>
-                                            <th rowspan="2">Nilai Akhir</th>
+                                            <th rowspan="2" style="width 10%">Nilai Akhir</th>
                                             <th colspan="2">Kompetensi</th>
                                         </tr>
                                         <tr>
-                                            <th>Capaian Kompetensi</th>
-                                            <th>Catatan Kompetensi 2</th>
+                                            <th>Capaian </th>
+                                            <th>Catatan </th>
                                         </tr>
                                     </thead>
                                     <tbody>
