@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bsi_conf,bsi_conf,model_bsi_conf,,1,1,1,1
+access_payment_deposit,access_payment_deposit,model_payment_deposit,,1,1,1,1
+access_payment_deposit_line,access_payment_deposit_line,model_payment_deposit_line,,1,1,1,1
+access_mass_create_invoice_bsi,access_mass_create_invoice_bsi,model_mass_create_invoice_bsi,,1,1,1,1

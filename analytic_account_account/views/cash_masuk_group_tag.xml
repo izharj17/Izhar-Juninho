@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--© 2016-17 ForgeFlow S.L.-->
+<!--© 2016 Serpent Consulting Services Pvt. Ltd.-->
+<!--License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <data>
+        <record id="view_move_group_tag_form" model="ir.ui.view">
+            <field name="name">account.voucher.group.tag.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="cash_management.view_sale_receipt_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='reference']" position="after">
+                    <field name="group" options="{'no_create': True}"/>
+                    <field name="group_tags" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_group_tag_form2" model="ir.ui.view">
+            <field name="name">account.voucher.group.tag.form_line</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="cash_management.view_sale_receipt_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='account_id']" position="after">
+                    <field name="group"/>
+                    <field name="group_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="view_move_group_tag_form_keluar" model="ir.ui.view">
+            <field name="name">account.voucher.group.tag.keluar</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="cash_management.view_purchase_receipt_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='account_id']" position="after">
+                    <field name="group"/>
+                    <field name="group_tags"/>
+                </xpath>
+                <xpath expr="//group/field[@name='reference']" position="after">
+                    <field name="group" options="{'no_create': True}"/>
+                    <field name="group_tags" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

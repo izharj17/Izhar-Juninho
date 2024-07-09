@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <record id="view_account_move_form_bsi" model="ir.ui.view">
+        <field name="name">account.move.form.bsi</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+			<button name='button_cancel' position="after">
+				<button name="create_invoice_bsi" string="Create_Invoice BSI" type="object" class="oe_highlight"  attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('invoice_bsi', '=', 'invoicing_bsi'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
+        	</button>
+        	<field name="id" position="before">
+        	 	<widget name="web_ribbon" title="Invoicing BSI" attrs="{'invisible': ['|',('invoice_bsi', '!=', 'invoicing_bsi'),('payment_state', '=', 'paid')]}"/>
+        	</field>
+        		<field name="move_type" position="after">
+        	 	<field name="invoice_bsi" invisible="1"/>
+        	</field>
+		</field>
+	</record>
+
+	 <record id="view_account_move_tree_bsi" model="ir.ui.view">
+        <field name="name">account.move.tree.bsi</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+			<field name="arch" type="xml">
+        	<field name="state" position="after">
+        	 	<field name="invoice_bsi"  widget="badge" decoration-danger="invoice_bsi == 'not_invoicing'" decoration-success="invoice_bsi == 'invoicing_bsi'"/>
+        	</field>
+		</field>
+	</record>
+
+	<record id="view_student_form_bsi" model="ir.ui.view">
+        <field name="name">op.student.form.bsi</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
+			<field name="arch" type="xml">
+			<field name='email' position="after">
+				<label for="va" class="oe_inline"/>
+                <div class="o_row o_row_readonly">
+                		<field name="va"/>
+                    	<button name="generate_va" type="object" string="Generate VA" class="oe_highlight"/>
+                </div>
+        	</field>
+		</field>
+	</record>
+
+</odoo>

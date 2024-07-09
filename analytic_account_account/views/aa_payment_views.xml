@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    &lt;!&ndash; Product Template &ndash;&gt;-->
+<!--    <record id="view_aa_payment_form_inherit" model="ir.ui.view">-->
+<!--        <field name="name">AA Payment</field>-->
+<!--        <field name="model">account.payment</field>-->
+<!--        <field name="inherit_id" ref="account.view_account_payment_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="move_id" position="after">-->
+<!--                <field name="analytic_account_id"/>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

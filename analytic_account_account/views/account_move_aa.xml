@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--© 2016-17 ForgeFlow S.L.-->
+<!--© 2016 Serpent Consulting Services Pvt. Ltd.-->
+<!--License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <data>
+        <record id="view_move_aa_form" model="ir.ui.view">
+            <field name="name">account.move.aa.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@id='invoice_line_ids']" position="inside">
+                    <field
+                        name="analytic_account_id"
+                        options="{'no_create': True}"
+                    />
+<!--		    <field-->
+<!--                        name="group"-->
+<!--                        options="{'no_create': True}"-->
+<!--                    />-->
+<!--		    <field-->
+<!--                        name="group_tags"-->
+<!--                        options="{'no_create': True}"-->
+<!--                    />-->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_aa_form2" model="ir.ui.view">
+            <field name="name">account.move.aa.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+<!--        <record id="view_purchase_request_product_form" model="ir.ui.view">-->
+<!--            <field name="name">purchase.request.product.form</field>-->
+<!--            <field name="model">purchase.request</field>-->
+<!--            <field name="inherit_id" ref="purchase_request.view_purchase_request_form" />-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//group[@id='header_right_group']" position="attributes">-->
+<!--                    <field-->
+<!--                        name="analytic_account_id"-->
+<!--                        options="{'no_create': True}"-->
+<!--                    />-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record id="view_purchase_request_product_form2" model="ir.ui.view">-->
+<!--            <field name="name">purchase.request.product.form</field>-->
+<!--            <field name="model">purchase.request</field>-->
+<!--            <field name="inherit_id" ref="purchase_request.view_purchase_request_form" />-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//tree/field[@name='product_id']" position="attributes">-->
+<!--                    <attribute name="options">{'no_create': True}</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

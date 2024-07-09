@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+    <record id="send_email_notif_invoice" model="mail.template">
+        <field name="name">Invoice - Notification</field>
+        <field name="email_from">${ctx['email_from']}</field>
+        <field name="subject">Informasi Tagihan Siswa ${ctx['subject']}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="email_to">${ctx['email_to']}</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="report_name">Notifikasi Invoice ${object.name}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html"><![CDATA[
+
+                            <p>
+
+                            </p><p>Assalamu'alaikum Warrahmatullahi Wabarakatuh</p>
+                            <p>Kepada Yth. ${object.partner_id.name or ''}</p>
+
+                            <p>Berikut kami sampaikan tagihan Anda pada SD Islam Arrasyid dengan rincian sebagai berikut : </p>
+                                <table width="30%">
+                                    <tbody><tr>
+                                        <td width="10%">Virtual Account</td>
+                                        <td width="20%">: ${ctx['va']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%">NIS</td>
+                                        <td width="20%">:  ${ctx['nis']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%">Nama</td>
+                                        <td width="20%">:  ${object.partner_id.name or ''}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%">Institusi</td>
+                                        <td width="20%">: 3366 - SD Islam Arrasyid</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%">Kelas</td>
+                                        <td width="20%">:  ${ctx['kelas']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%">Total Tagihan</td>
+                                        <td width="20%">:   Rp. ${object.amount_total}</td>
+                                    </tr>
+                                </tbody></table>
+                            <p>Rincian Tagihan :</p>
+                                <table width="30%">
+                                     % for line in object.invoice_line_ids:
+                                    <tr>
+                                        <td width="10%">${line.product_id.name}</td>
+                                        <td width="20%">: Rp.${line.price_subtotal}</td>
+                                    </tr>
+                                    % endfor
+                                </table>
+                                
+                            <br>
+                                ________________________________________________________________________________________________________<br>
+                            Panduan Pembayaran:
+<br>                            Via ATM BSI
+<p></p><p>                                1. Pilih Menu Pembayaran
+</p><p>                                2. Pilih Akademik
+</p><p>                                3. Masukkan kode institusi dan nomor pembayaran:&nbsp;3366 (no VA)
+</p><p><br></p><p>                            Via Jaringan ATM Bersama, ATM Prima, dan Bank Lain
+                            Pembayaran melalui bank selain BSI baik ATM, m-banking, dan netbanking
+</p><p>                                1. Pilih tujuan BSI atau kode bank : 451
+</p><p>                                2. Rekening tujuan :&nbsp;900 3366 (no va)
+</p><p>                                3. Masukkan nominal tagihan&nbsp;Rp …. + 2.000 (fee admin)
+</p><p><br></p><p>                            Via NetBanking BSI
+</p><p>                                1. Pilih Menu Pembayaran
+</p><p>                                2. Pilih Nomor Rekening BSI Anda
+</p><p>                                3. Pilih Jenis Pembayaran&nbsp;Institusi
+</p><p>                                4. Pilih Nama Lembaga &gt;&nbsp;SD Islam Arrasyid
+</p><p>                                5. Masukkan Nomor Pembayaran :&nbsp;(No VA)
+</p><p>                                6. Tekan tombol verifikasi
+</p><p>                                7. Baca dengan seksama detail tagihan
+</p><p>                                8. Masukan TAN, PIN Otorisasi
+</p><p>                                9. Tekan tombol Submit
+</p><p><br></p><p>                            Via Mobile Banking BSI
+</p><p>                                1. Pilih Menu Pembayaran
+</p><p>                                2. Pilih Akademik
+</p><p>                                3. Pilih Nama Institusi &gt;&nbsp;3366 - SD Islam Arrasyid
+</p><p>                                4. Masukkan Nomor Virtual Account
+</p><p>                                5. Tekan tombol Selanjutnya
+</p><p>                                6. Masukan PIN
+</p><p>                                7. Tekan tombol Submit</p><p><br></p><p>
+
+
+                           
+                            </p><p>Terima kasih.</p>
+                            <p>Wassalamualaikum Warrahmatullahi Wabarakatuh.</p>
+
+            
+            
+        <p></p>
+
+            
+            ]]>
+        </field>
+    </record>
+    </data>
+
+</odoo>

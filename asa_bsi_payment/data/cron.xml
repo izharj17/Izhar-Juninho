@@ -1,0 +1,27 @@
+<odoo>
+
+   <!--  <data>
+        <record forcecreate="True" model="ir.cron" id="send_log_wa">
+            <field name="name">Process send WhatsApp Log</field>
+            <field name="active">True</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.send_wa_log()</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_log_wa"/>
+        </record>           
+    </data> -->
+
+    <data noupdate="1">
+        <record id="seq_payment_deposit" model="ir.sequence">
+            <field name="name">Payment Deposit</field>
+            <field name="code">payment.deposit</field>
+            <field name="prefix">PD/%(year)s/%(month)s/</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+
+</odoo>

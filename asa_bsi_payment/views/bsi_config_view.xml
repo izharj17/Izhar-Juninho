@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  	
+      <record id="view_bsi_konf_form" model="ir.ui.view">
+            <field name="name">bsi.konf.form</field>
+            <field name="model">bsi.conf</field>
+            <field name="arch" type="xml">
+                <form string="Configuration Form">
+                  <header>
+                    <button name="get_token" string=" Get Token" type="object"/>
+                  </header>
+                  	<group>
+	                    <group>
+	                        <field name="customer_key"/>
+	                        <field name="customer_secret"/>
+                          <field name="user_name"/>
+                          <field name="password"/>
+                          <field name="base_url"/>
+                          <field name="auth_url"/>
+                          <field name="token"/>
+	                     </group>
+	                    <group>
+                           
+                        </group>
+                      </group>
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_bsi_konf_tree" model="ir.ui.view">
+            <field name="name">bsi.konf.tree</field>
+            <field name="model">bsi.conf</field>
+            <field name="arch" type="xml">
+                <tree string="Configuration Tree">
+                	<field name="customer_key"/>
+                  <field name="customer_secret"/>
+                  <field name="user_name"/>
+                  <field name="password"/>
+                  <field name="base_url"/>
+                  <field name="auth_url"/>
+                </tree>
+            </field>
+      </record>
+
+
+
+      <record model="ir.actions.act_window" id="action_bsi_konf">
+        <field name="name">Account BSI Configuration</field>
+        <field name="res_model">bsi.conf</field>
+        <field name="view_mode">tree,form</field>
+      </record>s
+
+      <menuitem id="main_bsi_menu" name="BSI" web_icon="asa_bsi_payment,static/description/icon.png"/>
+		
+	    <menuitem id="menu_konfigurasi"
+                parent="main_bsi_menu"
+	     		      name="Setting"  
+                sequence="2"/>  
+                  	
+        <menuitem id="menu_account"
+                  parent="menu_konfigurasi"   
+                  sequence="1"
+                  action="action_bsi_konf"/> 
+  
+
+</odoo>
