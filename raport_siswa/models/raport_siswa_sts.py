@@ -60,6 +60,9 @@ class RaportSiswaSTS(models.Model):
     disiplin = fields.Text('Disiplin')
     tertib = fields.Text('Tertib')
     percaya_diri = fields.Text('Percaya Diri')
+    percaya_diri1 = fields.Text('Percaya Diri')
+    percaya_diri2 = fields.Text('Percaya Diri')
+    percaya_diri3 = fields.Text('Percaya Diri')
 
     # Keputusan dan Saran
     ksmpln_saran = fields.Text('Kesimpulan Saran')
