@@ -275,17 +275,18 @@
                         <table class="raport-details" style="width: 50%; border-collapse: collapse;">
                             <tbody>
                                 <tr>
-                                    <th style="width: 25%; border: 1px solid black; padding: 5px;">Mandiri:</th>
+                                    <th style="width: 25%; border: 1px solid black; padding: 5px;">Sakit:</th>
                                     <td style="width: 25%; border: 1px solid black; padding: 5px;"><span t-field="o.sakit"/></td>
                                 </tr>
                                 <tr>
-                                    <th style="width: 25%; border: 1px solid black; padding: 5px;">Disiplin:</th>
+                                    <th style="width: 25%; border: 1px solid black; padding: 5px;">Izin:</th>
                                     <td style="width: 25%; border: 1px solid black; padding: 5px;"><span t-field="o.ijin"/></td>
                                 </tr>
                                 <tr>
-                                    <th style="width: 25%; border: 1px solid black; padding: 5px;">Tertib:</th>
+                                    <th style="width: 25%; border: 1px solid black; padding: 5px;">Tanpa Keterangan:</th>
                                     <td style="width: 25%; border: 1px solid black; padding: 5px;"><span t-field="o.tanpa_ket"/></td>
                                 </tr>
+                                
                             </tbody>
                         </table>
                     </div>
