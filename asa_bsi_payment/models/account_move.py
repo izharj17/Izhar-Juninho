@@ -127,3 +127,10 @@ class OpStudent(models.Model):
 			record.write({
 								'va': kode_biller+record.nisn
 						})
+
+class AccMoveLineInherit_group(models.Model):
+    _inherit = "account.move.line"  # Do not inherit mail.thread and mail.activity.mixin again
+
+    group = fields.Many2one(
+        comodel_name="master.group", string="Group"
+    )
