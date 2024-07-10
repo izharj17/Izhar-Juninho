@@ -103,7 +103,7 @@
                             visibility: hidden;
                         }
                     </style>
-                    <img src="/raport_siswa/static/src/img/header 3.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
+                    <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
 
                         
                     <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
@@ -303,7 +303,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
 
                     <div style="page-break-inside: avoid; margin-top: 35px;">
                         <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Ketidakhadiran</h2>
