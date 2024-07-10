@@ -32,6 +32,7 @@ class RaportSiswaSTS(models.Model):
     raport_siswa_ids = fields.One2many('raport.siswa.line', 'raport_id', 'Raport Line')
     mulok_siswa_ids = fields.One2many('op.student.mulok', 'raport_id', 'Mulok')
     prestasi_siswa_ids = fields.One2many('op.student.prestasi', 'raport_id', 'Prestasi')
+    kegiatan_siswa_ids = fields.One2many('raport.siswa.kegiatan', 'raport_id', 'Kegiatan')
 
     # Periodik
     tinggi_bdn = fields.Integer('Tinggi Badan')
@@ -60,9 +61,9 @@ class RaportSiswaSTS(models.Model):
     disiplin = fields.Text('Disiplin')
     tertib = fields.Text('Tertib')
     percaya_diri = fields.Text('Percaya Diri')
-    percaya_diri1 = fields.Text('Percaya Diri')
-    percaya_diri2 = fields.Text('Percaya Diri')
-    percaya_diri3 = fields.Text('Percaya Diri')
+    tanggung_jawab = fields.Text('Tanggung Jawab')
+    kerjasama = fields.Text('Kerja Sama')
+    kepemimpinan = fields.Text('Kepemimpinan')
 
     # Keputusan dan Saran
     ksmpln_saran = fields.Text('Kesimpulan Saran')
@@ -241,6 +242,14 @@ class RaportSiswaLine(models.Model):
     nilai_akhir = fields.Integer('Nilai Akhir', size=8)
     note = fields.Text('Capaian Kompetensi', size=8)
     note2 = fields.Text('Catatan Kompetensi', size=8)
+    
+class KegiatanSiswa(models.Model):
+    _name = "raport.siswa.kegiatan"
+    _description = "Raport Siswa Line"
+
+    raport_id = fields.Many2one('raport.siswa.sts')
+    nama = fields.Text('Nama Kegiatan', size=8)
+    deskripsi = fields.Text('Deskripsi Kegiatan', size=8)
     
 
 class OpStudentRaport(models.Model):

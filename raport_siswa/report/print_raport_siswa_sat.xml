@@ -226,11 +226,57 @@
                                     <th style="width: 25%; border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle;">Percaya Diri</th>
                                     <td><span t-field="o.percaya_diri"/></td>
                                 </tr>
+                                <tr t-if="o.tanggung_jawab">
+                                    <th style="width: 25%; border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle;">Tanggung Jawab</th>
+                                    <td><span t-field="o.tanggung_jawab"/></td>
+                                </tr>
+                                <tr t-if="o.kerjasama">
+                                    <th style="width: 25%; border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle;">Kerja Sama</th>
+                                    <td><span t-field="o.kerjasama"/></td>
+                                </tr>
+                                <tr t-if="o.kepemimpinan">
+                                    <th style="width: 25%; border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle;">Kepemimpinan</th>
+                                    <td><span t-field="o.kepemimpinan"/></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                     
                     
+
+                    
+
+                    <t t-if="o.prestasi_siswa_ids">
+                        <div style="page-break-inside: avoid; margin-top: 35px;">
+                            <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Prestasi</h2>
+                            <table class="raport-details">
+                                <tbody>
+                                    <t t-foreach="o.prestasi_siswa_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-field="line.nama"/></td>
+                                            <td><span t-field="line.note"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+
+                    <t t-if="o.kegiatan_siswa_ids">
+                        <div style="page-break-inside: avoid; margin-top: 35px;">
+                            <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Kegiatan</h2>
+                            <table class="raport-details">
+                                <tbody>
+                                    <t t-foreach="o.kegiatan_siswa_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-field="line.nama"/></td>
+                                            <td><span t-field="line.deskripsi"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
 
                     <div style="page-break-inside: avoid; margin-top: 35px;">
                         <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; ">Perkembangan Fisik</h2>
@@ -257,22 +303,7 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <t t-if="o.prestasi_siswa_ids">
-                        <div style="page-break-inside: avoid; margin-top: 35px;">
-                            <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Prestasi</h2>
-                            <table class="raport-details">
-                                <tbody>
-                                    <t t-foreach="o.prestasi_siswa_ids" t-as="line">
-                                        <tr>
-                                            <td><span t-field="line.nama"/></td>
-                                            <td><span t-field="line.note"/></td>
-                                        </tr>
-                                    </t>
-                                </tbody>
-                            </table>
-                        </div>
-                    </t>
+                    
 
                     <div style="page-break-inside: avoid; margin-top: 35px;">
                         <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Ketidakhadiran</h2>

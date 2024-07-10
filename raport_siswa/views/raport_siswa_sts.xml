@@ -125,11 +125,14 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group col= "4" string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="mandiri"/>
                             <field name="disiplin"/>
                             <field name="tertib"/>
                             <field name="percaya_diri"/>
+                            <field name="tanggung_jawab"/>
+                            <field name="kerjasama"/>
+                            <field name="kepemimpinan"/>
                         </group>
                         <group string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                                     <field name="tinggi_bdn"/>
@@ -144,6 +147,14 @@
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="nama"/>
                                     <field name="note"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Catatan Kegiatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                            <field name="kegiatan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="nama"/>
+                                    <field name="deskripsi"/>
                                 </tree>
                             </field>
                         </group>
