@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <template id="print_raport_siswa_sat">
+    <template id="print_raport_siswa_sas">
         <t t-call="web.basic_layout">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
@@ -109,7 +109,7 @@
                     <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
                     
                     <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; ">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
-                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; ">AKHIR TAHUN</h1>
+                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; ">AKHIR SEMESTER</h1>
                    
                     
                     <table class="full-width-table">
