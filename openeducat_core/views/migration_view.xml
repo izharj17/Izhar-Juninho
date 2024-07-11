@@ -1,0 +1,59 @@
+<odoo>
+    <record id="view_op_migration_form" model="ir.ui.view">
+        <field name="name">op.migration.form</field>
+        <field name="model">op.migration</field>
+        <field name="arch" type="xml">
+            <form string="Student Migration">
+                <header>
+                    <button name="action_set_to_ready" string="Ready"
+                            states="draft" class="oe_highlight" type="object"/>
+                    <button name="action_reset_to_draft"  class="btn btn-secondary" string="Cancel"
+                            states="ready" type="object"/>
+                    <button name="action_done_migrated" string="Start Migration Process"
+                            states="ready" class="oe_highlight" type="object"
+                            style="position: absolute; left: 46%; transform: translateX(-44%); !important"/>"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ready"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="migration_date"/>
+                    </group>
+                    <group>
+                        <field name="old_course_id"/>
+                        <field name="new_course_id"/>
+                    </group>
+                    <group>
+                        <field name="new_batch_id" domain="[('course_id', '=', new_course_id)]"/>
+                        <field name="new_academic_year_id"/>
+                        <field name="new_academic_term_id"/>
+                    </group>
+                    <field name="student_ids"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_op_migration_tree" model="ir.ui.view">
+        <field name="name">op.migration.tree</field>
+        <field name="model">op.migration</field>
+        <field name="arch" type="xml">
+            <tree string="Student Migration">
+                <field name="name"/>
+                <field name="migration_date"/>
+                <field name="old_course_id"/>
+                <field name="new_course_id"/>
+                <field name="new_batch_id"/>
+                <field name="new_academic_year_id"/>
+                <field name="new_academic_term_id"/>
+                <field name="state" widget="statusbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_op_migration" model="ir.actions.act_window">
+        <field name="name">Student Migration</field>
+        <field name="res_model">op.migration</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

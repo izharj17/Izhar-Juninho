@@ -35,3 +35,4 @@ from . import student_portal
 from . import op_academic_term
 from . import op_academic_year
 from . import raport_siswa
+from . import migration

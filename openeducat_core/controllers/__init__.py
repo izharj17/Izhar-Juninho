@@ -19,5 +19,5 @@
 #
 ###############################################################################
 
-from . import app_main, student_controller, jurnal_controller
+from . import app_main
 
