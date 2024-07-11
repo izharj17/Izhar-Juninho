@@ -55,7 +55,6 @@
         'views/op_academic_year_view.xml',
         'views/op_academic_term_view.xml',
         'views/wilayah_views.xml',
-        'views/migration_view.xml',
         # 'views/raport_siswa.xml',
         # 'views/student_raport_view.xml',
         # 'views/student_mulok.xml',
