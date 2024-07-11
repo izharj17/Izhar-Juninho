@@ -11,7 +11,7 @@
                             states="ready" type="object"/>
                     <button name="action_done_migrated" string="Start Migration Process"
                             states="ready" class="oe_highlight" type="object"
-                            style="position: absolute; left: 46%; transform: translateX(-44%); !important"/>"/>
+                            style="position: absolute; left: 46%; transform: translateX(-44%); !important"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,ready"/>
                 </header>
                 <sheet>
