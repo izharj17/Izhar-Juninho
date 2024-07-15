@@ -76,7 +76,7 @@ class OpAttendanceSheet(models.Model):
         if self.register_id:
             # Get all students enrolled in the same course as the register
             students = self.env['op.student'].search([
-                ('course_detail_ids.course_id', '=', self.register_id.course_id.id)
+                ('course_detail_ids.course_id', '=', self.register_id.course_id.id),('course_detail_ids.batch_id','=',self.register_id.batch_id.id)
             ])
             # Clear existing attendance lines and recreate for each student
             self.attendance_line = [(5, 0, 0)]  # Clear existing lines
@@ -84,7 +84,7 @@ class OpAttendanceSheet(models.Model):
                 self.attendance_line = [(0, 0, {
                     'student_id': student.id,
                     'attendance_id': self.id,
-                    'present': False,  # Initialize defaults if needed
+                    'present': True,  # Initialize defaults if needed
                     'excused': False,
                     'absent': False,
                     'late': False,
