@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="hr_attendance assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/hr_inherit_attendance/static/src/js/greeting_message.js"></script>
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="hr attendance tests" inherit_id="web.qunit_suite_tests">
+        <xpath expr="//script[contains(@src, '/web/static/tests/views/kanban_tests.js')]" position="after">
+            <script type="text/javascript" src="/hr_inherit_attendance/static/tests/hr_inherit_attendance_tests.js"></script>
+        </xpath>
+    </template>
+</odoo>

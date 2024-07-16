@@ -11,6 +11,7 @@
     'depends': ['sale', 'base'],
     'data': [
             'views/hr_inherit_attendance_views.xml',
+            'views/web_asset_backend_template.xml'
             ],
     'demo': [
 
