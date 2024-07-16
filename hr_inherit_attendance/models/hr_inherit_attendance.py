@@ -7,7 +7,7 @@ class HrInheritAttendance(models.Model):
     _inherit = "hr.attendance"
 
     status_kehadiran = fields.Selection([
-        ('ot', 'Ontime'),
+        ('ot', 'Tepat Waktu'),
         ('tlb', 'Terlambat'),
         ('skt', 'Sakit'),
         ('i', 'Ijin')
