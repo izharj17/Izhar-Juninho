@@ -281,6 +281,7 @@ class OpStudentMulok(models.Model):
 
 class OpStudentPrestasi(models.Model):
     _inherit = "op.student.prestasi"  # Do not inherit mail.thread and mail.activity.mixin again
+    url = fields.Char('url')
 
     raport_id = fields.Many2one('raport.siswa.sts')
     
