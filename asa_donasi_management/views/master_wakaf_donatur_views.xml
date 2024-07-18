@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_master_wakaf_donatur_tree" model="ir.ui.view">
+            <field name="name">master.wakaf.donatur.tree</field>
+            <field name="model">master.wakaf.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Master Wakaf Donatur">
+                    <field name="nama_wakaf_donatur"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="gender"/>
+                    <field name="provinsi_id"/>
+                    <field name="kabkota_id"/>
+                    <field name="kecamatan_id"/>
+                    <field name="kelurahan_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_master_wakaf_donatur_form" model="ir.ui.view">
+            <field name="name">master.wakaf.donatur.form</field>
+            <field name="model">master.wakaf.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Master Wakaf Donatur">
+                    <sheet>
+                        <group col="4" string="Profile">
+                            <field name="nama_wakaf_donatur"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="gender"/>
+                            <field name="partner_id"/>
+                            <field name="tipe_donatur_id"/>
+                        </group>
+                        <group col="4" string="Alamat">
+                            <field name="provinsi_id"/>
+                            <field name="kabkota_id"/>
+                            <field name="kecamatan_id"/>
+                            <field name="kelurahan_id"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_master_wakaf_donatur_search" model="ir.ui.view">
+            <field name="name">master.wakaf.donatur.search</field>
+            <field name="model">master.wakaf.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Master Wakaf Donatur">
+                    <field name="nama_wakaf_donatur"/>
+                    <field name="gender"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Donatur" name="group_by_master_wakaf_donatur_nama_wakaf_donatur"
+                                domain="[]" context="{'group_by':'nama_wakaf_donatur'}"/>
+                        <filter string="Gender" name="group_by_master_wakaf_donatur_gender"
+                                domain="[]" context="{'group_by':'gender'}"/>
+<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_master_wakaf_donatur_view">
+            <field name="name">Master Wakaf Donatur</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.wakaf.donatur</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_master_wakaf_donatur_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_master_wakaf_donatur_view_form">
+            <field name="act_window_id" ref="act_master_wakaf_donatur_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_master_wakaf_donatur_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_master_wakaf_donatur_view_tree">
+            <field name="act_window_id" ref="act_master_wakaf_donatur_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_master_wakaf_donatur_tree"/>
+        </record>
+
+        <menuitem id="menu_master_wakaf_donatur_details"
+                    name="Wakaf Donatur"
+                    parent="menu_master_wakaf"
+                    sequence="20"
+                    action="act_master_wakaf_donatur_view"/>
+
+    </data>
+</odoo>

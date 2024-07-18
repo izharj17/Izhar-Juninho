@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="wilayah_provinsi_tree" model="ir.ui.view">
+            <field name="name">wilayah.provinsi.tree</field>
+            <field name="model">wilayah.provinsi</field>
+            <field name="arch" type="xml">
+                <tree string="Tipe Transaksi">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="wilayah_provinsi_form" model="ir.ui.view">
+            <field name="name">wilayah.provinsi.form</field>
+            <field name="model">wilayah.provinsi</field>
+            <field name="arch" type="xml">
+                <form string="Tipe Transaksi" >
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+	    <record id="wilayah_provinsi_action" model="ir.actions.act_window">
+            <field name="name">Provinsi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wilayah.provinsi</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create Provinsi
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="sekolah_wilayah_provinsi" parent="sekolah_config_wilayah"
+                name="Provinsi" sequence="1" action="wilayah_provinsi_action"/>
+
+        <record id="wilayah_kabkota_tree" model="ir.ui.view">
+            <field name="name">wilayah.kabkota.tree</field>
+            <field name="model">wilayah.kabkota</field>
+            <field name="arch" type="xml">
+                <tree string="Tipe Transaksi" editable="bottom">
+                    <field name="provinsi_id" />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+	    <record id="wilayah_kabkota_action" model="ir.actions.act_window">
+            <field name="name">Kab / Kota</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wilayah.kabkota</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create Kabupaten / Kotamadya
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="sekolah_wilayah_kabkota" parent="sekolah_config_wilayah"
+                name="Kab / Kota" sequence="2" action="wilayah_kabkota_action"/>
+
+
+        <record id="wilayah_kecamatan_tree" model="ir.ui.view">
+            <field name="name">wilayah.kecamatan.tree</field>
+            <field name="model">wilayah.kecamatan</field>
+            <field name="arch" type="xml">
+                <tree string="Tipe Transaksi" editable="bottom">
+                    <field name="kabkota_id" />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+	    <record id="wilayah_kecamatan_action" model="ir.actions.act_window">
+            <field name="name">Kecamatan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wilayah.kecamatan</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create Kecamatan
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="sekolah_wilayah_kecamatan" parent="sekolah_config_wilayah"
+                name="Kecamatan" sequence="3" action="wilayah_kecamatan_action"/>
+
+        <record id="wilayah_kelurahan_tree" model="ir.ui.view">
+            <field name="name">wilayah.kelurahan.tree</field>
+            <field name="model">wilayah.kelurahan</field>
+            <field name="arch" type="xml">
+                <tree string="Tipe Transaksi" editable="bottom">
+                    <field name="kecamatan_id" />
+                    <field name="name" />
+                    <field name="kodepos" />
+                </tree>
+            </field>
+        </record>
+
+	    <record id="wilayah_kelurahan_action" model="ir.actions.act_window">
+            <field name="name">Kelurahan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wilayah.kelurahan</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create Kelurahan
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="sekolah_wilayah_kelurahan" parent="sekolah_config_wilayah"
+            name="Kelurahan" sequence="4" action="wilayah_kelurahan_action"/>
+
+    </data>
+</odoo>

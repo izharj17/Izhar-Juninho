@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_register_wakaf_donatur_tree" model="ir.ui.view">
+            <field name="name">register.wakaf.donatur.tree</field>
+            <field name="model">register.wakaf.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Register Wakaf Donatur">
+                    <field name="wakaf_id"/>
+                    <field name="wakaf_donatur_id"/>
+                    <field name="infaq_date"/>
+                    <field name="nilai_wakaf"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_register_wakaf_donatur_form" model="ir.ui.view">
+            <field name="name">register.wakaf.donatur.form</field>
+            <field name="model">register.wakaf.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Register Wakaf Donatur">
+                    <sheet>
+                        <group string="Donatur" col="4">
+                            <field name="category_wakaf_id"/>
+                            <field name="tipe_wakaf_id"/>
+                            <field name="product_id"/>
+                            <field name="wakaf_donatur_id"/>
+                            <field name="partner_id"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="infaq_date"/>
+                            <field name="note"/>
+                        </group>
+                        <group string="Informasi Program">
+                            <field name="wakaf_id"/>
+                        </group>
+                        <group string="Transaction">
+                            <field name="qty"/>
+                            <field name="nilai_wakaf"/>
+                            <field name="total_wakaf"/>
+                        </group>
+                        <group  string="Wakaf Berjangka" col="2" attrs="{'invisible': [('tipe_wakaf_id', '!=', 'wb')]}">
+                            <label for="jangka_waktu_wakaf" class="mt-1" string="Jangka Waktu"/>
+                            <div name="jangka_waktu_wakaf" >
+                                <field name="jangka_waktu_wakaf" class="oe_inline" /> Tahun
+                            </div>
+                        </group>
+                        <group col="4" attrs="{'invisible': [('tipe_wakaf_id', '!=', 'wb')]}">
+                            <field name="bank" />
+                            <field name="cabang_bank"/>
+                            <field name="no_rek"/>
+                            <field name="nama_pemilik_rek"/>
+                        </group>
+<!--                        <group string="Transaction Line">-->
+<!--                            <field name="wakaf_donatur_line_ids" nolabel="1" options="{'reload_on_button': True}">-->
+<!--                                <tree edit="true" editable="bottom" create="true" delete="true">-->
+<!--                                    <field name="wakaf_id"/>-->
+<!--                                    <field name="partner_id"/>-->
+<!--                                    <field name="infaq_date"/>-->
+<!--                                    <field name="product_id"/>-->
+<!--                                    <field name="deskripsi"/>-->
+<!--                                    <field name="qty"/>-->
+<!--                                    <field name="nilai_wakaf"/>-->
+<!--                                    <field name="total_wakaf"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_register_wakaf_donatur_search" model="ir.ui.view">
+            <field name="name">register.wakaf.donatur.search</field>
+            <field name="model">register.wakaf.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Register Wakaf Donatur">
+                    <field name="wakaf_id"/>
+                    <field name="wakaf_donatur_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Donatur" name="group_by_register_wakaf_donatur_wakaf_donatur_id"
+                                domain="[]" context="{'group_by':'wakaf_donatur_id'}"/>
+                        <filter string="Program Donasi" name="group_by_register_wakaf_donatur_wakaf_id"
+                                domain="[]" context="{'group_by':'wakaf_id'}"/>
+<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_register_wakaf_donatur_view">
+            <field name="name">Register Wakaf Donatur</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">register.wakaf.donatur</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_register_wakaf_donatur_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_register_wakaf_donatur_view_form">
+            <field name="act_window_id" ref="act_register_wakaf_donatur_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_register_wakaf_donatur_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_register_wakaf_donatur_view_tree">
+            <field name="act_window_id" ref="act_register_wakaf_donatur_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_register_wakaf_donatur_tree"/>
+        </record>
+
+        <menuitem id="menu_register_wakaf_donatur_details"
+                    name="Register Wakaf Donatur"
+                    parent="menu_wakaf_root"
+                    sequence="10"
+                    action="act_register_wakaf_donatur_view"/>
+
+    </data>
+</odoo>

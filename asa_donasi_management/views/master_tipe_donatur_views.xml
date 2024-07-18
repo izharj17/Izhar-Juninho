@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_master_tipe_donatur_tree" model="ir.ui.view">
+            <field name="name">master.tipe.donatur.tree</field>
+            <field name="model">master.tipe.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Master Tipe Donatur">
+                    <field name="nama_tipe_donatur"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_master_tipe_donatur_form" model="ir.ui.view">
+            <field name="name">master.tipe.donatur.form</field>
+            <field name="model">master.tipe.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Master Tipe Donatur">
+                    <sheet>
+                        <group col="4">
+                            <field name="nama_tipe_donatur"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_master_tipe_donatur_search" model="ir.ui.view">
+            <field name="name">master.tipe.donatur.search</field>
+            <field name="model">master.tipe.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Master Tipe Donatur">
+                    <field name="nama_tipe_donatur"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Donatur" name="group_by_master_tipe_donatur_nama_tipe_donatur"
+                                domain="[]" context="{'group_by':'nama_tipe_donatur'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_master_tipe_donatur_view">
+            <field name="name">Master Tipe Donatur</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.tipe.donatur</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_master_tipe_donatur_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_master_tipe_donatur_view_form">
+            <field name="act_window_id" ref="act_master_tipe_donatur_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_master_tipe_donatur_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_master_tipe_donatur_view_tree">
+            <field name="act_window_id" ref="act_master_tipe_donatur_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_master_tipe_donatur_tree"/>
+        </record>
+
+        <menuitem id="menu_master_tipe_donatur_details"
+                    name="Tipe Donatur"
+                    parent="menu_master_data_root"
+                    sequence="10"
+                    action="act_master_tipe_donatur_view"/>
+
+    </data>
+</odoo>
