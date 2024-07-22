@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_register_donasi_donatur_tree" model="ir.ui.view">
+            <field name="name">register.donasi.donatur.tree</field>
+            <field name="model">register.donasi.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Register Donasi Donatur">
+                    <field name="code"/>
+                    <field name="donasi_id"/>
+                    <field name="donatur_id"/>
+                    <field name="infaq_date"/>
+                    <field name="nilai_donasi"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_register_donasi_donatur_form" model="ir.ui.view">
+            <field name="name">register.donasi.donatur.form</field>
+            <field name="model">register.donasi.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Register Donasi Donatur">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="code" readonly="0"/>
+                            </h1>
+                        </div>
+                        <group string="Donatur" col="4">
+                            <field name="product_id"/>
+                            <field name="donatur_id"/>
+                            <field name="partner_id"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="infaq_date"/>
+                            <field name="note"/>
+                        </group>
+                        <group string="Informasi Program">
+                            <field name="donasi_id"/>
+                        </group>
+                        <group string="Transaction">
+                            <field name="qty"/>
+                            <field name="nilai_donasi"/>
+                            <field name="total_donasi"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_register_donasi_donatur_search" model="ir.ui.view">
+            <field name="name">register.donasi.donatur.search</field>
+            <field name="model">register.donasi.donatur</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Register Donasi Donatur">
+                    <field name="donasi_id"/>
+                    <field name="donatur_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Donatur" name="group_by_register_donasi_donatur_donatur_id"
+                                domain="[]" context="{'group_by':'donatur_id'}"/>
+                        <filter string="Program Donasi" name="group_by_register_donasi_donatur_donasi_id"
+                                domain="[]" context="{'group_by':'donasi_id'}"/>
+<!--                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_register_donasi_donatur_view">
+            <field name="name">Register Donatur</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">register.donasi.donatur</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_register_donasi_donatur_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_register_donasi_donatur_view_form">
+            <field name="act_window_id" ref="act_register_donasi_donatur_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_register_donasi_donatur_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_register_donasi_donatur_view_tree">
+            <field name="act_window_id" ref="act_register_donasi_donatur_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_register_donasi_donatur_tree"/>
+        </record>
+
+        <menuitem id="menu_register_donasi_donatur_details"
+                    name="Register Donatur"
+                    parent="menu_donasi_root"
+                    sequence="10"
+                    action="act_register_donasi_donatur_view"/>
+
+    </data>
+</odoo>

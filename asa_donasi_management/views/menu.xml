@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_donasi_management_root"
+                  name="Wakaf Donasi Management"
+                  web_icon="asa_donasi_management,static/description/icon.png"
+                  sequence="10"/>
+
+        <menuitem id="menu_register_data_root"
+                  name="Register"
+                  parent="menu_donasi_management_root"
+                  sequence="20"/>
+
+        <menuitem id="menu_konfigurasi_donasi_root"
+                  name="Konfigurasi"
+                  parent="menu_donasi_management_root"
+                  sequence="60"/>
+
+        <menuitem id="menu_master_data_root"
+                  name="Master Data"
+                  parent="menu_konfigurasi_donasi_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_master_donasi_root"
+              parent="menu_master_data_root"
+              name="--- Master Donasi ---"
+              sequence="20"
+              />
+
+        <menuitem id="menu_donasi_root"
+              parent="menu_register_data_root"
+              name="--- Donasi ---"
+              sequence="10"
+              />
+
+        <menuitem id="menu_wakaf_root"
+              parent="menu_register_data_root"
+              name="--- Wakaf ---"
+              sequence="20"
+              />
+
+        <menuitem id="menu_master_wakaf"
+              parent="menu_konfigurasi_donasi_root"
+              name="--- Master Wakaf ---"
+              sequence="20"
+              />
+
+        <menuitem id="sekolah_config_wilayah"
+              parent="menu_konfigurasi_donasi_root"
+              name="--- WILAYAH ---"
+              sequence="30"
+              />
+
+
+<!--        <menuitem id="menu_kandang_details"-->
+<!--                    name="Manajemen Kandang"-->
+<!--                    parent="menu_kandang_root"-->
+<!--                    sequence="20"-->
+<!--                    action="act_kandang_sapi_view"/>-->
+
+    </data>
+</odoo>
