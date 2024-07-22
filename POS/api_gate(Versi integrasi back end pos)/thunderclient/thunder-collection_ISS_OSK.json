@@ -1,0 +1,310 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "ISS_OSK",
+    "collectionId": "6ceda849-a692-426d-a628-71cee8860cec",
+    "dateExported": "2024-07-08T06:55:02.248Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "cdcbf2b2-e5b2-40ec-90d3-ac2162820db9",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Authenticate 1",
+            "url": "http://localhost:8069/api/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-07-04T06:56:42.911Z",
+            "modified": "2024-07-05T02:10:16.826Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "db",
+                    "value": "ISS_OSK",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "login",
+                    "value": "Ann MarieMarie",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "password",
+                    "value": "password",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"params\": {\n    \"db\": \"ISS_OSK\",\n    \"login\": \"ihpbpya.pasipya.73753@polban.ac.id\",\n    \"password\": \"password\"\n  }\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "61d4b882-889e-4ed5-9fcb-fd276557e722",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Authenticate 2",
+            "url": "http://localhost:8069/api/login",
+            "method": "POST",
+            "sortNum": 12500,
+            "created": "2024-07-05T02:16:33.544Z",
+            "modified": "2024-07-05T02:17:30.924Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "db",
+                    "value": "ISS_OSK",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "login",
+                    "value": "Ann MarieMarie",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "password",
+                    "value": "password",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"params\": {\n    \"db\": \"ISS_OSK\",\n    \"login\": \"wafqwf@g.com\",\n    \"password\": \"password\"\n  }\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "7d9ffb0b-9dfc-4954-978e-198b211f590d",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Authenticate Guru",
+            "url": "http://localhost:8069/api/login",
+            "method": "POST",
+            "sortNum": 15000,
+            "created": "2024-07-05T02:49:56.079Z",
+            "modified": "2024-07-05T02:50:11.376Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "db",
+                    "value": "ISS_OSK",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "login",
+                    "value": "Ann MarieMarie",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "password",
+                    "value": "password",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"params\": {\n    \"db\": \"ISS_OSK\",\n    \"login\": \"Ann MarieMarie\",\n    \"password\": \"password\"\n  }\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c0380039-e696-49dd-9fa7-052af08d1bd8",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Logout",
+            "url": "http://localhost:8069/api/logout",
+            "method": "GET",
+            "sortNum": 17500,
+            "created": "2024-07-04T08:14:03.477Z",
+            "modified": "2024-07-08T01:39:49.173Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "isDisabled": true
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a00ae7d2-4555-4a75-ae02-7e861bdcc000",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Pull Tugas",
+            "url": "http://localhost:8069/api/op_assignment",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-04T08:03:04.839Z",
+            "modified": "2024-07-04T08:27:49.000Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            }
+        },
+        {
+            "_id": "716b072f-ee13-4caa-9afc-b44cbb75784d",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Authenticate Admin",
+            "url": "http://localhost:8069/api/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-07-05T08:14:16.334Z",
+            "modified": "2024-07-05T08:14:35.466Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "db",
+                    "value": "ISS_OSK",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "login",
+                    "value": "Ann MarieMarie",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "password",
+                    "value": "password",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"params\": {\n    \"db\": \"ISS_OSK\",\n    \"login\": \"raditya.pasya.tif421@polban.ac.id\",\n    \"password\": \"password\"\n  }\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "6d9e78e8-7d41-4f50-b982-80d97b07a86e",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Authenticate Custom",
+            "url": "http://localhost:8069/api/login",
+            "method": "POST",
+            "sortNum": 22500,
+            "created": "2024-07-08T04:25:33.941Z",
+            "modified": "2024-07-08T04:25:49.874Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "db",
+                    "value": "ISS_OSK",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "login",
+                    "value": "Ann MarieMarie",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "password",
+                    "value": "password",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"params\": {\n    \"db\": \"ISS_OSK\",\n    \"login\": \"jane.doe@example.com\",\n    \"password\": \"\"\n  }\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c89b1472-d153-45bb-a2bb-e35eea3441a7",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Pull Tugas (user)",
+            "url": "http://localhost:8069/api/op_assignment/user",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2024-07-05T02:10:56.815Z",
+            "modified": "2024-07-05T02:11:09.414Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            }
+        },
+        {
+            "_id": "5e3fc169-8815-4cea-bca3-e4fe2e5054ea",
+            "colId": "6ceda849-a692-426d-a628-71cee8860cec",
+            "containerId": "",
+            "name": "Create Student",
+            "url": "http://localhost:8069/api/student_create",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2024-07-08T02:50:46.356Z",
+            "modified": "2024-07-08T03:28:16.369Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"params\": {\n    \"first_name\": \"Jane\",\n    \"last_name\": \"Doe\",\n    \"gender\": \"f\",\n    \"birth_date\": \"2010-01-01\",\n    \"birth_place\": \"Jakarta\",\n    \"nis\": \"123123189\",\n    \"nisn\": \"91253321\",\n    \"mobile\": \"8123123789\",\n    \"email\": \"jane.doe@example.com\"\n  }\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "8vFuEqcNJJO_k31D7pk6Bz2IFis51cyL0fphPyhc96FCHM_66izCGvsjwTNWKAFt4EzrZoev2tBOkUnSS0jqcg"
+}
