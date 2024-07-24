@@ -10,9 +10,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='check_out']" position="after">
                     <field name="status_kehadiran"/>
-                    <field name="long_position"/>
-                    <field name="lat_position"/>
                     <field name="latetime" invisible="1"/>
+                    <field name="url_checkin"/>
+                    <field name="url_checkout"/>
                 </xpath>
             </field>
         </record>
@@ -25,9 +25,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='check_out']" position="after">
                     <field name="status_kehadiran"/>
-                    <field name="long_position"/>
-                    <field name="lat_position"/>
                     <field name="latetime"/>
+                    <field name="url_checkin"/>
+                    <field name="url_checkout"/>
                 </xpath>
             </field>
         </record>
