@@ -3,11 +3,13 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, exceptions, _, SUPERUSER_ID
 
+adjust_by_hours = 7
+
 class HrInheritAttendance(models.Model):
     _inherit = "hr.attendance"
 
     status_kehadiran = fields.Selection([
-        ('ot', 'Tepat Waktu'),
+        ('ot', 'Ontime'),
         ('tlb', 'Terlambat'),
         ('skt', 'Sakit'),
         ('i', 'Ijin')
@@ -15,16 +17,21 @@ class HrInheritAttendance(models.Model):
     
     long_position = fields.Char('Long Position')
     lat_position = fields.Char('Lat Position')
+    
     latetime = fields.Float('Late Time (minutes)', compute='_compute_status_kehadiran', store=True)
+    
+    url_checkin = fields.Char('URL Check-in', help='URL of the check-in image')
+    url_checkout = fields.Char('URL Check-out', help='URL of the check-out image')
+    
 
     @api.depends('check_in', 'check_out')
     def _compute_status_kehadiran(self):
         for record in self:
-            current_time = datetime.now() + timedelta(hours=7)
+            current_time = datetime.now() + timedelta(hours= adjust_by_hours)
 
             standard_check_in_time = current_time.replace(hour=8, minute=0, second=0, microsecond=0)
             
-            if standard_check_in_time - timedelta(minutes=15) <= current_time <= standard_check_in_time + timedelta(minutes=15):
+            if standard_check_in_time - timedelta(minutes=30) <= current_time <= standard_check_in_time + timedelta(minutes=15):
                 record.status_kehadiran = 'ot'  # On time
                 record.latetime = 0.0  # No late time if on time
             else:
@@ -47,7 +54,7 @@ class HrEmployeeBaseInherit(models.AbstractModel):
             Check Out: modify check_out field of appropriate attendance record
         """
         self.ensure_one()
-        action_date = fields.Datetime.now() - timedelta(hours=7)
+        action_date = fields.Datetime.now() - timedelta(hours= adjust_by_hours)
 
         if self.attendance_state != 'checked_in':
             vals = {
@@ -67,7 +74,7 @@ class HrEmployeeBaseInherit(models.AbstractModel):
         return attendance
     
     def _compute_hours_last_month(self):
-        now = fields.Datetime.now() - timedelta(hours=7)
+        now = fields.Datetime.now() - timedelta(hours= adjust_by_hours)
         now_utc = pytz.utc.localize(now)
         for employee in self:
             tz = pytz.timezone(employee.tz or 'UTC')
@@ -95,7 +102,7 @@ class HrEmployeeBaseInherit(models.AbstractModel):
             
         
     def _compute_hours_today(self):
-        now = fields.Datetime.now() - timedelta(hours=7)
+        now = fields.Datetime.now() - timedelta(hours= adjust_by_hours)
         now_utc = pytz.utc.localize(now)
         for employee in self:
             # start of day in the employee's timezone might be the previous day in utc
@@ -117,23 +124,25 @@ class HrEmployeeBaseInherit(models.AbstractModel):
             employee.hours_today = worked_hours
     
 
-    def _attendance_action_change(self):
+    def _attendance_action_change(self, url):
         """ Check In/Check Out action
-            Check In: create a new attendance record
-            Check Out: modify check_out field of appropriate attendance record
+            Check In: create a new attendance record with check-in URL
+            Check Out: modify check_out field and add check-out URL to appropriate attendance record
         """
         self.ensure_one()
-        action_date = fields.Datetime.now() - timedelta(hours=7)
+        action_date = fields.Datetime.now() - timedelta(hours=adjust_by_hours)
 
         if self.attendance_state != 'checked_in':
             vals = {
                 'employee_id': self.id,
                 'check_in': action_date,
+                'url_checkin': url,
             }
             return self.env['hr.attendance'].create(vals)
         attendance = self.env['hr.attendance'].search([('employee_id', '=', self.id), ('check_out', '=', False)], limit=1)
         if attendance:
             attendance.check_out = action_date
+            attendance.url_checkout = url
         else:
             raise exceptions.UserError(_('Cannot perform check out on %(empl_name)s, could not find corresponding check in. '
                 'Your attendances have probably been modified manually by human resources.') % {'empl_name': self.sudo().name, })
