@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, exceptions, _, SUPERUSER_ID
 
-adjust_by_hours = 7
+adjust_by_hours = 0
 
 class HrInheritAttendance(models.Model):
     _inherit = "hr.attendance"
