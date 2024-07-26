@@ -113,16 +113,16 @@ class RaportSiswaSTS(models.Model):
         }) for line in self.mulok_siswa_ids]
 
 
-        default['prestasi_siswa_ids'] = [(0, 0, {
-            'nama' : line.nama,
-            'student_id': line.student_id.id,
-            'nis_nisn': line.nis_nisn,
-            'instansi': line.instansi,
-            'url': line.url,
-            'semester_id': line.semester_id,
-            'tahun_pelajaran': line.tahun_pelajaran.id,
-            'note': line.note,
-        }) for line in self.prestasi_siswa_ids]
+        # default['prestasi_siswa_ids'] = [(0, 0, {
+        #     'nama' : line.nama,
+        #     'student_id': line.student_id.id,
+        #     'nis_nisn': line.nis_nisn,
+        #     'instansi': line.instansi,
+        #     'url': line.url,
+        #     'semester_id': line.semester_id,
+        #     'tahun_pelajaran': line.tahun_pelajaran.id,
+        #     'note': line.note,
+        # }) for line in self.prestasi_siswa_ids]
 
         return super(RaportSiswaSTS, self).copy(default)
     

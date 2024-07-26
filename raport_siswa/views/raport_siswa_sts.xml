@@ -115,7 +115,7 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Mulok">
+                        <group string="Muatan Lokal">
                             <field name="mulok_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
@@ -125,7 +125,7 @@
                                 </tree>
                             </field>
                         </group>
-                        <group col= "4" string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group col= "4" string="Perkembangan Karakter Siswa" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="mandiri"/>
                             <field name="disiplin"/>
                             <field name="tertib"/>
@@ -142,7 +142,7 @@
                                     <field name="penglihatan"/>
                                     <field name="gigi"/>
                         </group>
-                        <group string="Catatan Prestasi" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group string="Catatan Prestasi Siswa" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="prestasi_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="nama"/>
@@ -150,7 +150,7 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Catatan Kegiatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group string="Catatan Kegiatan Sekolah" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="kegiatan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="nama"/>
@@ -158,7 +158,7 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Ketidakhadiran" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group string="Catatan Ketidakhadiran" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
                             <field name="sakit"/>
                             <field name="ijin"/>
                             <field name="tanpa_ket"/>

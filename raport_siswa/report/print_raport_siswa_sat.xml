@@ -103,7 +103,7 @@
                             visibility: hidden;
                         }
                     </style>
-                    <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 110%; margin-bottom: 10px;" />
+                    <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 98%; margin-bottom: 10px;" />
 
                         
                     <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
@@ -207,7 +207,7 @@
                     </div>
 
                     <div style="page-break-inside: avoid; margin-top: 35px;">
-                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Karakter</h2>
+                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Perkembangan Karakter Siswa</h2>
                         <table class="raport-details">
                             <tbody>
                                 <tr t-if="o.mandiri">
@@ -248,7 +248,7 @@
 
                     <t t-if="o.prestasi_siswa_ids">
                         <div style="page-break-inside: avoid; margin-top: 35px;">
-                            <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Prestasi</h2>
+                            <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Catatan Prestasi Siswa</h2>
                             <table class="raport-details">
                                 <tbody>
                                     <t t-foreach="o.prestasi_siswa_ids" t-as="line">
@@ -264,7 +264,7 @@
 
                     <t t-if="o.kegiatan_siswa_ids">
                         <div style="page-break-inside: avoid; margin-top: 35px;">
-                            <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Kegiatan</h2>
+                            <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Kegiatan Sekolah</h2>
                             <table class="raport-details">
                                 <tbody>
                                     <t t-foreach="o.kegiatan_siswa_ids" t-as="line">
@@ -279,7 +279,7 @@
                     </t>
 
                     <div style="page-break-inside: avoid; margin-top: 35px;">
-                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; ">Perkembangan Fisik</h2>
+                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold; ">Perkembangan Fisik dan Kesehatan</h2>
                         <table class="raport-details">
                             <thead>
                                 <tr>
@@ -306,7 +306,7 @@
 
 
                     <div style="page-break-inside: avoid; margin-top: 35px;">
-                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Ketidakhadiran</h2>
+                        <h2 style="text-align: center; font-size: 1.45em; margin-top: 35px; font-weight: bold;">Catatan Ketidakhadiran</h2>
                         <table class="raport-details" style="border-collapse: collapse;">
                             <tbody>
                                 <tr >
@@ -370,11 +370,11 @@
                                 <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
                             </tr>
                             <tr>
-                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 12px;"> <span t-field="o.ttd_ortu"/> </td>
+                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 20px;"> <span t-field="o.ttd_ortu"/> </td>
                                 <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_walas"/> </td>
+                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_walas"/> </td>
                                 <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_kepsek"/> </td>
+                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_kepsek"/> </td>
                             </tr>
                         </table>
 
@@ -382,14 +382,14 @@
                             <div class="row">
                                 <div align="center">
                                     <i>
-                                        <span style="font: bold italic 14px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.student_id.name"></span> - <span style="font: bold italic 14px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.kelas_id.name"></span>
+                                        <span style="font: bold italic 11px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.student_id.name"></span> - <span style="font: bold italic 11px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.kelas_id.name"></span>
                                     </i>
                                 </div>
                                 <div style="position: absolute; left: 51%;">
                                     <span class="page" />
                                 </div>
                                 <div style="position: absolute; left: 75%;">
-                                    <span style="font: bold italic 14px Verdana, sans-serif !important;" > e-Rapor Arrasyid v.1.5.0 </span> 
+                                    <span style="font: bold italic 11px Verdana, sans-serif !important;" > e-Rapor Arrasyid v.1.5.0 </span> 
                                 </div>
                             </div>
                         </div>
