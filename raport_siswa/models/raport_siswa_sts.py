@@ -13,6 +13,7 @@ class RaportSiswaSTS(models.Model):
         ('STS', 'STS'),
         ('SAS', 'SAS'),
         ('SAT', 'SAT'),
+        ('IEP', 'IEP'),
     ], 'Jenis Raport')
 
     # Identitas
@@ -68,7 +69,59 @@ class RaportSiswaSTS(models.Model):
     # Keputusan dan Saran
     ksmpln_saran = fields.Text('Kesimpulan Saran')
     keputusan_siswa = fields.Text('Keputusan')
+    
+    #IEP------------------------------------------------------------------------------------------------------------------------------
 
+    #Intrapersonal
+    emosi_indikator = fields.Text('Indikator Pencapaian')
+    emosi_capaian = fields.Text('Pencapaian')
+    
+    pd_indikator = fields.Text('Indikator Pencapaian')
+    pd_capaian = fields.Text('Pencapaian')
+    
+    fokus_indikator = fields.Text('Pencapaian')
+    fokus_capaian = fields.Text('Pencapaian')
+    
+    tanggung_jawab_indikator = fields.Text('Indikator Pencapaian')
+    tanggung_jawab_capaian = fields.Text('Pencapaian')
+    
+    #Interpersonal
+    
+    sosial_indikator = fields.Text('Indikator Pencapaian')
+    sosial_capaian = fields.Text('Pencapaian')
+    
+    kerjasama_indikator = fields.Text('Indikator Pencapaian')
+    kerjasama_capaian = fields.Text('Pencapaian')
+    
+    #Bahasa
+    ekspresi_indikator = fields.Text('Indikator Pencapaian')
+    ekspresi_capaian = fields.Text('Pencapaian')
+    
+    catul_indikator = fields.Text('Indikator Pencapaian')
+    catul_capaian = fields.Text('Pencapaian')
+    
+    instruksi_indikator = fields.Text('Indikator Pencapaian')
+    instruksi_capaian = fields.Text('Pencapaian')
+    
+    arah_indikator = fields.Text('Indikator Pencapaian')
+    arah_capaian = fields.Text('jelas Pencapaian')
+    
+    #Kognitif
+    
+    problemsolving_indikator = fields.Text('Indikator Pencapaian')
+    problemsolving_capaian = fields.Text('Pencapaian')
+    
+    #Kinestetik
+    
+    motorik_indikator = fields.Text('Indikator Pencapaian')
+    motorik_capaian = fields.Text('Pencapaian')
+    
+    minat_siswa_ids = fields.One2many('raport.siswa.minat', 'raport_id', 'Minat dan Bakat')
+    
+    koordinator = fields.Char('Koordinator Inklusi')
+    pendamping = fields.Char('Guru Pendamping Khusus')
+    
+    #IEP------------------------------------------------------------------------------------------------------------------------------
     # Tanda Tangan
     ttd_ortu = fields.Text('Orang Tua / Wali')
     ttd_walas = fields.Text('Wali Kelas')
@@ -152,6 +205,12 @@ class RaportSiswaSTS(models.Model):
     def get_report_sat_filename(self):
         # Assuming `self` is a single record
         filename = 'Raport SAT_{}_{}'.format(self.student_id.name, datetime.datetime.now().strftime('%d-%m-%Y'))
+        return filename
+    
+    @api.model
+    def get_report_iep_filename(self):
+        # Assuming `self` is a single record
+        filename = 'Raport IEP_{}_{}'.format(self.student_id.name, datetime.datetime.now().strftime('%d-%m-%Y'))
         return filename
     
     @api.depends('student_id.course_detail_ids')
@@ -250,6 +309,14 @@ class KegiatanSiswa(models.Model):
     raport_id = fields.Many2one('raport.siswa.sts')
     nama = fields.Text('Nama Kegiatan', size=8)
     deskripsi = fields.Text('Deskripsi Kegiatan', size=8)
+    
+class MinatBakatSiswa(models.Model):
+    _name = "raport.siswa.minat"
+    _description = "Minat dan Bakat siswa"
+
+    raport_id = fields.Many2one('raport.siswa.sts')
+    aspek_penilaian = fields.Char('Aspek Penilaian', size=8)
+    capaian = fields.Text('Hasil Capaian', size=8)
     
 
 class OpStudentRaport(models.Model):
