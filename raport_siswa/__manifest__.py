@@ -11,12 +11,14 @@
     'depends': ['openeducat_core'],
     'data': [
         'security/ir.model.access.csv',
-        'report/print_raport_siswa_iep.xml',
-        'report/print_raport_siswa_sts.xml',
-        'report/print_raport_siswa_sas.xml',
-        'report/print_raport_siswa_sat.xml',
+        'report/arrasyid/print_raport_siswa_iep.xml',
+        'report/arrasyid/print_raport_siswa_sts.xml',
+        'report/arrasyid/print_raport_siswa_sas.xml',
+        'report/arrasyid/print_raport_siswa_sat.xml',
         'views/raport_siswa_sts.xml',
+        'views/raport_kampung_sawah.xml',
         'views/student_inherit_raport_view.xml',
+        'views/raport_kampung_sawah_perilaku.xml',
         'data/ir_sequence_data.xml'
         
     ],

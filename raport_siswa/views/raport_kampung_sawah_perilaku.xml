@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="paperformat_custom_a4" model="report.paperformat">
+            <field name="name">Custom A4 (No Top Margin)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">500</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Report action for generating PDF -->
+        <record id="action_raport_kampung_sawah_perilaku" model="ir.actions.report">
+            <field name="name">Format Perilaku</field>
+            <field name="model">raport.kampung.sawah.perilaku</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_kampung_sawah_perilaku</field>
+            <field name="report_file">raport_siswa.print_raport_kampung_sawah_perilaku</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_perilaku_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4"/>
+        </record>
+        
+
+
+        <record id="view_raport_kampung_sawah_tree" model="ir.ui.view">
+            <field name="name">raport.kampung.sawah.perilaku.tree</field>
+            <field name="model">raport.kampung.sawah.perilaku</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Raport">
+                    <field name="student_id"/>
+                    <field name="nis_nisn"/>
+                    <field name="kelas_id"/>
+                    <field name="grade_id"/>
+                    <field name="tahun_pelajaran"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_raport_kampung_sawah_perilaku_form" model="ir.ui.view">
+            <field name="name">raport.kampung.sawah.perilaku.form</field>
+            <field name="model">raport.kampung.sawah.perilaku</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="func_approve" type="object" string="Approve" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="func_publish" type="object" string="Publish" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
+                        <button name="func_cancel" type="object" string="Cancel" class="btn-danger" confirm="Yakin mau di Cancel?" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
+                        <button name="func_set_draft" type="object" string="Set To Draft" class="btn-danger" confirm="Yakin mau di set ke draft?" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve,publish,cancel"/>
+                    </header>
+                    
+                    <sheet>
+                        <group col="4">
+                            <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="nis_nisn"/>
+                            <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
+                        </group>
+        
+                        <group col="8" string="Mengetahui" >
+                            <field name="ttd_ortu"/>
+                            <field name="ttd_kepsek"/>
+                            <field name="ttd_walas"/>
+                        </group>
+        
+                        <group string="Perkembangan Kemandirian Personal" >
+                            <field name="perilaku_siswa_ids_1" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="nama"/>
+                                    <field name="SB"/>
+                                    <field name="B"/>
+                                    <field name="C"/>
+                                    <field name="PD"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Perkembangan Perilaku Sosial" >
+                            <field name="perilaku_siswa_ids_2" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="nama"/>
+                                    <field name="SB"/>
+                                    <field name="B"/>
+                                    <field name="C"/>
+                                    <field name="PD"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Perkembangan Emosi dan Kemampuan Problem Solving" >
+                            <field name="perilaku_siswa_ids_3" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="nama"/>
+                                    <field name="SB"/>
+                                    <field name="B"/>
+                                    <field name="C"/>
+                                    <field name="PD"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Perkembangan Kemampuan Pada Kegiatan kelas" >
+                            <field name="perilaku_siswa_ids_4" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="nama"/>
+                                    <field name="SB"/>
+                                    <field name="B"/>
+                                    <field name="C"/>
+                                    <field name="PD"/>
+                                </tree>
+                            </field>
+                        </group>
+                    
+                    
+                        
+                    </sheet>
+                    
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+
+        <record id="view_raport_kampung_sawah_search" model="ir.ui.view">
+            <field name="name">raport.kampung.sawah.perilaku.search</field>
+            <field name="model">raport.kampung.sawah.perilaku</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Raport Siswa">
+                    <field name="grade_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Rombel" name="group_by_grade_id" domain="[]" context="{'group_by':'grade_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="raport_kampung_sawah_perilaku_action" model="ir.actions.act_window">
+            <field name="name">Raport Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">raport.kampung.sawah.perilaku</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create"></p>
+            </field>
+        </record>
+
+        <!-- Menu item to access Raport Siswa -->
+
+
+        <menuitem id="menu_raport_kampung_sawah_perilaku"
+                  name="Raport Perilaku"
+                  parent="menu_raport_kampung_sawah_root"
+                  sequence="6"
+                  action="raport_kampung_sawah_perilaku_action"
+                  groups="openeducat_core.group_op_faculty"/>
+
+
+        <record id="paperformat_custom_a4" model="report.paperformat">
+            <field name="name">Custom A4 (No Top Margin)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">7</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        
+
+        <!-- Add these actions to the existing action -->
+        <record id="raport_kampung_sawah_perilaku_action" model="ir.actions.act_window">
+            <field name="name">Raport Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">raport.kampung.sawah.perilaku</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create"></p>
+            </field>
+            <field name="context">{
+                'custom_report_preview_action': 'action_custom_report_preview',
+                'custom_report_download_action': 'action_custom_report_download',
+            }</field>
+        </record>
+
+
+
+    </data>
+</odoo>
