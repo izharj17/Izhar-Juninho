@@ -312,10 +312,16 @@
         </record>
 
         <!-- Menu item to access Raport Siswa -->
-        <menuitem id="menu_raport_siswa_sts"
-                  name="Raport SD"
+        <menuitem id="menu_raport_siswa_sts_root"
+                  name="Raport Ar-Rasyid"
                   parent="openeducat_core.menu_op_report_main"
                   sequence="2"
+                  groups="openeducat_core.group_op_faculty"/>
+        
+        <menuitem id="menu_raport_siswa_sts"
+                  name="Raport SD"
+                  parent="menu_raport_siswa_sts_root"
+                  sequence="3"
                   action="raport_siswa_sts_action"
                   groups="openeducat_core.group_op_faculty"/>
 
