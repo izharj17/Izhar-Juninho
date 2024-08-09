@@ -2,17 +2,17 @@
 <odoo>
     <data>
 
-        <record id="paperformat_custom_a4" model="report.paperformat">
+        <record id="paperformat_custom_a4_ks" model="report.paperformat">
             <field name="name">Custom A4 (No Top Margin)</field>
             <field name="default" eval="True"/>
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">500</field>
+            <field name="margin_top">32</field>
             <field name="margin_bottom">10</field>
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">45</field>
+            <field name="header_spacing">32</field>
             <field name="dpi">90</field>
         </record>
 
@@ -26,12 +26,12 @@
             <field name="binding_model_id" eval="False"/>
             <field name="binding_type">report</field>
             <field name="print_report_name">object.get_report_perilaku_filename()</field>
-            <field name="paperformat_id" ref="paperformat_custom_a4"/>
+            <field name="paperformat_id" ref="paperformat_custom_a4_ks"/>
         </record>
         
 
 
-        <record id="view_raport_kampung_sawah_tree" model="ir.ui.view">
+        <record id="view_raport_kampung_sawah_perilaku_tree" model="ir.ui.view">
             <field name="name">raport.kampung.sawah.perilaku.tree</field>
             <field name="model">raport.kampung.sawah.perilaku</field>
             <field name="priority" eval="8"/>
@@ -58,6 +58,9 @@
                         <button name="func_cancel" type="object" string="Cancel" class="btn-danger" confirm="Yakin mau di Cancel?" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
                         <button name="func_set_draft" type="object" string="Set To Draft" class="btn-danger" confirm="Yakin mau di set ke draft?" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approve,publish,cancel"/>
+                        <button name="%(action_raport_kampung_sawah_perilaku)d" string="Print Perilaku" type="action" class="oe_highlight">
+                            <i class="fa fa-print"/> Print Perilaku
+                        </button>
                     </header>
                     
                     <sheet>
@@ -67,6 +70,13 @@
                             <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
                             <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/>
                             <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
+
+                            
+                        </group>
+
+                        <group col="8" string="Jangka Waktu" >
+                            <field name="start_month"/>
+                            <field name="end_month"/>
                         </group>
         
                         <group col="8" string="Mengetahui" >
@@ -122,6 +132,12 @@
                                 </tree>
                             </field>
                         </group>
+
+                        <group col="8" string="Kesimpulan" >
+                            <field name="kesimpulan"/>
+                        </group>
+
+
                     
                     
                         
@@ -161,32 +177,7 @@
             </field>
         </record>
 
-        <!-- Menu item to access Raport Siswa -->
 
-
-        <menuitem id="menu_raport_kampung_sawah_perilaku"
-                  name="Raport Perilaku"
-                  parent="menu_raport_kampung_sawah_root"
-                  sequence="6"
-                  action="raport_kampung_sawah_perilaku_action"
-                  groups="openeducat_core.group_op_faculty"/>
-
-
-        <record id="paperformat_custom_a4" model="report.paperformat">
-            <field name="name">Custom A4 (No Top Margin)</field>
-            <field name="default" eval="True"/>
-            <field name="format">A4</field>
-            <field name="orientation">Portrait</field>
-            <field name="margin_top">7</field>
-            <field name="margin_bottom">10</field>
-            <field name="margin_left">10</field>
-            <field name="margin_right">10</field>
-            <field name="header_line" eval="False"/>
-            <field name="header_spacing">5</field>
-            <field name="dpi">90</field>
-        </record>
-
-        
 
         <!-- Add these actions to the existing action -->
         <record id="raport_kampung_sawah_perilaku_action" model="ir.actions.act_window">

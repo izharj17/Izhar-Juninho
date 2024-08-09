@@ -219,12 +219,41 @@ class RaportKampungSawahLine(models.Model):
     raport_id = fields.Many2one('raport.kampung.sawah')
     subject_id = fields.Many2one('op.subject', 'Mata Pelajaran')
     tahu_nilai = fields.Integer('Nilai Pengetahuan', size=8)
-    tahu_predikat = fields.Char('Predikat', size = 3)
-    tahu_deskripsi =fields.Text('Kompetensi Pengetahuan', size=8)
+    tahu_predikat = fields.Char('Predikat', size=3, compute='_compute_tahu_predikat', store=True)
+    tahu_deskripsi = fields.Text('Kompetensi Pengetahuan', size=8)
 
     terampil_nilai = fields.Integer('Nilai Keterampilan', size=8)
-    terampil_predikat = fields.Char('Predikat', size = 3)
-    terampil_deskripsi =fields.Text('Kompetensi Keterampilan', size=8)
+    terampil_predikat = fields.Char('Predikat', size=3, compute='_compute_terampil_predikat', store=True)
+    terampil_deskripsi = fields.Text('Kompetensi Keterampilan', size=8)
+
+    @api.depends('tahu_nilai')
+    def _compute_tahu_predikat(self):
+        for record in self:
+            if 81 <= record.tahu_nilai <= 100:
+                record.tahu_predikat = 'A'
+            elif 71 <= record.tahu_nilai <= 80:
+                record.tahu_predikat = 'B'
+            elif 61 <= record.tahu_nilai <= 70:
+                record.tahu_predikat = 'C'
+            elif 0 <= record.tahu_nilai <= 60:
+                record.tahu_predikat = 'PB'
+            else:
+                record.tahu_predikat = ''
+
+    @api.depends('terampil_nilai')
+    def _compute_terampil_predikat(self):
+        for record in self:
+            if 81 <= record.terampil_nilai <= 100:
+                record.terampil_predikat = 'A'
+            elif 71 <= record.terampil_nilai <= 80:
+                record.terampil_predikat = 'B'
+            elif 61 <= record.terampil_nilai <= 70:
+                record.terampil_predikat = 'C'
+            elif 0 <= record.terampil_nilai <= 60:
+                record.terampil_predikat = 'PB'
+            else:
+                record.terampil_predikat = ''
+                
     
 class RaportKampungSawahLine1_5(models.Model):
     _name = "raport.kampung.sawah.line.15"

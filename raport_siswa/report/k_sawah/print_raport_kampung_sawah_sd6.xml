@@ -1,0 +1,529 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <template id="header_template_ks">
+        <div class="header">
+            <img src="/raport_siswa/static/src/img/header_ks.png" alt="Header Image" style="max-width: 100%; margin-bottom: 10px;" />
+        </div>
+    </template>
+
+    <template id="print_raport_kampung_sawah_sd6">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="raport_siswa.header_template_ks"/>
+                <div class="page">
+
+                </div>
+                <div class="page">
+                    
+                    <style>
+                        /* Global settings */
+                        body, p, h1, h2, h3, table {
+                            font-family: 'Times New Roman', serif;
+                        }
+                    
+                        .page {
+                            display: flex;
+                            flex-direction: column;
+                            min-height: 100vh; /* Ensure the page covers the viewport height */
+                            padding-bottom: 60px; /* Space for footer */
+                            position: relative; /* Needed for absolute positioning within */
+                            box-sizing: border-box; /* Include padding and border in the element’s total width and height */
+                        }
+                    
+                        .header {
+                            position: absolute; /* Position absolute for the header */
+                            top: 0;
+                            width: 100%;
+                            height: auto; /* Adjust based on the image height */
+                            z-index: 10; /* Ensure the header is on top */
+                            background: white; /* Add background to avoid overlapping issues */
+                            left: 0; /* Ensure the header is aligned to the left */
+                        }
+                    
+                        .content {
+                            padding-top: 80px; /* Padding for content to start 80px from the top */
+                        }
+                        
+                        .title {
+                            font-family: 'Times New Roman', serif;
+                            font-size: 24px;
+                            font-weight: bold;
+                            text-transform: left;
+                            text-align: left;
+                            margin-top: 20px;
+                            margin-bottom: 20px; 
+                        }
+                    
+                        .greeting {
+                            font-family: 'Times New Roman', serif;
+                            font-size: 18px;
+                            font-style: italic;
+                            text-align: left;
+                            margin-top: 10px;
+                            margin-left: 10px;
+                        }
+                    
+                        .description, .assessment-note {
+                            font-family: 'Times New Roman', serif;
+                            font-size: 18px;
+                            text-align: left;
+                            margin-top: 10px;
+                            margin-left: 10px;
+                            margin-right: 10px;
+                        }
+                    
+                        .assessment-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                            margin-left: 10px;
+                            margin-right: 10px;
+                        }
+                        .assessment-table th, .assessment-table td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .assessment-table th {
+                            background-color: #a9d08e;
+                        }
+                    
+                        .page-break {
+                            page-break-before: always;
+                            clear: both;
+                        }
+
+                        .gap {
+                            display: block;
+                            height: 100px; /* Creates a gap of 40px */
+                        }
+                        
+                        .full-width-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .full-width-table th {
+                            background-color: #a9d08e;
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .full-width-table td {
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .raport-details {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                        }
+                        .raport-details th {
+                            background-color: #a9d08e;
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .raport-details td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .footer-table {
+                            width: 80%;
+                            border-collapse: collapse;
+                            margin-left: 11.5%;
+                        }
+                        .footer-table th, .footer-table td {
+                            text-align: left;
+                            vertical-align: top;
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+                        .footer-table th {
+                            background-color: #a9d08e;
+                        }
+                        .small-cell {
+                            height: 50px;
+                        }
+                        .large-cell {
+                            height: 150px;
+                        }
+                        .footer-table th.orang-tua,
+                        .footer-table td.orang-tua,
+                        .footer-table th.wali-kelas,
+                        .footer-table td.wali-kelas,
+                        .footer-table th.kepala-sekolah,
+                        .footer-table td.kepala-sekolah {
+                            width: 33.33%;
+                            padding: 10px;
+                        }
+                        .invisible-column {
+                            width: 100px;
+                            border: none !important;
+                        }
+                        .invisible-column::before {
+                            content: '\00a0';
+                            visibility: hidden;
+                        }
+                    </style>
+                    
+                    
+                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; ">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
+                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; ">AKHIR TAHUN</h1>
+                   
+                    
+                    <table class="full-width-table">
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%" >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width 15%" ><![CDATA[Nama&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.student_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[NIS&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.student_id.nis"/></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[Usia&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]>
+                                                    <span t-esc="o.student_id.age.split('y')[0]"/> Tahun
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width: 50%" >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[Kelas&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.kelas_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><![CDATA[Semester&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.semester_id"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><![CDATA[Tahun Pelajaran&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.tahun_pelajaran.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><![CDATA[Rombel&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.grade_id.name"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 style="text-align: left; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">A. Sikap</h2>
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th colspan="3">Hasil Observasi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 10%">1</td>
+                                <td style="width: 30%">Sikap Spiritual</td>
+                                <td><span t-field="o.spiritual"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%">2</td>
+                                <td style="width: 30%">Sikap Sosial</td>
+                                <td><span t-field="o.sosial"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="page-break"></div>
+
+                    <h2 style="text-align: left; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">B. Pengetahuan dan Keterampilan</h2>
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" style="width: 5%">No</th>
+                                <th rowspan="2" style="width: 15%">Muatan Pelajaran</th>
+                                <th colspan="3" style="width: 40%">Pengetahuan</th>
+                                <th colspan="3" style="width: 40%">Keterampilan</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 5%">Nilai</th>
+                                <th style="width: 5%">Predikat</th>
+                                <th style="width: 30%">Deskripsi</th>
+                                
+                                <th style="width: 5%">Nilai</th>
+                                <th style="width: 5%">Predikat</th>
+                                <th style="width: 30%">Deskripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="0"/>
+                            <t t-foreach="o.raport_siswa_ids" t-as="line">
+                                <tr>
+                                    <td><t t-esc="counter + 1"/></td>
+                                    <td><span t-field="line.subject_id" style="text-align: left !important;"/></td>
+
+                                    <td><span t-field="line.tahu_nilai"/></td>
+                                    <td style="text-align: center !important;"><span t-field="line.tahu_predikat"/></td>
+                                    <td><span t-field="line.tahu_deskripsi" style="text-align: left !important;"/></td>
+
+                                    <td><span t-field="line.terampil_nilai"/></td>
+                                    <td style="text-align: center !important;"><span t-field="line.terampil_predikat" /></td>
+                                    <td><span t-field="line.terampil_deskripsi" style="text-align: left !important;"/></td>
+                                    
+                                </tr>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+
+
+
+                    <h2 style="text-align: left; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">C. Laporan Hasil Project</h2>
+
+                        <div style="page-break-inside: avoid; margin-top: 35px;">
+                            <table class="raport-details">
+                                
+                                <thead>
+                                    <th style="width: 25%">Jenis Proyek</th>
+                                    <th style="width: 25%">Judul Project/Produk</th>
+                                    <th style="width: 50%">Keterangan</th> 
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.proyek_siswa_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-field="line.jenis_proyek"/></td>
+                                            <td><span t-field="line.nama"/></td>
+                                            <td><span t-field="line.deskripsi"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <!-- BTQ -->
+
+                    
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
+                        <h2 style="text-align: left; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">D. Laporan Tahsin dan Tahfiz Al Qur`an</h2>
+                        <table class="raport-details">
+                            <thead>
+                                
+                                    <th colspan="2" style="width: 35%">Capaian</th>
+                                    <th style="width: 65%">Keterangan</th> 
+                                
+
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2" style="width: 15% vertical-align: middle;">BTQ</td>
+                                    <td style="width: 20%"> Menulis Al-Qur`an</td>
+                                    <td><span t-field="o.menulis"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%"> Membaca Al-Qur`an</td>
+                                    <td><span t-field="o.membaca"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Tahfiz</td>
+                                    <td><span t-field="o.tahfiz"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Leadership -->
+
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
+                        <h2 style="text-align: left; font-size: 1.45em; margin-top: 35px; font-weight: bold;">E. Laporan Kegiatan Leadership</h2>
+                        <table class="raport-details">
+                            <thead>
+                            
+                                    <th style="width: 25%">Jenis Kegiatan</th>
+                                    <th style="width: 65%">Keterangan</th> 
+    
+                            </thead>
+                            <tbody>
+                                <tr t-if="o.pra_leader">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Pra Leadership Kids Camp</td>
+                                    <td><span t-field="o.pra_leader"/></td>
+                                </tr>
+                                <tr t-if="o.leader">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Leadership Kids Camp</td>
+                                    <td><span t-field="o.leader"/></td>
+                                </tr>
+                                <tr t-if="o.live_in">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Live In</td>
+                                    <td><span t-field="o.live_in"/></td>
+                                </tr>
+                                <tr t-if="o.outbond">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Outbond</td>
+                                    <td><span t-field="o.outbond"/></td>
+                                </tr>
+                                <tr t-if="o.panahan">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Panahan</td>
+                                    <td><span t-field="o.panahan"/></td>
+                                </tr>
+                                <tr t-if="o.berenang">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Berenang</td>
+                                    <td><span t-field="o.berenang"/></td>
+                                </tr>
+                                <tr t-if="o.tradisional">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Permainan Tradisional</td>
+                                    <td><span t-field="o.tradisional"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Bisnis -->
+
+                    <div style="page-break-inside: avoid; margin-top: 35px;">
+                        <h2 style="text-align: left; font-size: 1.45em; margin-top: 35px; font-weight: bold;">F. Laporan Kegiatan Bisnis</h2>
+                        <table class="raport-details">
+                            <thead>
+                                    <th style="width: 25%">Jenis Kegiatan</th>
+                                    <th style="width: 65%">Keterangan</th> 
+                            </thead>
+                            <tbody>
+                                <tr t-if="o.market">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Market Day</td>
+                                    <td><span t-field="o.market"/></td>
+                                </tr>
+                                <tr t-if="o.pra_magang">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Pra Magang</td>
+                                    <td><span t-field="o.pra_magang"/></td>
+                                </tr>
+                                <tr t-if="o.magang">
+                                    <td style="width: 25%; border: 1px solid black; padding: 5px; text-align: left; vertical-align: middle;">Magang</td>
+                                    <td><span t-field="o.magang"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <!-- Eskul -->
+                    
+
+                        <div style="page-break-inside: avoid; margin-top: 35px;">
+                            <h2 style="text-align: left; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">G. Ekstrakurikuler</h2>
+                            <table class="raport-details">
+                                <thead>
+                                    <th style="width: 5%">No</th>
+                                    <th >Ekstrakurikuler</th>
+                                    <th >Keterangan</th> 
+                                </thead>
+                                <tbody>
+                                    <t t-set="counter" t-value="0"/>
+                                    <t t-foreach="o.eskul_siswa_ids" t-as="line">
+                                        <tr>
+                                            <td><t t-esc="counter + 1"/></td>
+                                            <td><span t-field="line.nama"/></td>
+                                            <td><span t-field="line.deskripsi"/></td>
+                                        </tr>
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="page-break-inside: avoid; margin-top: 35px;">
+                            <table class="raport-details" style="border-collapse: collapse;">
+                                <thead>
+                                    <th colspan="2">Ketidakhadiran</th>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <td style="width: 75%; border: 1px solid black; padding: 5px;">Sakit</td>
+                                        <td style="border: 1px solid black; padding: 5px;"><span t-field="o.sakit"/></td>
+                                    </tr>
+                                    <tr >
+                                        <td style="width: 75%; border: 1px solid black; padding: 5px;">Izin</td>
+                                        <td style="border: 1px solid black; padding: 5px;"><span t-field="o.ijin"/></td>
+                                    </tr>
+                                    <tr >
+                                        <td style="width: 75%; border: 1px solid black; padding: 5px;">Tanpa Keterangan</td>
+                                        <td style="border: 1px solid black; padding: 5px;"><span t-field="o.tanpa_ket"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+
+
+
+
+
+
+                    
+
+                        <div class="row" style= "margin-top: 40px; margin-bottom: 20px ;" >
+                            <div align="center" style="margin-left: 13%">
+                                Mengetahui, 
+                            </div>
+
+                            <div style="position: absolute; left: 71%;">
+                                Depok, <t t-esc="o.get_current_date()"/>
+                            </div>
+                        </div>
+                        
+
+                        
+                        
+                        
+                        <!-- Footer table -->
+                        <table class="footer-table">
+                            <tr style = "height: 12px; line-height: 12px;">
+                                <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell kepala-sekolah" style = "height: 12px; line-height: 12px;">Kepala Sekolah</th>
+                            </tr>
+                            <tr>
+                                <td class="large-cell orang-tua"></td>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="large-cell wali-kelas"></td>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
+                            </tr>
+                            <tr>
+                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 20px;"> <span t-field="o.ttd_ortu"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_walas"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_kepsek"/> </td>
+                            </tr>
+                        </table>
+
+                        <div class="footer">
+                            <div class="row">
+                                <!-- <div align="center">
+                                    <i>
+                                        <span style="font: bold italic 11px Verdana, sans-serif !important; text-transform: left; !important" t-field="o.student_id.name"></span> - <span style="font: bold italic 11px Verdana, sans-serif !important; text-transform: left; !important" t-field="o.kelas_id.name"></span>
+                                    </i>
+                                </div> -->
+                                <div style="position: absolute; left: 51%;">
+                                    <span class="page" />
+                                </div>
+                                <!-- <div style="position: absolute; left: 75%;">
+                                    <span style="font: bold italic 11px Verdana, sans-serif !important;" > e-Rapor Arrasyid v.1.5.0 </span> 
+                                </div> -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

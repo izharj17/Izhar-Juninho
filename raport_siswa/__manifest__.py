@@ -15,10 +15,15 @@
         'report/arrasyid/print_raport_siswa_sts.xml',
         'report/arrasyid/print_raport_siswa_sas.xml',
         'report/arrasyid/print_raport_siswa_sat.xml',
+        'report/k_sawah/print_raport_kampung_sawah_perilaku.xml',
+        'report/k_sawah/print_raport_kampung_sawah_sd6.xml',
+        'report/k_sawah/print_raport_kampung_sawah_sd15.xml',
         'views/raport_siswa_sts.xml',
+        'views/raport_kampung_sawah_perilaku.xml',
         'views/raport_kampung_sawah.xml',
         'views/student_inherit_raport_view.xml',
-        'views/raport_kampung_sawah_perilaku.xml',
+        # 'menu/arrasyid_menu.xml',
+        'menu/ks_menu.xml',
         'data/ir_sequence_data.xml'
         
     ],

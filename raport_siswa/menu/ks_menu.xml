@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Menu item to access Raport Siswa -->
+        <menuitem id="menu_raport_kampung_sawah_root"
+                  name="Raport Kampung Sawah"
+                  parent="openeducat_core.menu_op_report_main"
+                  sequence="5"
+                  groups="openeducat_core.group_op_faculty"/>
+
+        <menuitem id="menu_raport_kampung_sawah_SD"
+                  name="Raport SD"
+                  parent="menu_raport_kampung_sawah_root"
+                  sequence="6"
+                  action="raport_kampung_sawah_action"
+                  groups="openeducat_core.group_op_faculty"/>
+                  
+        <menuitem id="menu_raport_kampung_sawah_perilaku"
+                  name="Raport Perilaku"
+                  parent="menu_raport_kampung_sawah_root"
+                  sequence="6"
+                  action="raport_kampung_sawah_perilaku_action"
+                  groups="openeducat_core.group_op_faculty"/>
+    </data>
+</odoo>
