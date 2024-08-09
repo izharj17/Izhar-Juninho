@@ -6,6 +6,7 @@ class RaportKampungSawah(models.Model):
     _name = "raport.kampung.sawah.perilaku"
     _description = "Raport Kampung Sawah"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'student_id'
 
     kode_seq = fields.Char(string="Raport ID", readonly=True)
 
@@ -17,12 +18,48 @@ class RaportKampungSawah(models.Model):
     kelas_id = fields.Many2one('op.course', 'Kelas', readonly=False)
     grade_id = fields.Many2one('op.batch', 'Rombel')
     tahun_pelajaran = fields.Many2one('op.academic.year', 'Tahun Pelajaran')
+    
+    start_month = fields.Selection([
+        ('JA', 'Januari'),
+        ('FB', 'Februari'),
+        ('MR', 'Maret'),
+        ('AP', 'April'),
+        ('ME', 'Mei'),
+        ('JN', 'Juni'),
+        ('JL', 'Juli'),
+        ('AG', 'Agustus'),
+        ('SP', 'September'),
+        ('OK', 'Oktober'),
+        ('NO', 'November'),
+        ('DS', 'Desember'),
+    ], string='Mulai Bulan', required=True)
+    
+    end_month = fields.Selection([
+        ('JA', 'Januari'),
+        ('FB', 'Februari'),
+        ('MR', 'Maret'),
+        ('AP', 'April'),
+        ('ME', 'Mei'),
+        ('JN', 'Juni'),
+        ('JL', 'Juli'),
+        ('AG', 'Agustus'),
+        ('SP', 'September'),
+        ('OK', 'Oktober'),
+        ('NO', 'November'),
+        ('DS', 'Desember'),
+    ], string='Akhir Bulan', required=True)
+
+
 
     # Isi
     perilaku_siswa_ids_1 = fields.One2many('raport.kampung.sawah.perilaku.line.1', 'raport_id', 'Raport Perilaku')
     perilaku_siswa_ids_2 = fields.One2many('raport.kampung.sawah.perilaku.line.2', 'raport_id', 'Raport Perilaku')
     perilaku_siswa_ids_3 = fields.One2many('raport.kampung.sawah.perilaku.line.3', 'raport_id', 'Raport Perilaku')
     perilaku_siswa_ids_4 = fields.One2many('raport.kampung.sawah.perilaku.line.4', 'raport_id', 'Raport Perilaku')
+    
+    # Kesimpulan
+    
+    kesimpulan = fields.Text('Kesimpulan')
 
     # Tanda Tangan
     ttd_ortu = fields.Text('Orang Tua / Wali')

@@ -21,12 +21,24 @@
             <field name="name">Format K13SD6</field>
             <field name="model">raport.kampung.sawah</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">raport_siswa.print_raport_kampung_sawah</field>
-            <field name="report_file">raport_siswa.print_raport_kampung_sawah</field>
+            <field name="report_name">raport_siswa.print_raport_kampung_sawah_sd6</field>
+            <field name="report_file">raport_siswa.print_raport_kampung_sawah_sd6</field>
             <field name="binding_model_id" eval="False"/>
             <field name="binding_type">report</field>
             <field name="print_report_name">object.get_report_SD6_filename()</field>
-            <field name="paperformat_id" ref="paperformat_custom_a4"/>
+            <field name="paperformat_id" ref="paperformat_custom_a4_ks"/>
+        </record>
+
+        <record id="action_raport_kampung_sawah_SD15" model="ir.actions.report">
+            <field name="name">Format SD15</field>
+            <field name="model">raport.kampung.sawah</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_kampung_sawah_sd15</field>
+            <field name="report_file">raport_siswa.print_raport_kampung_sawah_sd15</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_SD1_5_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4_ks"/>
         </record>
         
 
@@ -60,9 +72,12 @@
                         <button name="func_cancel" type="object" string="Cancel" class="btn-danger" confirm="Yakin mau di Cancel?" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
                         <button name="func_set_draft" type="object" string="Set To Draft" class="btn-danger" confirm="Yakin mau di set ke draft?" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approve,publish,cancel"/>
-                        <!-- <button name="%(action_raport_kampung_sawah_K13SD6)d" string="Print K13SD6" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}">
-                            <i class="fa fa-print"/> Print K13SD6
-                        </button> -->
+                        <button name="%(action_raport_kampung_sawah_K13SD6)d" string="Print K13SD6" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}">
+                            <i class="fa fa-print"/> Print Raport
+                        </button>
+                        <button name="%(action_raport_kampung_sawah_SD15)d" string="Print SD15" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'SD1-5')]}">
+                            <i class="fa fa-print"/> Print Raport
+                        </button>
                     </header>
                     
                     <sheet>
@@ -200,19 +215,6 @@
             </field>
         </record>
 
-        <!-- Menu item to access Raport Siswa -->
-        <menuitem id="menu_raport_kampung_sawah_root"
-                  name="Raport Kampung Sawah"
-                  parent="openeducat_core.menu_op_report_main"
-                  sequence="5"
-                  groups="openeducat_core.group_op_faculty"/>
-
-        <menuitem id="menu_raport_kampung_sawah_SD"
-                  name="Raport SD"
-                  parent="menu_raport_kampung_sawah_root"
-                  sequence="6"
-                  action="raport_kampung_sawah_action"
-                  groups="openeducat_core.group_op_faculty"/>
 
 
         <record id="paperformat_custom_a4" model="report.paperformat">

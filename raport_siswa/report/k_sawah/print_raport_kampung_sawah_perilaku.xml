@@ -1,0 +1,477 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <template id="header_template_ks">
+        <div class="header">
+            <img src="/raport_siswa/static/src/img/header_ks.png" alt="Header Image" style="max-width: 100%; margin-bottom: 10px;" />
+        </div>
+    </template>
+
+    <template id="print_raport_kampung_sawah_perilaku">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="raport_siswa.header_template_ks"/>
+                <div class="page">
+
+                </div>
+                <div class="page">
+                    
+                    <style>
+                        /* Global settings */
+                        body, p, h1, h2, h3, table {
+                            font-family: 'Times New Roman', serif;
+                        }
+                    
+                        .page {
+                            display: flex;
+                            flex-direction: column;
+                            min-height: 100vh; /* Ensure the page covers the viewport height */
+                            padding-bottom: 60px; /* Space for footer */
+                            position: relative; /* Needed for absolute positioning within */
+                            box-sizing: border-box; /* Include padding and border in the element’s total width and height */
+                        }
+                    
+                        .header {
+                            position: absolute; /* Position absolute for the header */
+                            top: 0;
+                            width: 100%;
+                            height: auto; /* Adjust based on the image height */
+                            z-index: 10; /* Ensure the header is on top */
+                            background: white; /* Add background to avoid overlapping issues */
+                            left: 0; /* Ensure the header is aligned to the left */
+                        }
+                    
+                        .content {
+                            padding-top: 80px; /* Padding for content to start 80px from the top */
+                        }
+                        
+                        .title {
+                            font-family: 'Times New Roman', serif;
+                            font-size: 24px;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            text-align: center;
+                            margin-top: 20px;
+                            margin-bottom: 20px; 
+                        }
+                    
+                        .greeting {
+                            font-family: 'Times New Roman', serif;
+                            font-size: 18px;
+                            font-style: italic;
+                            text-align: left;
+                            margin-top: 10px;
+                            margin-left: 10px;
+                        }
+                    
+                        .description, .assessment-note {
+                            font-family: 'Times New Roman', serif;
+                            font-size: 18px;
+                            text-align: justify;
+                            margin-top: 10px;
+                            margin-left: 10px;
+                            margin-right: 10px;
+                        }
+                    
+                        .assessment-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                            margin-left: 10px;
+                            margin-right: 10px;
+                        }
+                        .assessment-table th, .assessment-table td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+                        .assessment-table th {
+                            background-color: #a9d08e;
+                        }
+                    
+                        .page-break {
+                            page-break-before: always;
+                            clear: both;
+                        }
+
+                        .gap {
+                            display: block;
+                            height: 100px; /* Creates a gap of 40px */
+                        }
+                        
+                        .full-width-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .full-width-table th {
+                            background-color: #a9d08e;
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+                        .full-width-table td {
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .raport-details {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                        }
+                        .raport-details th {
+                            background-color: #a9d08e;
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+                        .raport-details td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .footer-table {
+                            width: 80%;
+                            border-collapse: collapse;
+                            margin-left: 11.5%;
+                        }
+                        .footer-table th, .footer-table td {
+                            text-align: center;
+                            vertical-align: top;
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+                        .footer-table th {
+                            background-color: #a9d08e;
+                        }
+                        .small-cell {
+                            height: 50px;
+                        }
+                        .large-cell {
+                            height: 150px;
+                        }
+                        .footer-table th.orang-tua,
+                        .footer-table td.orang-tua,
+                        .footer-table th.wali-kelas,
+                        .footer-table td.wali-kelas,
+                        .footer-table th.kepala-sekolah,
+                        .footer-table td.kepala-sekolah {
+                            width: 33.33%;
+                            padding: 10px;
+                        }
+                        .invisible-column {
+                            width: 25px;
+                            border: none !important;
+                        }
+                        .invisible-column::before {
+                            content: '\00a0';
+                            visibility: hidden;
+                        }
+                    </style>
+                    
+
+                    <h1 class="title">KATA PENGANTAR</h1>
+                    <p class="greeting">Assalamu`alaikum Warrahmatullahi Wabarakatuh</p>
+                    <p class="description">Laporan Mid Semester SD Alam Kampung Sawah Depok ini meliputi Laporan Perkembangan Sosial-Emosi dan Laporan Kemandirian Personal siswa.</p>
+                    <p class="description">Bentuk penilaian kami lakukan berdasarkan hasil Observasi dari bulan <span t-field="o.start_month"/> sampai <span t-field="o.end_month"/>.</p>
+
+                    <table class="assessment-table">
+                        <thead>
+                            <tr>
+                                <th class="merged-cell" colspan="3">Kriteria Penilaian</th>
+                            </tr>
+                            <tr>
+                                <th>Nilai</th>
+                                <th>Deskripsi</th>
+                                <th>Penjelasan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SB</td>
+                                <td>Sangat Baik</td>
+                                <td>Melebihi Standar capaian pembelajaran</td>
+                            </tr>
+                            <tr>
+                                <td>B</td>
+                                <td>Baik</td>
+                                <td>Menguasai standar capaian keseluruhan dengan baik</td>
+                            </tr>
+                            <tr>
+                                <td>C</td>
+                                <td>Cukup</td>
+                                <td>Menguasai standar capaian keseluruhan dengan cukup baik</td>
+                            </tr>
+                            <tr>
+                                <td>PD</td>
+                                <td>Perlu Dikembangkan</td>
+                                <td>Belum menguasai capaian belajar dan masih perlu pendampingan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+
+                    <p class="assessment-note">Kami berharap semoga laporan perkembangan ini dapat menggambarkan dengan jelas proses perkembangan ananda selama mengikuti kegiatan belajar mengajar di sekolah di Mid Semester Tahun Ajaran <span t-field="o.tahun_pelajaran.name"/> </p>
+                    
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                    
+                    <p class="sign-off">Depok, <t t-esc="o.get_current_date()"/></p>
+                    <p class="sign-off">Hormat Kami</p>
+                    <p class="sign-off">Kepala SD Alam Kampung Sawah</p>
+                    <div class="gap"></div>
+                    <span t-field="o.ttd_kepsek"/>
+
+
+                    <div class="page-break"></div>
+                    
+                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; ">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
+                    <h1 style="text-align: center; font-size: 1.8em; font-weight: bold; ">AKHIR TAHUN</h1>
+                   
+                    
+                    <table class="full-width-table">
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%" >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width 15%" ><![CDATA[Nama&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.student_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[Kelas&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.kelas_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[Usia&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]>
+                                                    <span t-esc="o.student_id.age.split('y')[0]"/> Tahun
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width: 50%" >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><![CDATA[Guru Kelas&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.ttd_walas"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><![CDATA[Tahun Pelajaran&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.tahun_pelajaran.name"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">Laporan Perkembangan Kemandirian Personal</h2>
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2" style="width 10%">Jenis kegiatan</th>
+                                <th colspan="4">Hasil Observasi</th>
+                            </tr>
+                            <tr>
+                                <th>SB</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>PD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="0"/>
+                            <t t-foreach="o.perilaku_siswa_ids_1" t-as="line">
+                                <tr>
+                                    <td><t t-esc="counter + 1"/></td>
+                                    <td><span t-field="line.nama" style="text-align: left !important;"/></td>
+                                    <td><t t-esc="'V' if line.SB else ' '"/></td>
+                                    <td><t t-esc="'V' if line.B else ' '"/></td>
+                                    <td><t t-esc="'V' if line.C else ' '"/></td>
+                                    <td><t t-esc="'V' if line.PD else ' '"/></td>
+                                </tr>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+                    
+                    <div class="page-break"></div>
+
+                    <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">Laporan Perkembangan Perilaku Sosial</h2>
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2" style="width 10%">Jenis kegiatan</th>
+                                <th colspan="4">Hasil Observasi</th>
+                            </tr>
+                            <tr>
+                                <th>SB</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>PD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="0"/>
+                            <t t-foreach="o.perilaku_siswa_ids_2" t-as="line">
+                                <tr>
+                                    <td><t t-esc="counter + 1"/></td>
+                                    <td><span t-field="line.nama" style="text-align: left !important;"/></td>
+                                    <td><t t-esc="'V' if line.SB else ' '"/></td>
+                                    <td><t t-esc="'V' if line.B else ' '"/></td>
+                                    <td><t t-esc="'V' if line.C else ' '"/></td>
+                                    <td><t t-esc="'V' if line.PD else ' '"/></td>
+                                </tr>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="page-break"></div>
+
+                    <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">Laporan Perkembangan Emosi dan Kemampuan Problem Solving</h2>
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2" style="width 10%">Jenis kegiatan</th>
+                                <th colspan="4">Hasil Observasi</th>
+                            </tr>
+                            <tr>
+                                <th>SB</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>PD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="0"/>
+                            <t t-foreach="o.perilaku_siswa_ids_3" t-as="line">
+                                <tr>
+                                    <td><t t-esc="counter + 1"/></td>
+                                    <td><span t-field="line.nama" style="text-align: left !important;"/></td>
+                                    <td><t t-esc="'V' if line.SB else ' '"/></td>
+                                    <td><t t-esc="'V' if line.B else ' '"/></td>
+                                    <td><t t-esc="'V' if line.C else ' '"/></td>
+                                    <td><t t-esc="'V' if line.PD else ' '"/></td>
+                                </tr>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="page-break"></div>
+
+                    <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold; ">Laporan Perkembangan Kemampuan Pada Kegiatan kelas</h2>
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2" style="width 10%">Jenis kegiatan</th>
+                                <th colspan="4">Hasil Observasi</th>
+                            </tr>
+                            <tr>
+                                <th>SB</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>PD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="0"/>
+                            <t t-foreach="o.perilaku_siswa_ids_4" t-as="line">
+                                <tr>
+                                    <td><t t-esc="counter + 1"/></td>
+                                    <td><span t-field="line.nama" style="text-align: left !important;"/></td>
+                                    <td><t t-esc="'V' if line.SB else ' '"/></td>
+                                    <td><t t-esc="'V' if line.B else ' '"/></td>
+                                    <td><t t-esc="'V' if line.C else ' '"/></td>
+                                    <td><t t-esc="'V' if line.PD else ' '"/></td>
+                                </tr>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+                    <div style="page-break-inside: avoid;">
+                        <table class="full-width-table" style="margin-left: 0%; margin-top: 70px; border-collapse: collapse; width: 100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="border: 1px solid black;">
+                                        <table style="border-collapse: collapse; width: 100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="border: 1px solid black; width: 25%; background-color: lightgrey; text-align: center; vertical-align: middle;"><![CDATA[Kesimpulan&nbsp;&nbsp;&nbsp;]]></th>
+                                                    <td style="border: 1px solid black;"><![CDATA[&nbsp;]]><span t-field="o.kesimpulan"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+
+                        <div class="row" style= "margin-top: 40px; margin-bottom: 20px ;" >
+                            <div align="center" style="margin-left: 13%">
+                                Mengetahui, 
+                            </div>
+
+                            <div style="position: absolute; left: 71%;">
+                                Depok, <t t-esc="o.get_current_date()"/>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- Footer table -->
+                        <table class="footer-table">
+                            <tr style = "height: 12px; line-height: 12px;">
+                                <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell kepala-sekolah" style = "height: 12px; line-height: 12px;">Kepala Sekolah</th>
+                            </tr>
+                            <tr>
+                                <td class="large-cell orang-tua"></td>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="large-cell wali-kelas"></td>
+                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
+                            </tr>
+                            <tr>
+                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 20px;"> <span t-field="o.ttd_ortu"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_walas"/> </td>
+                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_kepsek"/> </td>
+                            </tr>
+                        </table>
+
+                        <div class="footer">
+                            <div class="row">
+
+                                <div style="position: absolute; left: 51%;">
+                                    <span class="page" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
