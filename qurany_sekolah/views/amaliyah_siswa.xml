@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_amaliyah_siswa_tree" model="ir.ui.view">
+            <field name="name">amaliyah.siswa.tree</field>
+            <field name="model">amaliyah.siswa</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Amaliyah Siswa">
+                    <field name="student_id"/>
+                    <field name="nis_nisn"/>
+                    <field name="kelas_id"/>
+                    <field name="rombel_id"/>
+                    <field name="unit"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_amaliyah_siswa_form" model="ir.ui.view">
+            <field name="name">amaliyah.siswa.form</field>
+            <field name="model">amaliyah.siswa</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Identitas Siswa" col="4">
+                            <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="nis_nisn"/>
+                            <field name="kelas_id"/>
+                            <field name="rombel_id"/>
+                            <field name="unit"/>
+                            <field name="semester_id"/>
+                            <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
+                        </group>
+                        <group string="Capaian Amaliyah Siswa">
+                            <notebook>
+                                <page string="Praktik Wudu">
+                                    <field name="amaliyah_siswa_wudu_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_wudu"/>
+                                            <field name="guru_id"/>
+                                            <field name="jenis_praktik"/>
+                                            <field name="status"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_wudu"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="jenis_praktik"/>
+                                                <field name="status"/>
+                                                <field name="ketuntasan"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Praktik Salat">
+                                    <field name="amaliyah_siswa_salat_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_salat"/>
+                                            <field name="guru_id"/>
+                                            <field name="jenis_praktik"/>
+                                            <field name="status"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_salat"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="jenis_praktik"/>
+                                                <field name="status"/>
+                                                <field name="ketuntasan"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Praktik Manasik Haji">
+                                    <field name="amaliyah_siswa_haji_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_haji"/>
+                                            <field name="guru_id"/>
+                                            <field name="jenis_praktik"/>
+                                            <field name="status"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_haji"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="jenis_praktik"/>
+                                                <field name="status"/>
+                                                <field name="ketuntasan"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Infaq / Sedekah">
+                                    <field name="amaliyah_siswa_infaq_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_infaq"/>
+                                            <field name="nom_infaq" widget="monetary"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="tanggal_infaq"/>
+                                                <field name="nom_infaq" widget="monetary"/>
+                                                <field name="ketuntasan"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_open_amaliyah_siswa" model="ir.actions.act_window">
+            <field name="name">Amaliyah Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amaliyah.siswa</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

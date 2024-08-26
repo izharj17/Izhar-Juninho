@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_quran_siswa_tree" model="ir.ui.view">
+            <field name="name">quran.siswa.tree</field>
+            <field name="model">quran.siswa</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Quran Siswa">
+                    <field name="student_id"/>
+                    <field name="nis_nisn"/>
+                    <field name="kelas_id"/>
+                    <field name="rombel_id"/>
+                    <field name="unit"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_quran_siswa_form" model="ir.ui.view">
+            <field name="name">quran.siswa.form</field>
+            <field name="model">quran.siswa</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Identitas Siswa" col="4">
+                            <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="nis_nisn"/>
+                            <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="rombel_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="unit"/>
+                            <field name="semester_id"/>
+                            <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
+                        </group>
+                        <group string="Capaian Qiraah Siswa">
+                            <notebook>
+                                <page string="Portofolio Tilawati">
+                                    <field name="quran_siswa_tilawati_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_tilawati"/>
+                                            <field name="guru_id"/>
+                                            <field name="jilid"/>
+                                            <field name="halaman"/>
+                                            <field name="status"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_tilawati"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="jilid"/>
+                                                <field name="halaman" placeholder="Halaman 1 / 3 - 4"/>
+                                                <field name="status"/>
+                                                <field name="ketuntasan"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Portofolio Tahfidz">
+                                    <field name="quran_siswa_line_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_hafalan"/>
+                                            <field name="guru_id"/>
+                                            <field name="surah_id"/>
+                                            <field name="juz_id"/>
+                                            <field name="ayat"/>
+                                            <field name="capaian"/>
+                                            <field name="status"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_hafalan"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="surah_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="juz_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="ayat"/>
+                                                <field name="capaian" placeholder="Ayat 1 - 2"/>
+                                                <field name="status"/>
+                                                <field name="ketuntasan" widget="toggle_button"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Portofolio Tahsin">
+                                    <field name="quran_siswa_tahsin_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_tahsin"/>
+                                            <field name="guru_id"/>
+                                            <field name="surah_id"/>
+                                            <field name="juz_id"/>
+                                            <field name="ayat"/>
+                                            <field name="status"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_tahsin"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="surah_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="juz_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="ayat"/>
+                                                <field name="status"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Portofolio Hadist">
+                                    <field name="quran_siswa_hadist_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_hadist"/>
+                                            <field name="guru_id"/>
+                                            <field name="nama_hadist"/>
+                                            <field name="status"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_hadist"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="nama_hadist"/>
+                                                <field name="status"/>
+                                                <field name="ketuntasan"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Portofolio Doa Harian">
+                                    <field name="quran_siswa_doa_ids" widget="one2many_list">
+                                        <tree>
+                                            <field name="tanggal_doa"/>
+                                            <field name="guru_id"/>
+                                            <field name="nama_doa"/>
+                                            <field name="status"/>
+                                            <field name="ketuntasan"/>
+                                            <field name="catatan"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <field name="tanggal_doa"/>
+                                                <field name="guru_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                                <field name="nama_doa"/>
+                                                <field name="status"/>
+                                                <field name="ketuntasan"/>
+                                                <field name="catatan"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_open_quran_siswa" model="ir.actions.act_window">
+            <field name="name">Qiraah Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quran.siswa</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
