@@ -11,18 +11,23 @@
     'depends': ['openeducat_core'],
     'data': [
         'security/ir.model.access.csv',
+        'report/print_quran_siswa.xml',
+        'report/print_amaliyah_siswa.xml',
+        'report/print_ramadhan_siswa.xml',
         'views/quran_siswa.xml',
         'views/master_surah.xml',
         'views/master_juz.xml',
         'views/amaliyah_siswa.xml',
         'views/kegiatan_ramadan.xml',
         'views/qurany_menu.xml',
+        
     ],
     'demo': [],
     'css': [],
     'qweb': [],
     'images': [
         'static/src/img/icon.png',
+        'static/src/img/header 4.png',
     ],
     'installable': True,
     'auto_install': False,

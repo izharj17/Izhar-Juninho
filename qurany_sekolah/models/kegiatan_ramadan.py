@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+import datetime
 
 class KegiatanRamadanSiswa(models.Model):
     _name = "kegiatan.ramadan.siswa"
@@ -21,6 +22,12 @@ class KegiatanRamadanSiswa(models.Model):
     ], 'Semester')
     tahun_pelajaran = fields.Many2one('op.academic.year', 'Tahun Pelajaran')
     kegiatan_ramadan_siswa_line_ids = fields.One2many('kegiatan.ramadan.siswa.line', 'ramadan_id', 'Kegiatan Ramadan')
+    
+    @api.model
+    def get_report_sts_filename(self):
+        # Assuming `self` is a single record
+        filename = 'Laporan Kegiatan Ramadhan _ {} _ {}'.format(self.student_id.name, datetime.datetime.now().strftime('%d-%m-%Y'))
+        return filename
     
 class KegiatanRamadanSiswaLine(models.Model):
     _name = "kegiatan.ramadan.siswa.line"

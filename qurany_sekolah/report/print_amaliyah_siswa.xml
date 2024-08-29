@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="print_amaliyah_siswa">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <style>
+                        .page {
+                            display: flex;
+                            flex-direction: column;
+                            min-height: 100vh; /* Ensure the page covers the viewport height */
+                            justify-content: space-between; /* Push content to the top and footer to the bottom */
+                            position: relative; /* Needed for absolute positioning within */
+                        }
+                        
+                        .full-width-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .full-width-table th {
+                            background-color: #a9d08e;
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+                        .full-width-table td {
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .raport-details {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                        }
+
+                        .raport-details-soy {
+                            width: 25%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                            margin-left: 35%;
+                        }
+                        .raport-details-soy th {
+                            background-color: #a9d08e;
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+                        .raport-details-soy td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+
+                        .raport-details th {
+                            background-color: #a9d08e;
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+                        .raport-details td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                        }
+
+                        .raport-details td-cat {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                            width : 25%
+                        }
+
+                        .raport-details th-cat {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: center;
+                            width : 25%
+                        }
+
+                        .raport-details tbody {
+                            /* No specific styling for tbody to keep it default */
+                        }
+                        /* Styles for the footer table */
+                        .footer-table {
+                            width: 80%;
+                            border-collapse: collapse;
+                            margin-left: 11.5%; /* Center horizontally */
+                        }
+                    
+                        .footer-table th,
+                        .footer-table td {
+                            text-align: center;
+                            vertical-align: top;
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+                    
+                        .footer-table th {
+                            background-color: #a9d08e;
+                        }
+                    
+                        .small-cell {
+                            height: 50px; /* Smaller height for header cells */
+                        }
+                    
+                        .large-cell {
+                            height: 150px; /* Larger height for the empty cells */
+                        }
+                    
+                        .footer-table th.orang-tua,
+                        .footer-table td.orang-tua,
+                        .footer-table th.wali-kelas,
+                        .footer-table td.wali-kelas,
+                        .footer-table th.kepala-sekolah,
+                        .footer-table td.kepala-sekolah {
+                            width: 33.33%; /* Set all columns to equal width */
+                            padding: 10px;
+                        }
+                    
+                        /* Hide the middle column */
+                        .footer-table .hidden-column {
+                            border: none;
+                            background-color: white;
+                        }
+
+                        .invisible-column {
+                            width: 25px; /* Adjust width as needed */
+                        }
+                        
+                        /* Remove borders for invisible columns */
+                        .invisible-column {
+                            border: none !important;
+                        }
+                        
+                        .invisible-column::before {
+                            content: '\00a0'; /* Non-breaking space */
+                            visibility: hidden;
+                        }
+                    </style>
+                    <!-- <img src="qurany_sekolah/static/src/img/header 4.png" alt="Header Image" style="max-width: 98%; margin-bottom: 10px;" /> -->
+
+                    <h2 style="text-align: center;" >PORTFOLIO AMALIYAH SISWA/SANTRI</h2>
+                    <p style="text-align: center;">
+                        <strong></strong> <t t-esc="env.company.name"/><br/>
+                        <strong></strong> <t t-esc="env.company.street"/> <t t-if="env.company.street2">, <t t-esc="env.company.street2"/></t><br/>
+                    </p>
+
+                    <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
+
+                   
+
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th>Identitas Siswa</th>
+                            </tr>
+
+                        </thead>
+                        
+                    </table>
+                    <br/>
+
+                    
+                    <table class="full-width-table">
+                        <tbody>
+                            <tr>
+                                <td style="width 50%" >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width 15%" ><![CDATA[Nama&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.student_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[NIS&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.nis_nisn"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[Kelas&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.kelas_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width 15%"><![CDATA[Unit&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td style="width 50%">:<![CDATA[&nbsp;]]><span t-field="o.unit"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width 50%" >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><![CDATA[Semester&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.semester_id"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><![CDATA[Tahun Pelajaran&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.tahun_pelajaran.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><![CDATA[Rombel&nbsp;&nbsp;&nbsp;]]></td>
+                                                <td>:<![CDATA[&nbsp;]]><span t-field="o.rombel_id"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th>Capaian Amaliyah Siswa</th>
+                            </tr>
+
+                        </thead>
+                        
+                    </table>
+                    <br/>
+
+                    <div style="page-break-inside: avoid;">
+                    <table class="raport-details-soy">
+                        <tbody>
+                            <tr>
+                                <td>Portofolio Shalat</td>
+                            </tr>
+
+                        </tbody>
+                        
+                    </table>
+                    
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Tanggal Praktik</th>
+                                <th>Nama Guru</th>
+                                <th>Jenis Praktik</th>
+                                <th>Status</th>
+                                <th style="width: 10%;" >Tuntas</th>
+                                <th style="width: 25%;">Catatan</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.amaliyah_siswa_salat_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.tanggal_salat"/></td>
+                                    <td><span t-field="line.guru_id"/></td>
+                                    <td><span t-field="line.jenis_praktik"/></td>
+                                    <td><span t-field="line.status"/></td>
+                                    <td>
+                                        <span t-if="line.ketuntasan">V</span>
+                                        <span t-if="not line.ketuntasan">X</span>
+                                    </td>
+
+                                    <td><span t-field="line.catatan"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                    <div style="page-break-inside: avoid;">
+                    <table class="raport-details-soy">
+                        <tbody>
+                            <tr>
+                                <td>Portofolio Wudu</td>
+                            </tr>
+
+                        </tbody>
+                        
+                    </table>
+
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Tanggal Praktik</th>
+                                <th>Nama Guru</th>
+                                <th>Jenis Praktik</th>
+                                <th>Status</th>
+                                <th style="width: 10%;" >Tuntas</th>
+                                <th style="width: 25%;">Catatan</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.amaliyah_siswa_wudu_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.tanggal_wudu"/></td>
+                                    <td><span t-field="line.guru_id"/></td>
+                                    <td><span t-field="line.jenis_praktik"/></td>
+                                    <td><span t-field="line.status"/></td>
+                                    <td>
+                                        <span t-if="line.ketuntasan">V</span>
+                                        <span t-if="not line.ketuntasan">X</span>
+                                    </td>
+
+                                    <td><span t-field="line.catatan"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                    <div style="page-break-inside: avoid;">
+                    <table class="raport-details-soy">
+                        <tbody>
+                            <tr>
+                                <td>Portofolio Manasik Haji</td>
+                            </tr>
+
+                        </tbody>
+                        
+                    </table>
+
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Tanggal Praktik</th>
+                                <th>Nama Guru</th>
+                                <th>Jenis Praktik</th>
+                                <th>Status</th>
+                                <th style="width: 10%;" >Tuntas</th>
+                                <th style="width: 25%;">Catatan</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.amaliyah_siswa_haji_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.tanggal_haji"/></td>
+                                    <td><span t-field="line.guru_id"/></td>
+                                    <td><span t-field="line.jenis_praktik"/></td>
+                                    <td><span t-field="line.status"/></td>
+                                    <td>
+                                        <span t-if="line.ketuntasan">V</span>
+                                        <span t-if="not line.ketuntasan">X</span>
+                                    </td>
+                                    <td><span t-field="line.catatan"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="page-break-inside: avoid;">
+                    <table class="raport-details-soy">
+                        <tbody>
+                            <tr>
+                                <td>Portofolio Infaq</td>
+                            </tr>
+
+                        </tbody>
+                        
+                    </table>
+
+                    <table class="raport-details">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Tanggal Infaq</th>
+                                <th>Nominal</th>
+                                <th style="width: 10%;" >Tuntas</th>
+                                <th style="width: 25%;">Catatan</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.amaliyah_siswa_infaq_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.tanggal_infaq"/></td>
+                                    <td style="text-align: right;">
+                                        Rp. <span t-field="line.nom_infaq"/>
+                                    </td>
+                                    <td>
+                                        <span t-if="line.ketuntasan">V</span>
+                                        <span t-if="not line.ketuntasan">X</span>
+                                    </td>
+                                    <td><span t-field="line.catatan"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                    
+                        
+
+                    
+
+                
+
+                    
+                </div>
+            </t>
+        </t>
+    
+    </template>
+</odoo>
