@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+import datetime
 
 class QuranSiswa(models.Model):
     _name = "quran.siswa"
@@ -25,6 +26,26 @@ class QuranSiswa(models.Model):
     quran_siswa_hadist_ids = fields.One2many('quran.siswa.hadist', 'hadist_id', 'Hadist')
     quran_siswa_doa_ids = fields.One2many('quran.siswa.doa', 'doa_id', 'Doa Siswa')
     quran_siswa_tilawati_ids = fields.One2many('quran.siswa.tilawati', 'tilawati_id', 'Tilawati')
+    
+    @api.model
+    def get_report_sts_filename(self):
+        # Assuming `self` is a single record
+        filename = 'Laporan Quran_{}_{}'.format(self.student_id.name, datetime.datetime.now().strftime('%d-%m-%Y'))
+        return filename
+    
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = self.env['quran.siswa'].browse(docids)
+        company_name = self.env.context.get('company_name', self.env.company.name)
+        company_address = self.env.context.get('company_address', self.env.company.street)
+        
+        return {
+            'doc_ids': docids,
+            'doc_model': 'quran.siswa',
+            'docs': docs,
+            'company_name': company_name,
+            'company_address': company_address,
+        }
     
 class QuranSiswaLine(models.Model):
     _name = "quran.siswa.line"

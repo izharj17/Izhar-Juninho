@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <record id="paperformat_custom_a4" model="report.paperformat">
+            <field name="name">Custom A4 (No Top Margin)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">7</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_amaliyah_siswa" model="ir.actions.report">
+            <field name="name">PRINT</field>
+            <field name="model">amaliyah.siswa</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">qurany_sekolah.print_amaliyah_siswa</field>
+            <field name="report_file">qurany_sekolah.print_amaliyah_siswa</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_sts_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4"/>
+        </record>
+
         <record id="view_amaliyah_siswa_tree" model="ir.ui.view">
             <field name="name">amaliyah.siswa.tree</field>
             <field name="model">amaliyah.siswa</field>
@@ -23,6 +49,11 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <header>
+                            <button name="%(action_report_amaliyah_siswa)d" string="PRINT" type="action" class="oe_highlight" >
+                                  <i class="fa fa-print"/> PRINT
+                              </button>
+                          </header>
                         <group string="Identitas Siswa" col="4">
                             <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
                             <field name="nis_nisn"/>
