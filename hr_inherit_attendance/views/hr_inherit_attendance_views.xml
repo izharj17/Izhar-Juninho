@@ -13,7 +13,6 @@
                     <field name="latetime" invisible="1"/>
                     <field name="url_checkin"/>
                     <field name="url_checkout"/>
-                    <button name="action_recompute_status" string="Recompute Status" type="object" class="oe_highlight"/>
                     <field name="catatan"/>
                 </xpath>
             </field>
@@ -30,8 +29,8 @@
                     <field name="latetime"/>
                     <field name="url_checkin"/>
                     <field name="url_checkout"/>
-                    <button name="action_recompute_status" string="Recompute Status" type="object" class="oe_highlight"/>
                     <field name="catatan"/>
+                    <button name="action_recompute_status" string="Recompute Status" type="object" class="oe_highlight"/>
                 </xpath>
             </field>
         </record>

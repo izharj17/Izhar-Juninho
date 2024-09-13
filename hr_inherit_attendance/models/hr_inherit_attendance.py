@@ -9,15 +9,15 @@ class HrInheritAttendance(models.Model):
     _inherit = "hr.attendance"
 
     status_kehadiran = fields.Selection([
-        ('ot', 'Ontime'),
-        ('tlb', 'Terlambat'),
-        ('skt', 'Sakit'),
-        ('i', 'Ijin')
-    ], string='Status')
+    ('ot', 'Ontime'),
+    ('tlb', 'Terlambat'),
+    ('skt', 'Sakit'),
+    ('i', 'Ijin')
+], string='Status', compute='_compute_status_kehadiran', store=True, required=True, default='ot')
+
+    
     long_position = fields.Char('Long Position')
     lat_position = fields.Char('Lat Position')
-    attachment = fields.Char('Attachment')
-    attachment_2 = fields.Char('Attachment')
     
     latetime = fields.Float('Late Time (minutes)', compute='_compute_status_kehadiran', store=True)
     
@@ -25,20 +25,44 @@ class HrInheritAttendance(models.Model):
     url_checkout = fields.Char('URL Check-out', help='URL of the check-out image')
     catatan = fields.Char('Catatan')
     
+    
+    
     def action_recompute_status(self):
         for record in self:
-            record._compute_status_kehadiran()
-            
+            record._recompute_status_kehadiran()
+    
 
+    def _recompute_status_kehadiran(self):
+        for record in self:
+            
+            # Use check_in time instead of current_time
+            check_in_time = record.check_in + timedelta(hours=7)
+
+            # Define the standard check-in time at 07:00 AM
+            standard_check_in_time = check_in_time.replace(hour=6, minute=0, second=0, microsecond=0)
+
+            if standard_check_in_time - timedelta(hours=2) <= check_in_time <= standard_check_in_time + timedelta(minutes=30, seconds=59):
+                record.status_kehadiran = 'ot'  # On time
+                record.latetime = 0.0  # No late time if on time
+            else:
+                record.status_kehadiran = 'tlb'  # Terlambat (Late)
+                
+                # Calculate late time in minutes
+                if check_in_time > standard_check_in_time:
+                    late_duration = check_in_time - standard_check_in_time
+                    record.latetime = late_duration.total_seconds() / 60.0
+                else:
+                    record.latetime = 0.0  # Shouldn't happen but added as a precaution
+                    
     @api.model
     def _compute_status_kehadiran(self):
         for record in self:
             current_time = datetime.now() + timedelta(hours=7)
 
             # Adjust the check-in time if current time is between 22:00 and 23:59 (in case it doessnt conver the time to UTC+7)
-            standard_check_in_time = current_time.replace(hour=7, minute=0, second=0, microsecond=0)
+            standard_check_in_time = current_time.replace(hour=6, minute=0, second=0, microsecond=0)
 
-            if standard_check_in_time - timedelta(hours=2) <= current_time <= standard_check_in_time + timedelta(minutes=21, seconds=15):
+            if standard_check_in_time - timedelta(hours=2) <= current_time <= standard_check_in_time + timedelta(minutes=30, seconds=59):
                 record.status_kehadiran = 'ot'  # On time
                 record.latetime = 0.0  # No late time if on time
             else:
@@ -133,7 +157,7 @@ class HrEmployeeBaseInherit(models.AbstractModel):
             employee.hours_today = worked_hours
     
 
-    def _attendance_action_change(self, url = ''):
+    def _attendance_action_change(self, url):
         """ Check In/Check Out action
             Check In: create a new attendance record with check-in URL
             Check Out: modify check_out field and add check-out URL to appropriate attendance record
@@ -146,7 +170,6 @@ class HrEmployeeBaseInherit(models.AbstractModel):
                 'employee_id': self.id,
                 'check_in': action_date,
                 'url_checkin': url,
-                'attachment' : url,
             }
             
             attendance_record = self.env['hr.attendance'].create(vals)
@@ -157,7 +180,6 @@ class HrEmployeeBaseInherit(models.AbstractModel):
         if attendance:
             attendance.check_out = action_date
             attendance.url_checkout = url
-            attendance.attachment_2 = url
         else:
             raise exceptions.UserError(_('Cannot perform check out on %(empl_name)s, could not find corresponding check in. '
                 'Your attendances have probably been modified manually by human resources.') % {'empl_name': self.sudo().name, })
