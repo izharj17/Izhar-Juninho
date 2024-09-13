@@ -49,7 +49,7 @@ class HrInheritAttendance(models.Model):
                 
                 # Calculate late time in minutes
                 if check_in_time > standard_check_in_time:
-                    late_duration = check_in_time - standard_check_in_time
+                    late_duration = check_in_time - ( standard_check_in_time + timedelta(minutes=30, seconds=00) )
                     record.latetime = late_duration.total_seconds() / 60.0
                 else:
                     record.latetime = 0.0  # Shouldn't happen but added as a precaution
