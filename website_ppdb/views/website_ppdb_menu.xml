@@ -1,0 +1,9 @@
+<odoo>
+    <!-- Menu Item di Website -->
+    <record id="website_ppdb_menu" model="website.menu">
+        <field name="name">PPDB</field>
+        <field name="url">/ppdb</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">30</field>
+    </record>
+</odoo>
