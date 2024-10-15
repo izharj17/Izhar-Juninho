@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_quran_siswa_root"
+                  name="Qurany"
+                  sequence="20"
+                  web_icon="qurany_sekolah,static/src/img/icon.png"/>
+
+        <menuitem id="menu_quran_siswa"
+                  name="Qiraah Siswa"
+                  parent="menu_quran_siswa_root"
+                  sequence="20"
+                  action="act_open_quran_siswa"/>
+
+        <menuitem id="menu_amaliyah_siswa_root"
+                  name="Amaliyah Siswa"
+                  parent="menu_quran_siswa_root"
+                  sequence="25"
+                  action="act_open_amaliyah_siswa"/>
+
+        <menuitem id="menu_kegiatan_ramadan_root"
+                  name="Kegiatan Ramadan"
+                  parent="menu_quran_siswa_root"
+                  sequence="30"
+                  action="act_open_kegiatan_ramadan_siswa_view"/>
+
+        <menuitem id="menu_konfigurasi_root"
+                  name="Konfigurasi"
+                  parent="menu_quran_siswa_root"
+                  sequence="35"/>
+
+        <menuitem id="menu_master_surah"
+                  name="Master Data Surah"
+                  parent="menu_konfigurasi_root"
+                  sequence="35"
+                  action="act_open_master_surah_view"/>
+
+        <menuitem id="menu_master_juz"
+                  name="Master Data Juz"
+                  parent="menu_konfigurasi_root"
+                  sequence="40"
+                  action="act_open_master_juz_view"/>
+    </data>
+</odoo>

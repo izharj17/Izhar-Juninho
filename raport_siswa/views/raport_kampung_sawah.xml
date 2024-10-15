@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="paperformat_custom_a4" model="report.paperformat">
+            <field name="name">Custom A4 (No Top Margin)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">500</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Report action for generating PDF -->
+        <record id="action_raport_kampung_sawah_K13SD6" model="ir.actions.report">
+            <field name="name">Format K13SD6</field>
+            <field name="model">raport.kampung.sawah</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_kampung_sawah_sd6</field>
+            <field name="report_file">raport_siswa.print_raport_kampung_sawah_sd6</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_SD6_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4_ks"/>
+        </record>
+
+        <record id="action_raport_kampung_sawah_SD15" model="ir.actions.report">
+            <field name="name">Format SD15</field>
+            <field name="model">raport.kampung.sawah</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_kampung_sawah_sd15</field>
+            <field name="report_file">raport_siswa.print_raport_kampung_sawah_sd15</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_SD1_5_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4_ks"/>
+        </record>
+        
+
+
+        <record id="view_raport_kampung_sawah_tree" model="ir.ui.view">
+            <field name="name">raport.kampung.sawah.tree</field>
+            <field name="model">raport.kampung.sawah</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Raport">
+                    <field name="jenis_raport"/>
+                    <field name="student_id"/>
+                    <field name="nis_nisn"/>
+                    <field name="kelas_id"/>
+                    <field name="grade_id"/>
+                    <field name="semester_id"/>
+                    <field name="tahun_pelajaran"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_raport_kampung_sawah_form" model="ir.ui.view">
+            <field name="name">raport.kampung.sawah.form</field>
+            <field name="model">raport.kampung.sawah</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="func_approve" type="object" string="Approve" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="func_publish" type="object" string="Publish" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
+                        <button name="func_cancel" type="object" string="Cancel" class="btn-danger" confirm="Yakin mau di Cancel?" attrs="{'invisible': [('state', '!=', 'approve')]}"/>
+                        <button name="func_set_draft" type="object" string="Set To Draft" class="btn-danger" confirm="Yakin mau di set ke draft?" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve,publish,cancel"/>
+                        <button name="%(action_raport_kampung_sawah_K13SD6)d" string="Print K13SD6" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}">
+                            <i class="fa fa-print"/> Print Raport
+                        </button>
+                        <button name="%(action_raport_kampung_sawah_SD15)d" string="Print SD15" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'SD1-5')]}">
+                            <i class="fa fa-print"/> Print Raport
+                        </button>
+                    </header>
+                    
+                    <sheet>
+                        <group>
+                            <field name="jenis_raport"/>
+                        </group>
+                        <group col="4">
+                            <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="nis_nisn"/>
+                            <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="semester_id"/>
+                            <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
+                        </group>
+
+                        <group string="Sikap" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}" >
+                                    <field name="spiritual"/>
+                                    <field name="sosial"/>
+                        </group>
+
+                        <group string="Pengetahuan dan Keterampilan" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}" >
+                            <field name="raport_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                    <field name="tahu_nilai"/>
+                                    <field name="tahu_deskripsi" widget="text"/>
+                                    <field name="terampil_nilai"/>
+                                    <field name="terampil_deskripsi" widget="text"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Pengetahuan" attrs="{'invisible': [('jenis_raport', '!=', 'SD1-5')]}" >
+                            <field name="raport_siswa_ids_1_5" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
+                                    <field name="nilai_akhir"/>
+                                    <field name="capaian" widget="text"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Proyek" >
+                            <field name="proyek_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="jenis_proyek"/>
+                                    <field name="nama"/>
+                                    <field name="deskripsi" widget="text" />
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Laporan Tahsin dan Tahfiz Al Qur`an">
+                                    <field name="menulis"/>
+                                    <field name="membaca"/>
+                                    <field name="tahfiz"/>
+                        </group>
+
+                        <group col= "4" string="Laporan Kegiatan Leadership">
+                            <field name="pra_leader"/>
+                            <field name="leader"/>
+                            <field name="live_in" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}" />
+                            <field name="outbond"/>
+                            <field name="panahan"/>
+                            <field name="berenang"/>
+                            <field name="tradisional"/>
+                            <field name="backpacker" attrs="{'invisible': [('jenis_raport', '!=', 'SD1-5')]}" />
+                        </group>
+
+                        <group string="Laporan Kegiatan Bisnis">
+                                    <field name="market" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}"/>
+                                    <field name="pra_magang" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}"/>
+                                    <field name="magang" attrs="{'invisible': [('jenis_raport', '!=', 'K13SD6')]}"/>
+
+                                    <field name="market_day1" attrs="{'invisible': [('jenis_raport', '!=', 'SD1-5')]}"/>
+                                    <field name="market_day2" attrs="{'invisible': [('jenis_raport', '!=', 'SD1-5')]}"/>
+                        </group>
+
+                        <group string="Ekstrakurikuler" >
+                            <field name="eskul_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="nama"/>
+                                    <field name="deskripsi" widget="text" />
+                                </tree>
+                            </field>
+                        </group>
+
+
+                    
+
+                        <group string="Catatan Ketidakhadiran">
+                            <field name="sakit"/>
+                            <field name="ijin"/>
+                            <field name="tanpa_ket"/>
+                        </group>
+
+
+                        <group col="8" string="Mengetahui" >
+                            <field name="ttd_ortu"/>
+                            <field name="ttd_kepsek"/>
+                            <field name="ttd_walas"/>
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_raport_kampung_sawah_search" model="ir.ui.view">
+            <field name="name">raport.kampung.sawah.search</field>
+            <field name="model">raport.kampung.sawah</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Raport Siswa">
+                    <field name="grade_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Rombel" name="group_by_grade_id" domain="[]" context="{'group_by':'grade_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="raport_kampung_sawah_action" model="ir.actions.act_window">
+            <field name="name">Raport Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">raport.kampung.sawah</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create"></p>
+            </field>
+        </record>
+
+
+
+        <record id="paperformat_custom_a4" model="report.paperformat">
+            <field name="name">Custom A4 (No Top Margin)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">7</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        
+
+        <!-- Add these actions to the existing action -->
+        <record id="raport_kampung_sawah_action" model="ir.actions.act_window">
+            <field name="name">Raport Siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">raport.kampung.sawah</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create"></p>
+            </field>
+            <field name="context">{
+                'custom_report_preview_action': 'action_custom_report_preview',
+                'custom_report_download_action': 'action_custom_report_download',
+            }</field>
+        </record>
+
+
+
+    </data>
+</odoo>

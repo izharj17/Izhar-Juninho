@@ -53,6 +53,18 @@
             <field name="paperformat_id" ref="paperformat_custom_a4"/>
         </record>
 
+        <record id="action_report_siswa_iep" model="ir.actions.report">
+            <field name="name">Format IEP</field>
+            <field name="model">raport.siswa.sts</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">raport_siswa.print_raport_siswa_iep</field>
+            <field name="report_file">raport_siswa.print_raport_siswa_iep</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">object.get_report_iep_filename()</field>
+            <field name="paperformat_id" ref="paperformat_custom_a4"/>
+        </record>
+
         <record id="view_raport_siswa_sts_tree" model="ir.ui.view">
             <field name="name">raport.siswa.sts.tree</field>
             <field name="model">raport.siswa.sts</field>
@@ -91,6 +103,9 @@
                         <button name="%(action_report_siswa_sat)d" string="Print SAT" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'SAT')]}">
                             <i class="fa fa-print"/> Print SAT
                         </button>
+                        <button name="%(action_report_siswa_iep)d" string="Print IEP" type="action" class="oe_highlight" attrs="{'invisible': [('jenis_raport', '!=', 'IEP')]}">
+                            <i class="fa fa-print"/> Print IEP
+                        </button>
                     </header>
                     
                     <sheet>
@@ -105,7 +120,7 @@
                             <field name="semester_id"/>
                             <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
                         </group>
-                        <group string="Mata Pelajaran">
+                        <group string="Mata Pelajaran" attrs="{'invisible': [('jenis_raport', '=', 'IEP')]}">
                             <field name="raport_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
@@ -115,7 +130,7 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Mulok">
+                        <group string="Muatan Lokal" attrs="{'invisible': [('jenis_raport', '=', 'IEP')]}" >
                             <field name="mulok_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="subject_id" options='{"no_create_edit": True, "no_create": True}'/>
@@ -125,7 +140,7 @@
                                 </tree>
                             </field>
                         </group>
-                        <group col= "4" string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group col= "4" string="Perkembangan Karakter Siswa" attrs="{'invisible': [('jenis_raport', 'in', ['STS', 'IEP'])]}">
                             <field name="mandiri"/>
                             <field name="disiplin"/>
                             <field name="tertib"/>
@@ -134,7 +149,7 @@
                             <field name="kerjasama"/>
                             <field name="kepemimpinan"/>
                         </group>
-                        <group string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group string="Perkembangan Fisik dan Kesehatan" attrs="{'invisible': [('jenis_raport', 'in', ['STS', 'IEP'])]}">
                                     <field name="tinggi_bdn"/>
                                     <field name="berat_bdn"/>
                                     <field name="lingkar_kpl"/>
@@ -142,7 +157,7 @@
                                     <field name="penglihatan"/>
                                     <field name="gigi"/>
                         </group>
-                        <group string="Catatan Prestasi" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group string="Catatan Prestasi Siswa" attrs="{'invisible': [('jenis_raport', 'in', ['STS', 'IEP'])]}">
                             <field name="prestasi_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="nama"/>
@@ -150,7 +165,7 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Catatan Kegiatan" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group string="Catatan Kegiatan Sekolah" attrs="{'invisible': [('jenis_raport', 'in', ['STS', 'IEP'])]}">
                             <field name="kegiatan_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
                                 <tree edit="true" editable="bottom" create="true" delete="true">
                                     <field name="nama"/>
@@ -158,19 +173,109 @@
                                 </tree>
                             </field>
                         </group>
-                        <group string="Ketidakhadiran" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+
+                        <group string="Intrapersonal" attrs="{'invisible': [('jenis_raport', '!=', 'IEP')]}">
+                            <group string = "Emosi">
+                                <field name="emosi_indikator"/>
+                                <field name="emosi_capaian"/>
+                            </group>
+                            
+                            <group string = "Percaya Diri">
+                                <field name="pd_indikator"/>
+                                <field name="pd_capaian"/>
+                            </group>
+                            
+                            <group string = "Fokus">
+                                <field name="fokus_indikator"/>
+                                <field name="fokus_capaian"/>
+                            </group>
+                            
+                            <group string = "Tanggung Jawab">
+                                <field name="tanggung_jawab_indikator"/>
+                                <field name="tanggung_jawab_capaian"/>
+                            </group>
+                            
+                        </group>
+                        <group string="Interpersonal" attrs="{'invisible': [('jenis_raport', '!=', 'IEP')]}">
+                            <group string = "Sosial">
+                                <field name="sosial_indikator"/>
+                                <field name="sosial_capaian"/>
+                            </group>
+                            
+                            <group string = "Bekerja Sama">
+                                <field name="kerjasama_indikator"/>
+                                <field name="kerjasama_capaian"/>
+                            </group>
+                            
+                        </group>
+                        <group string="Bahasa" attrs="{'invisible': [('jenis_raport', '!=', 'IEP')]}">
+                            <group string = "Mengekspresikan Diri">
+                                <field name="ekspresi_indikator"/>
+                                <field name="ekspresi_capaian"/>
+                            </group>
+
+                            <group string = "Kemampuan membaca dan menulis">
+                                <field name="catul_indikator"/>
+                                <field name="catul_capaian"/>
+                            </group>
+
+                            <group string = "Memahami instruksi 2 atau 3 perintah bersamaan">
+                                <field name="instruksi_indikator"/>
+                                <field name="instruksi_capaian"/>
+                            </group>
+
+                            <group string = "Berkomunikasi 2 arah dengan jelas ">
+                                <field name="arah_indikator"/>
+                                <field name="arah_capaian"/>
+                            </group>
+                        </group>
+                            
+                            
+                        
+
+                        <group string="Kognitif dan Kinestetik" attrs="{'invisible': [('jenis_raport', '!=', 'IEP')]}">
+                            <group string = "Problem Solving">
+                                        <field name="problemsolving_indikator"/>
+                                        <field name="problemsolving_capaian"/>
+                            </group>
+
+                            <group string = "Motorik">
+                                            <field name="motorik_indikator"/>
+                                            <field name="motorik_capaian"/>
+                            </group>
+                                    
+                        </group>
+
+                    
+
+                        <group string="Kekuatan Minat dan Bakat" attrs="{'invisible': [('jenis_raport', '!=', 'IEP')]}">
+                            <field name="minat_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
+                                <tree edit="true" editable="bottom" create="true" delete="true">
+                                    <field name="aspek_penilaian"/>
+                                    <field name="capaian"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Catatan Ketidakhadiran" attrs="{'invisible': [('jenis_raport', 'in', ['STS', 'IEP'])]}">
                             <field name="sakit"/>
                             <field name="ijin"/>
                             <field name="tanpa_ket"/>
                         </group>
-                        <group string="Kesimpulan / Saran :" attrs="{'invisible': [('jenis_raport', '=', 'STS')]}">
+                        <group string="Kesimpulan / Saran :" attrs="{'invisible': [('jenis_raport', 'in', ['STS', 'IEP'])]}">
                             <field name="ksmpln_saran"/>
                             <field name="keputusan_siswa"/>
                         </group>
-                        <group col="8" string="Mengetahui">
+                        <group col="8" string="Mengetahui" attrs="{'invisible': [('jenis_raport', '=', 'IEP')]}">
                             <field name="ttd_ortu"/>
                             <field name="ttd_kepsek"/>
                             <field name="ttd_walas"/>
+                        </group>
+
+                        <group col="8" string="Mengetahui" attrs="{'invisible': [('jenis_raport', '!=', 'IEP')]}">
+                            <field name="ttd_kepsek"/>
+                            <field name="koordinator"/>
+                            <field name="pendamping"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
@@ -206,13 +311,7 @@
             </field>
         </record>
 
-        <!-- Menu item to access Raport Siswa -->
-        <menuitem id="menu_raport_siswa_sts"
-                  name="Raport SD"
-                  parent="openeducat_core.menu_op_report_main"
-                  sequence="2"
-                  action="raport_siswa_sts_action"
-                  groups="openeducat_core.group_op_faculty"/>
+
 
 
         <record id="paperformat_custom_a4" model="report.paperformat">
