@@ -58,31 +58,30 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <field name="first_name" placeholder="Nama Depan" required="1"
-                                                   style="padding-right:10px"
+                                            <field name="first_name" placeholder="Nama Depan" required="0"
+                                                   style="padding-right:10px" invisible="0"
                                                    attrs="{'readonly': [('state', '=', 'done')]}"/>
                                         </td>
                                         <td>
                                             <field name="middle_name" placeholder="Tengah"
-                                                   style="padding-right:10px"/>
+                                                   style="padding-right:10px" invisible="0"/>
                                         </td>
                                         <td>
-                                            <field name="last_name" placeholder="Belakang" required="1"
-                                                   style="padding-right:10px"/>
+                                            <field name="last_name" placeholder="Belakang" required="0"
+                                                   style="padding-right:10px" invisible="0"/>
                                         </td>
                                     </tr>
                                 </table>
                             </h1>
                         </div>
                         <group col="4">
-                            <field name="mendaftar"/>
+                            <field name="register_id" domain="[('state', 'in', ['application','admission'])]"
+                                           widget="selection"/>
                             <field name="jenis_ppdb"/>
                         </group>
                         <notebook colspan="4">
                             <page name="admission_detail" string="PPDB TK SAT">
                                 <group col="4" colspan="4">
-                                    <field name="register_id" domain="[('state', 'in', ['application','admission'])]"
-                                           widget="selection"/>
                                     <field name="application_number"/>
                                     <field name="application_date"/>
                                     <field name="admission_date"/>

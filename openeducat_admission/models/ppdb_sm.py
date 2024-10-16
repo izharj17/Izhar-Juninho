@@ -11,6 +11,10 @@ class FormulirSM(models.Model):
     _description = "PPDB SM"
     _order = 'id DESC'
 
+    #MULAI DARI SINI DATA DIAMBIL KE FRONT END
+    register_id = fields.Many2one(
+        'op.admission.register', 'Daftar Penerimaan PPDB', required=True,
+        states={'done': [('readonly', True)]})
     name = fields.Char(
         'Nama Lengkap', size=128, required=True, translate=True)
     first_name = fields.Char(
@@ -21,8 +25,8 @@ class FormulirSM(models.Model):
     last_name = fields.Char(
         'Nama Belakang', size=128, required=True, translate=True,
         states={'done': [('readonly', True)]})
-
-    #DARI SINI DATANYA TIDAK PERLU DIAMBIL KE FRONT END
+    
+    #DATA INI TIDAK PERLU DIAMBIL KE FRONT END
     title = fields.Many2one(
         'res.partner.title', 'Title', states={'done': [('readonly', True)]})
     application_number = fields.Char(
@@ -85,9 +89,6 @@ class FormulirSM(models.Model):
     student_id = fields.Many2one(
         'op.student', 'Siswa', states={'done': [('readonly', True)]})
     nbr = fields.Integer('No of Admission', readonly=True)
-    register_id = fields.Many2one(
-        'op.admission.register', 'Daftar Penerimaan PPDB', required=True,
-        states={'done': [('readonly', True)]})
     partner_id = fields.Many2one('res.partner', 'Partner')
     is_student = fields.Boolean('PPDB Diterima')
     fees_term_id = fields.Many2one('op.fees.terms', 'Termin Pembayaran')
@@ -101,9 +102,9 @@ class FormulirSM(models.Model):
         default=lambda self: self.env.user.company_id)
     nationality = fields.Many2one('res.country', 'Negara', default=lambda self: self._get_default_nationality())
     category_id = fields.Many2one('op.category', 'Category', default=lambda self: self._get_default_category())
-    #SAMPE SINI JANGAN DI AMBIL KE FRONT END
+    #SAMPE SINI DATANYA TIDAK PERLU DIAMBIL KE FRONT END
 
-    #MULAI DARI SINI DATANYA DIAMBIL KE FRONT END
+    #DARI DATA INI LANJUT DIAMBIL KE FRONT END
     #Data Pribadi
     mendaftar = fields.Char('Mendaftar Untuk Tahun Ajaran')
     gender = fields.Selection(

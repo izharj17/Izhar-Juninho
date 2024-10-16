@@ -11,8 +11,12 @@ class FormulirTK(models.Model):
     _description = "PPDB TK"
     _order = 'id DESC'
 
+    #MULAI DARI SINI DATA DIAMBIL KE FRONT END
+    register_id = fields.Many2one(
+        'op.admission.register', 'Daftar Penerimaan PPDB', required=False,
+        states={'done': [('readonly', True)]})
     name = fields.Char(
-        'Nama Lengkap', size=128, required=True, translate=True)
+        'Nama Lengkap', size=128, required=False, translate=True)
     first_name = fields.Char(
         'Nama Depan', size=128, required=True, translate=True)
     middle_name = fields.Char(
@@ -21,8 +25,8 @@ class FormulirTK(models.Model):
     last_name = fields.Char(
         'Nama Belakang', size=128, required=True, translate=True,
         states={'done': [('readonly', True)]})
-
-    #DARI SINI DATA TIDAK PERLU DIAMBIL KE FRONT END
+    
+    #DATA INI TIDAK PERLU DIAMBIL KE FRONT END
     title = fields.Many2one(
         'res.partner.title', 'Title', states={'done': [('readonly', True)]})
     application_number = fields.Char(
@@ -33,11 +37,11 @@ class FormulirTK(models.Model):
         'Tanggal Penerimaan', copy=False,
         states={'done': [('readonly', True)]})
     application_date = fields.Datetime(
-        'Tanggal Pengisian Formulir', required=True, copy=False,
+        'Tanggal Pengisian Formulir', copy=False,
         states={'done': [('readonly', True)]},
         default=lambda self: fields.Datetime.now())
     course_id = fields.Many2one(
-        'op.course', 'Kelas', required=True,
+        'op.course', 'Kelas', required=False,
         states={'done': [('readonly', True)]})
     batch_id = fields.Many2one(
         'op.batch', 'Rombel', required=False,
@@ -55,7 +59,7 @@ class FormulirTK(models.Model):
         'No Handphone', size=16,
         states={'done': [('readonly', True)], 'submit': [('required', True)]})
     email = fields.Char(
-        'Email', size=256, required=True,
+        'Email', size=256, required=False,
         states={'done': [('readonly', True)]})
     city = fields.Char('Kota', size=64, states={'done': [('readonly', True)]})
     zip = fields.Char('Kode Pos', size=8, states={'done': [('readonly', True)]})
@@ -85,12 +89,9 @@ class FormulirTK(models.Model):
     student_id = fields.Many2one(
         'op.student', 'Siswa', states={'done': [('readonly', True)]})
     nbr = fields.Integer('No of Admission', readonly=True)
-    register_id = fields.Many2one(
-        'op.admission.register', 'Daftar Penerimaan PPDB', required=True,
-        states={'done': [('readonly', True)]})
     partner_id = fields.Many2one('res.partner', 'Partner')
     is_student = fields.Boolean('PPDB Diterima')
-    fees_term_id = fields.Many2one('op.fees.terms', 'Termin Pembayaran')
+    fees_term_id = fields.Many2one('op.fees.terms', 'Termin Pembayaran', required=False)
     active = fields.Boolean(default=True)
     discount = fields.Float(string='Diskon PPDB (%)',
                             digits='Discount', default=0.0)
@@ -101,11 +102,10 @@ class FormulirTK(models.Model):
         default=lambda self: self.env.user.company_id)
     nationality = fields.Many2one('res.country', 'Negara', default=lambda self: self._get_default_nationality())
     category_id = fields.Many2one('op.category', 'Category', default=lambda self: self._get_default_category())
-    #SAMPE SINI JANGAN DI AMBIL KE FRONT END
+    #SAMPE SINI DATANYA TIDAK PERLU DIAMBIL KE FRONT END
 
-    #MULAI DARI SINI DATANYA DIAMBIL KE FRONT END
+    #DARI DATA INI LANJUT DIAMBIL KE FRONT END
     #Data Pribadi
-    mendaftar = fields.Char('Mendaftar Untuk Tahun Ajaran')
     gender = fields.Selection(
         [('m', 'Laki - Laki'), ('f', 'Perempuan')],
         string='Jenis Kelamin',
