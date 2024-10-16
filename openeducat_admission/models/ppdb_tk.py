@@ -21,6 +21,8 @@ class FormulirTK(models.Model):
     last_name = fields.Char(
         'Nama Belakang', size=128, required=True, translate=True,
         states={'done': [('readonly', True)]})
+
+    #DARI SINI DATA TIDAK PERLU DIAMBIL KE FRONT END
     title = fields.Many2one(
         'res.partner.title', 'Title', states={'done': [('readonly', True)]})
     application_number = fields.Char(
@@ -99,7 +101,9 @@ class FormulirTK(models.Model):
         default=lambda self: self.env.user.company_id)
     nationality = fields.Many2one('res.country', 'Negara', default=lambda self: self._get_default_nationality())
     category_id = fields.Many2one('op.category', 'Category', default=lambda self: self._get_default_category())
+    #SAMPE SINI JANGAN DI AMBIL KE FRONT END
 
+    #MULAI DARI SINI DATANYA DIAMBIL KE FRONT END
     #Data Pribadi
     mendaftar = fields.Char('Mendaftar Untuk Tahun Ajaran')
     gender = fields.Selection(
