@@ -22,7 +22,7 @@ class FormulirSM(models.Model):
         'Nama Belakang', size=128, required=True, translate=True,
         states={'done': [('readonly', True)]})
 
-    
+    #DARI SINI DATANYA TIDAK PERLU DIAMBIL KE FRONT END
     title = fields.Many2one(
         'res.partner.title', 'Title', states={'done': [('readonly', True)]})
     application_number = fields.Char(
