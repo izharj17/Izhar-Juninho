@@ -22,3 +22,6 @@
 from . import admission
 from . import admission_register
 from . import register_formulir
+from . import riwayat_perkembangan
+from . import ppdb_tk
+from . import ppdb_sm

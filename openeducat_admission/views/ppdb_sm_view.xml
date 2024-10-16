@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_formulir_sm_tree" model="ir.ui.view">
+            <field name="name">formulir.sm.tree</field>
+            <field name="model">formulir.sm</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Registration">
+                    <field name="application_number"/>
+                    <field name="title"/>
+                    <field name="name"/>
+                    <field name="admission_date"/>
+                    <field name="application_date"/>
+                    <field name="course_id"/>
+                    <field name="batch_id" invisible="1"/>
+                    <field name="state"/>
+                    <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_formulir_sm_form" model="ir.ui.view">
+            <field name="name">formulir.sm.form</field>
+            <field name="model">formulir.sm</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Registration">
+                    <header groups="base.group_user">
+                        <button string="Submit" states="draft" class="oe_highlight" type="object" name="submit_form"/>
+                        <button name="confirm_in_progress" states="submit,pending" string="Confirm" type="object"
+                                class="oe_highlight"/>
+                        <button string="Admission Confirm" class="oe_highlight" states="confirm" type="object"
+                                name="admission_confirm"/>
+                        <button name="enroll_student" states="admission" string="Enroll" type="object"
+                                class="oe_highlight"/>
+                        <button name="confirm_rejected" states="confirm,confirm_pending" string="Reject" type="object"/>
+                        <button name="confirm_pending" states="submit" string="Pending" type="object"/>
+                        <button name="confirm_cancel" string="Cancel" type="object"/>
+                        <button name="confirm_to_draft" states="pending,reject,cancel" string="Set to Draft"
+                                type="object"/>
+                        <button name="open_student" states="done" string="Open Student Profile" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+
+                        <field name="image" widget="image" class="oe_left oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="title" placeholder="Title" style="width: 30%%"/>
+                            </h1>
+                            <h1>
+                                <field name="name" placeholder="Name" required="1" style="padding-right:10px"
+                                       invisible="1"/>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <field name="first_name" placeholder="Nama Depan" required="1"
+                                                   style="padding-right:10px"
+                                                   attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                        </td>
+                                        <td>
+                                            <field name="middle_name" placeholder="Tengah"
+                                                   style="padding-right:10px"/>
+                                        </td>
+                                        <td>
+                                            <field name="last_name" placeholder="Belakang" required="1"
+                                                   style="padding-right:10px"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="mendaftar"/>
+                            <field name="jenis_ppdb"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page name="admission_detail" string="PPDB SM SAT">
+                                <group col="4" colspan="4">
+                                    <field name="register_id" domain="[('state', 'in', ['application','admission'])]"
+                                           widget="selection"/>
+                                    <field name="application_number"/>
+                                    <field name="application_date"/>
+                                    <field name="admission_date"/>
+                                    <field name="course_id"/>
+                                    <field name="batch_id"
+                                           context="{'course_id': course_id,'get_parent_batch':1}"/>
+                                    <field name="discount"/>
+                                    <field name="fees" attrs="{'required': [('state','not in', ['draft', 'submit'])]}"/>
+                                    <field name="due_date"/>
+                                    <field name="fees_term_id" required="1"
+                                           attrs="{'readonly': [('state','not in', ['draft', 'submit', 'confirm'])]}"/>
+                                    <field name="is_student"/>
+                                    <field name="partner_id"/>
+                                    <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                                    <field name="student_id" placeholder="Student" options="{'no_create_edit': True}"
+                                           attrs="{'required':[('is_student','=',True)],'invisible': [('is_student','=', False)]}"/>
+                                    <field name="fees_start_date"/>
+                                    <field name="nationality" invisible="1"/>
+                                    <field name="category_id" invisible="1"/>
+                                </group>
+                            </page>
+                            <!-- <page name="educational_detail" string="Educational Detail">
+                                <group col="4" colspan="4">
+                                    <field name="prev_institute_id"/>
+                                    <field name="prev_course_id"/>
+                                    <field name="prev_result"/>
+                                </group>
+                            </page> -->
+                            <page name="personal_detail" string="Formulir Bagian 1">
+                                <group string="Data Siswa" col="4" colspan="4">
+                                    <field name="nama_panggilan"/>
+                                    <field name="gender"/>
+                                    <field name="nisn"/>
+                                    <field name="nik"/>
+                                    <field name="no_kk"/>
+                                    <field name="birth_place"/>
+                                    <field name="birth_date" options="{'datepicker':{'maxDate': 'now'}}"/>
+                                    <field name="no_akta_lahir"/>
+                                    <field name="agama"/>
+                                    <field name="kewarganegaraan"/>
+                                    <field name="alamat_siswa"/>
+                                    <!-- <field name="rt_rw"/>
+                                    <field name="kecamatan_id"/>
+                                    <field name="kelurahan_id"/>
+                                    <field name="kode_pos"/> -->
+                                    <!-- <field name="tempat_tinggal"/>
+                                    <field name="moda_transport"/> -->
+                                    <field name="anak_ke"/>
+                                    <field name="punya_kia"/>
+                                    <field name="email" placeholder="Email"/>
+                                </group>
+                                <group>
+                                    <field name="asal_sekolah"/>
+                                </group>
+                                <group>
+                                    <notebook>
+                                        <page>
+                                            <field name="saudara_kandung_sm_line_ids" widget="one2many_list">
+                                                <tree>
+                                                    <field name="nama_saudara"/>
+                                                    <field name="tgl_lahir"/>
+                                                    <field name="sekolah"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </group>
+                                <group string="Data Ayah / Wali" col="4">
+                                    <field name="ayah_id"/>
+                                    <field name="tempat_lahir_ayah"/>
+                                    <field name="tgl_lahir_ayah"/>
+                                    <field name="telp_ayah"/>
+                                    <field name="email_ayah"/>
+                                    <field name="suku_ayah"/>
+                                    <field name="agama_ayah"/>
+                                    <field name="pendidikan_ayah"/>
+                                    <field name="pekerjaan_ayah"/>
+                                    <field name="jabatan_ayah"/>
+                                    <field name="penghasilan_ayah"/>
+                                    <field name="tanggungan_ayah"/>
+                                    <field name="status_ayah"/>
+                                    <field name="alamat_ayah"/>
+                                </group>
+                                <group string="Data Ibu / Wali" col="4">
+                                    <field name="ibu_id"/>
+                                    <field name="tempat_lahir_ibu"/>
+                                    <field name="tgl_lahir_ibu"/>
+                                    <field name="telp_ibu"/>
+                                    <field name="email_ibu"/>
+                                    <field name="suku_ibu"/>
+                                    <field name="agama_ibu"/>
+                                    <field name="pendidikan_ibu"/>
+                                    <field name="pekerjaan_ibu"/>
+                                    <field name="jabatan_ibu"/>
+                                    <field name="penghasilan_ibu"/>
+                                    <field name="tanggungan_ibu"/>
+                                    <field name="status_ibu"/>
+                                    <field name="alamat_ibu"/>
+                                </group>
+                                <group>
+                                    <field name="wali_id" invisible="1"/>
+                                </group>
+								<group col="4" colspan="4" string="Dokumen Pendukung">
+									<field name="file_akta"/>
+									<field name="file_pas_ft"/>
+									<field name="file_kk"/>
+									<field name="file_ktp_ortu"/>
+								</group>
+                                <group string="Tumbuh Kembang Anak">
+                                    <notebook>
+                                        <page string="Apakah Anak Anda pernah mendapat bantuan pembelajaran dalam bentuk apapun dan/atau pernah mengikuti test yang dilakukan Psikolog/Pedagog atau spesialis dalam perkembangan anak?">
+                                            <field name="tumbuh_kembang_sm_line_ids" widget="one2many_list">
+                                                <tree>
+                                                    <field name="jenis_tes"/>
+                                                    <field name="status_tes_1"/>
+                                                    <field name="status_tes_2"/>
+                                                    <field name="usia_tes"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </group>
+                            </page>
+                            <!-- <page name="data_priodik" string="Data Priodik">
+                                <group col="4" colspan="4">
+                                    <field name="tinggi_bdn"/>
+                                    <field name="berat_bdn"/>
+                                    <field name="lingkar_kpl"/>
+                                    <field name="jrk_tmpt_plhn"/>
+                                    <field name="jrk_tmpt_km"/>
+                                    <field name="waktu_tempuh"/>
+                                    <field name="jmlh_saudara_kandung"/>
+                                </group>
+                            </page> -->
+                            <page string="Formulir Bagian 2">
+                                <!-- <group string="Kelahiran">
+                                    <field name="usia_kandungan"/>
+                                    <field name="proses_lahir"/>
+                                </group> -->
+                                <group string="Makanan / Minuman" col="2">
+                                    <field name="asi"/>
+                                    <field name="lama_asi"/>
+                                    <field name="susu"/>
+                                    <field name="anak_minum"/>
+                                    <field name="makan_padat"/>
+                                    <field name="favorit"/>
+                                    <field name="ga_favorit"/>
+                                    <field name="makan_sendiri"/>
+                                    <field name="alergi"/>
+                                </group>
+                                <group string="Tidur" col="2">
+                                    <field name="tidur"/>
+                                    <field name="kamar"/>
+                                    <field name="tempat_tidur"/>
+                                    <field name="teman_tidur"/>
+                                    <field name="jam_tidur"/>
+                                    <field name="bangun_malam"/>
+                                    <field name="jam_bangun"/>
+                                    <field name="tidur_siang"/>
+                                    <field name="mengantuk"/>
+                                    <field name="kebiasaan_tidur"/>
+                                </group>
+                                <!-- <group string="Toilet Training" col="2">
+                                    <field name="toilet"/>
+                                    <field name="berhasil_toilet"/>
+                                    <field name="mulai_toilet"/>
+                                    <field name="ngompol"/>
+                                    <field name="tidak_ngompol"/>
+                                    <field name="kencing_malam"/>
+                                    <field name="bantuan_toilet"/>
+                                </group> -->
+                                <group string="Lingkungan Rumah" col="2">
+                                    <field name="bermain"/>
+                                    <field name="teman_main"/>
+                                    <field name="orang_rumah"/>
+                                    <field name="ket_bermain"/>
+                                    <field name="hubungan_dekat"/>
+                                    <field name="kegiatan_anak"/>
+                                </group>
+                                <group string="Kegiatan Hobi dan Pertemanan" col="2">
+                                    <field name="hobi_anak"/>
+                                    <field name="teman_hobi"/>
+                                    <field name="kecenderungan"/>
+                                    <field name="teman_sebaya"/>
+                                    <field name="hal_disukai"/>
+                                </group>
+                                <group string="Pembelajaran">
+                                    <field name="atmosfer_singkat"/>
+                                    <field name="sekolah_dicari"/>
+                                </group>
+                                <group>
+                                    <field name="deskripsi" nolabel="1"/>
+                                </group>
+                                <group>
+                                    <field name="proses_belajar"/>
+                                    <field name="metode_disiplin"/>
+                                    <field name="metode_aturan"/>
+                                    <field name="metode_pendekatan"/>
+                                    <field name="catatan_khusus"/>
+                                </group>
+                                <group>
+                                    <field name="Deskripsi_2" nolabel="1"/>
+                                </group>
+                                <group col="6">
+                                    <field name="agresif"/>
+                                    <field name="aktif"/>
+                                    <field name="berani"/>
+                                    <field name="cengeng"/>
+                                    <field name="cerewet"/>
+                                    <field name="ceria"/>
+                                    <field name="dominan"/>
+                                    <field name="pengikut"/>
+                                    <field name="humoris"/>
+                                    <field name="ingin_tahu"/>
+                                    <field name="keras_kepala"/>
+                                    <field name="kreatif"/>
+                                    <field name="mudah_akrab"/>
+                                    <field name="mudah_bergaul"/>
+                                    <field name="berjiwa_pengasuh"/>
+                                    <field name="pandai"/>
+                                    <field name="patuh"/>
+                                    <field name="pemaaf"/>
+                                    <field name="penakut"/>
+                                    <field name="pemalu"/>
+                                    <field name="pemarah"/>
+                                    <field name="pembangkang"/>
+                                    <field name="pemberi"/>
+                                    <field name="pembohong"/>
+                                    <field name="pemurung"/>
+                                    <field name="pemimpin"/>
+                                    <field name="pemelas"/>
+                                    <field name="pendiam"/>
+                                    <field name="penghayal"/>
+                                    <field name="penuh_perhatian"/>
+                                    <field name="penyayang"/>
+                                    <field name="penyendiri"/>
+                                    <field name="rajin"/>
+                                    <field name="sabar"/>
+                                    <field name="senang_berteman"/>
+                                    <field name="sensitif"/>
+                                    <field name="lainnya"/>
+                                </group>
+                                <group col="4">
+                                    <field name="hari_pengisian"/>
+                                    <field name="tanggal_pengisian"/>
+                                    <field name="ttd_ayah"/>
+                                    <field name="ttd_ibu"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_formulir_sm_search" model="ir.ui.view">
+            <field name="name">formulir.sm.search</field>
+            <field name="model">formulir.sm</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Registration">
+                    <field name="name"/>
+                    <field name="application_number"/>
+                    <field name="admission_date"/>
+                    <field name="application_date"/>
+                    <field name="birth_date"/>
+                    <field name="course_id"/>
+                    <field name="batch_id"/>
+                    <newline/>
+                    <filter name="enrolled_student" string="Enrolled" domain="[('state','=','done')]"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Admission Date" name="group_by_adm_admission_date"
+                                domain="[]" context="{'group_by':'admission_date'}"/>
+                        <filter string="Application Date" name="group_by_adm_application_date"
+                                domain="[]" context="{'group_by':'application_date'}"/>
+                        <filter string="Course" name="group_by_adm_course_id"
+                                domain="[]" context="{'group_by':'course_id'}"/>
+                        <filter string="Batch" name="group_by_adm_batch_id"
+                                domain="[]" context="{'group_by':'batch_id'}"/>
+                        <filter string="Status" name="group_by_adm_state"
+                                domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Register" name="group_by_adm_register"
+                                domain="[('register_id.state', 'not in', ['cancel', 'done'])]"
+                                context="{'group_by':'register_id'}"/>
+                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_formulir_sm_graph">
+            <field name="name">formulir.sm.graph</field>
+            <field name="model">formulir.sm</field>
+            <field name="arch" type="xml">
+                <graph string="Kelas dalam PPDB" type="pie">
+                    <field name="course_id"/>
+                    <field name="nbr" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_formulir_sm_pivot">
+            <field name="name">formulir.sm.pivot</field>
+            <field name="model">formulir.sm</field>
+            <field name="arch" type="xml">
+                <pivot string="Kelas dalam PPDB">
+                    <field name="title"/>
+                    <field name="name"/>
+                    <field name="middle_name"/>
+                    <field name="last_name"/>
+                    <field name="application_number"/>
+                    <field name="register_id"/>
+                    <field name="admission_date"/>
+                    <field name="application_date"/>
+                    <field name="birth_date"/>
+                    <field name="course_id" type="row"/>
+                    <field name="batch_id"/>
+                    <field name="state"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_formulir_sm_view">
+            <field name="name">Formulir PPDB SM</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">formulir.sm</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+            <field name="search_view_id" ref="view_formulir_sm_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_formulir_sm_view_form">
+            <field name="act_window_id" ref="act_open_formulir_sm_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_formulir_sm_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_formulir_sm_view_tree">
+            <field name="act_window_id" ref="act_open_formulir_sm_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_formulir_sm_tree"/>
+        </record>
+    </data>
+</odoo>

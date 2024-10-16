@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_tumbuh_kembang_tree" model="ir.ui.view">
+            <field name="name">tumbuh.kembang.tree</field>
+            <field name="model">tumbuh.kembang</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Formulir Tumbuh Kembang">
+                    <field name="nama_anak"/>
+                    <field name="nama_panggilan"/>
+                    <field name="tempat_lahir"/>
+                    <field name="tgl_lahir"/>
+                    <field name="agama"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tumbuh_kembang_form" model="ir.ui.view">
+            <field name="name">tumbuh.kembang.form</field>
+            <field name="model">tumbuh.kembang</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Identitas Anak" col="4">
+                            <field name="nama_anak"/>
+                            <field name="nama_panggilan"/>
+                            <field name="tempat_lahir"/>
+                            <field name="tgl_lahir"/>
+                            <field name="agama"/>
+                            <field name="alamat"/>
+                            <field name="urutan"/>
+                        </group>
+                        <group string="Susunan Dalam Keluarga (Tuliskan urutan anak dari yang terbesar sampai terkecil)">
+                            <field name="susunan" cosplan="2"/>
+                        </group>
+                        <notebook>
+                            <page string="Identitas Orang Tua / Wali">
+                                <group string="Identitas Ayah" col="4">
+                                    <field name="nama_ayah"/>
+                                    <field name="tempat_lahir_ayah"/>
+                                    <field name="tgl_lahir_ayah"/>
+                                    <field name="suku_ayah"/>
+                                    <field name="agama_ayah"/>
+                                    <field name="pendidikan_ayah"/>
+                                    <field name="pekerjaan_ayah"/>
+                                    <field name="usia_menikah_ayah"/>
+                                    <field name="alamat_ayah"/>
+                                    <field name="telp_ayah" placeholder="081300000000"/>
+                                </group>
+                                <group string="Identitas Ibu" col="4">
+                                    <field name="nama_ibu"/>
+                                    <field name="tempat_lahir_ibu"/>
+                                    <field name="tgl_lahir_ibu"/>
+                                    <field name="suku_ibu"/>
+                                    <field name="agama_ibu"/>
+                                    <field name="pendidikan_ibu"/>
+                                    <field name="pekerjaan_ibu"/>
+                                    <field name="usia_menikah_ibu"/>
+                                    <field name="alamat_ibu"/>
+                                    <field name="telp_ibu" placeholder="081300000000"/>
+                                </group>
+                                <group string="Identitas Wali" col="4">
+                                    <field name="nama_wali"/>
+                                    <field name="tempat_lahir_wali"/>
+                                    <field name="tgl_lahir_wali"/>
+                                    <field name="suku_wali"/>
+                                    <field name="agama_wali"/>
+                                    <field name="pendidikan_wali"/>
+                                    <field name="pekerjaan_wali"/>
+                                    <field name="alamat_wali"/>
+                                    <field name="telp_wali" placeholder="081300000000"/>
+                                </group>
+                            </page>
+                            <page string="Masa Prenatal">
+                                <group string="Sebelum Lahiran / Dalam Kandungan">
+                                    <field name="usia_mengandung"/>
+                                    <field name="kondisi_ibu"/>
+                                    <field name="kondisi_bayi"/>
+                                </group>
+                            </page>
+                            <page string="Masa Pratus">
+                                <group string="Saat Lahiran">
+                                    <field name="usia_kandungan"/>
+                                    <field name="proses_kelahiran"/>
+                                    <field name="kondisi_lahir"/>
+                                </group>
+                            </page>
+                            <page string="Masa Posnatal">
+                                <group string="Perkembangan Setelah Lahir" col="4">
+                                    <field name="pertumbuhan"/>
+                                    <field name="motorik_kasar"/>
+                                    <field name="motorik_halus"/>
+                                    <field name="bahasa"/>
+                                    <field name="berbicara"/>
+                                    <field name="kognitif"/>
+                                    <field name="konsentrasi"/>
+                                    <field name="atensi"/>
+                                    <field name="adaptasi"/>
+                                    <field name="aktivitas"/>
+                                    <field name="keterarahan"/>
+                                    <field name="interaksi"/>
+                                    <field name="kebiasaan"/>
+                                    <field name="keluhan"/>
+                                    <field name="perilaku"/>
+                                    <field name="kesulitan"/>
+                                    <field name="penyakit"/>
+                                    <field name="makanan"/>
+                                    <field name="alergi"/>
+                                    <field name="keterangan_lain"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_open_tumbuh_kembang" model="ir.actions.act_window">
+            <field name="name">Formulir Tumbuh Kembang</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tumbuh.kembang</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo> 

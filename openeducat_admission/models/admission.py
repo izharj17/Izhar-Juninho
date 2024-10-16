@@ -34,65 +34,64 @@ class OpAdmission(models.Model):
     _order = 'id DESC'
 
     name = fields.Char(
-        'Name', size=128, required=True, translate=True)
+        'Nama Lengkap', size=128, required=True, translate=True)
     first_name = fields.Char(
-        'First Name', size=128, required=True, translate=True)
+        'Nama Depan', size=128, required=True, translate=True)
     middle_name = fields.Char(
-        'Middle Name', size=128, translate=True,
+        'Nama Tengah', size=128, translate=True,
         states={'done': [('readonly', True)]})
     last_name = fields.Char(
-        'Last Name', size=128, required=True, translate=True,
+        'Nama Belakang', size=128, required=True, translate=True,
         states={'done': [('readonly', True)]})
     title = fields.Many2one(
         'res.partner.title', 'Title', states={'done': [('readonly', True)]})
     application_number = fields.Char(
-        'Application Number', size=16, copy=False,
-        required=True, readonly=True, store=True,
+        'Nomor Formulir', size=16, store=True,
         default=lambda self:
         self.env['ir.sequence'].next_by_code('op.admission'))
     admission_date = fields.Date(
-        'Admission Date', copy=False,
+        'Tanggal Penerimaan', copy=False,
         states={'done': [('readonly', True)]})
     application_date = fields.Datetime(
-        'Application Date', required=True, copy=False,
+        'Tanggal Pengisian Formulir', required=True, copy=False,
         states={'done': [('readonly', True)]},
         default=lambda self: fields.Datetime.now())
     course_id = fields.Many2one(
-        'op.course', 'Course', required=True,
+        'op.course', 'Kelas', required=True,
         states={'done': [('readonly', True)]})
     batch_id = fields.Many2one(
-        'op.batch', 'Batch', required=False,
+        'op.batch', 'Rombel', required=False,
         states={'done': [('readonly', True)],
                 'submit': [('required', True)],
                 'fees_paid': [('required', True)]})
     street = fields.Char(
-        'Street', size=256, states={'done': [('readonly', True)]})
+        'Alamat', size=256, states={'done': [('readonly', True)]})
     street2 = fields.Char(
-        'Street2', size=256, states={'done': [('readonly', True)]})
+        'Alamat 2', size=256, states={'done': [('readonly', True)]})
     phone = fields.Char(
-        'Phone', size=16, states={'done': [('readonly', True)],
+        'Telepon', size=16, states={'done': [('readonly', True)],
                                   'submit': [('required', True)]})
     mobile = fields.Char(
-        'Mobile', size=16,
+        'No Handphone', size=16,
         states={'done': [('readonly', True)], 'submit': [('required', True)]})
     email = fields.Char(
         'Email', size=256, required=True,
         states={'done': [('readonly', True)]})
-    city = fields.Char('City', size=64, states={'done': [('readonly', True)]})
-    zip = fields.Char('Zip', size=8, states={'done': [('readonly', True)]})
+    city = fields.Char('Kota', size=64, states={'done': [('readonly', True)]})
+    zip = fields.Char('Kode Pos', size=8, states={'done': [('readonly', True)]})
     state_id = fields.Many2one(
-        'res.country.state', 'States', states={'done': [('readonly', True)]})
+        'res.country.state', 'Provinsi', states={'done': [('readonly', True)]})
     country_id = fields.Many2one(
-        'res.country', 'Country', states={'done': [('readonly', True)]})
-    fees = fields.Float('Fees', states={'done': [('readonly', True)]})
+        'res.country', 'Negara', states={'done': [('readonly', True)]})
+    fees = fields.Float('Biaya PPDB', states={'done': [('readonly', True)]})
     image = fields.Image('image', states={'done': [('readonly', True)]})
     state = fields.Selection(
         [('draft', 'Draft'), ('submit', 'Submitted'),
          ('confirm', 'Confirmed'), ('admission', 'Admission Confirm'),
          ('reject', 'Rejected'), ('pending', 'Pending'),
          ('cancel', 'Cancelled'), ('done', 'Done')],
-        'State', default='draft', tracking=True)
-    due_date = fields.Date('Due Date', states={'done': [('readonly', True)]})
+        'Status PPDB', default='draft', tracking=True)
+    due_date = fields.Date('Tanggal Terakhir Pembayaran PPDB', states={'done': [('readonly', True)]})
     prev_institute_id = fields.Char('Previous Institute',
                                     states={'done': [('readonly', True)]})
     prev_course_id = fields.Char('Previous Course',
@@ -100,37 +99,34 @@ class OpAdmission(models.Model):
     prev_result = fields.Char(
         'Previous Result', size=256, states={'done': [('readonly', True)]})
     family_business = fields.Char(
-        'Family Business', size=256, states={'done': [('readonly', True)]})
+        'Pekerjaan Orang Tua', size=256, states={'done': [('readonly', True)]})
     family_income = fields.Float(
-        'Family Income', states={'done': [('readonly', True)]})
+        'Pendapatan Orang Tua', states={'done': [('readonly', True)]})
     student_id = fields.Many2one(
-        'op.student', 'Student', states={'done': [('readonly', True)]})
+        'op.student', 'Siswa', states={'done': [('readonly', True)]})
     nbr = fields.Integer('No of Admission', readonly=True)
     register_id = fields.Many2one(
-        'op.admission.register', 'Admission Register', required=True,
+        'op.admission.register', 'Daftar Penerimaan PPDB', required=True,
         states={'done': [('readonly', True)]})
     partner_id = fields.Many2one('res.partner', 'Partner')
-    is_student = fields.Boolean('Is Already Student')
-    fees_term_id = fields.Many2one('op.fees.terms', 'Fees Term')
+    is_student = fields.Boolean('PPDB Diterima')
+    fees_term_id = fields.Many2one('op.fees.terms', 'Termin Pembayaran')
     active = fields.Boolean(default=True)
-    discount = fields.Float(string='Discount (%)',
+    discount = fields.Float(string='Diskon PPDB (%)',
                             digits='Discount', default=0.0)
 
-    fees_start_date = fields.Date('Fees Start Date')
+    fees_start_date = fields.Date('Tanggal Mulai Pembayaran PPDB')
     company_id = fields.Many2one(
-        'res.company', string='Company',
+        'res.company', string='Nama Sekolah',
         default=lambda self: self.env.user.company_id)
-
-    ayah_id = fields.Many2one('op.data.ayah', 'Ayah')
-    ibu_id = fields.Many2one('op.data.ibu', 'Ibu')
-    wali_id = fields.Many2one('op.data.wali', 'Wali')
     nationality = fields.Many2one('res.country', 'Negara', default=lambda self: self._get_default_nationality())
     category_id = fields.Many2one('op.category', 'Category', default=lambda self: self._get_default_category())
 
     #Data Pribadi
+    mendaftar = fields.Char('Mendaftar Untuk Tahun Ajaran')
     gender = fields.Selection(
-        [('m', 'Male'), ('f', 'Female'), ('o', 'Other')],
-        string='Gender',
+        [('m', 'Laki - Laki'), ('f', 'Perempuan')],
+        string='Jenis Kelamin',
         required=True,
         states={'done': [('readonly', True)]})
     nama_panggilan = fields.Char('Nama Panggilan')
@@ -152,17 +148,12 @@ class OpAdmission(models.Model):
         ('1', 'Indonesia (WNI)'),
         ('2', 'Asing (WNA)'),
     ], string="Kewarganegaraan")
+    alamat_siswa = fields.Text('Alamat Siswa')
     rt_rw = fields.Char('RT/RW')
     kecamatan_id = fields.Many2one('wilayah.kecamatan', 'Kecamatan')
     kelurahan_id = fields.Many2one('wilayah.kelurahan', 'Kelurahan')
     kode_pos = fields.Char('Kode POS')
-    tempat_tinggal = fields.Selection([
-        ('1', 'Bersama Orant Tua'),
-        ('2', 'Wali'),
-        ('3', 'Kos'),
-        ('4', 'Asrama'),
-        ('5', 'Panti Asuhan'),
-    ], string='Tempat Tinggal')
+    tempat_tinggal = fields.Char('Tempat Tinggal')
     moda_transport = fields.Selection([
         ('1', 'Jalan Kaki'),
         ('2', 'Kendaraan Pribadi'),
@@ -172,8 +163,59 @@ class OpAdmission(models.Model):
         ('6', 'Ojek'),
         ('7', 'Lainnya'),
     ], string='Moda Transportasi')
-    anak_ke = fields.Char('Anak Ke')
+    anak_ke = fields.Char('Urutan dalam keluarga anak ke __')
     punya_kia = fields.Boolean('Apakah Punya KIA?')
+    jenis_ppdb = fields.Selection([
+        ('sisbar', 'Siswa Baru'),
+        ('pindah', 'Pindahan Ke Kelas__'),
+        ('kemsek', 'Kembali Bersekolah'),
+    ], string='Jenis Pendaftaran')
+    asal_sekolah = fields.Text('Riwayat Sekolah')
+    file_akta = fields.Binary('File Akta Kelahiran')
+    file_pas_ft = fields.Binary('Pas Photo Anak (3x4)')
+    file_kk = fields.Binary('File Kartu Keluarga')
+    file_ktp_ortu = fields.Binary('File KTP Orang Tua')
+    
+    #data ayah
+    ayah_id = fields.Many2one('op.data.ayah','Nama Lengkap Ayah / Wali')
+    tempat_lahir_ayah = fields.Char('Tempat Lahir')
+    tgl_lahir_ayah = fields.Date('Tanggal Lahir')
+    telp_ayah = fields.Integer('Telp/Hp', required=True)
+    email_ayah = fields.Char('Email', required=True)
+    suku_ayah = fields.Char('Suku Bangsa')
+    agama_ayah = fields.Char('Agama')
+    pendidikan_ayah = fields.Char('Pendidikan Terakhir')
+    pekerjaan_ayah = fields.Char('Pekerjaan')
+    jabatan_ayah = fields.Char('Jabatan')
+    penghasilan_ayah = fields.Float('Penghasilan Perbulan', required=True)
+    tanggungan_ayah = fields.Integer('Jumlah Tanggungan')
+    status_ayah = fields.Selection([
+        ('menikah', 'Menikah'),
+        ('cerai', 'Cerai')
+    ], 'Status Pernikahan')
+    alamat_ayah = fields.Char('Alamat')
+    
+    #data ibu
+    ibu_id = fields.Many2one('op.data.ibu', 'Nama Lengkap Ibu / Wali')
+    tempat_lahir_ibu = fields.Char('Tempat Lahir')
+    tgl_lahir_ibu = fields.Date('Tanggal Lahir')
+    telp_ibu = fields.Integer('Telp/Hp', required=True)
+    email_ibu = fields.Char('Email', required=True)
+    suku_ibu = fields.Char('Suku Bangsa')
+    agama_ibu = fields.Char('Agama')
+    pendidikan_ibu = fields.Char('Pendidikan Terakhir')
+    pekerjaan_ibu = fields.Char('Pekerjaan')
+    jabatan_ibu = fields.Char('Jabatan')
+    penghasilan_ibu = fields.Float('Penghasilan Perbulan', required=True)
+    tanggungan_ibu = fields.Integer('Jumlah Tanggungan')
+    status_ibu = fields.Selection([
+        ('menikah', 'Menikah'),
+        ('cerai', 'Cerai')
+    ], 'Status Pernikahan')
+    alamat_ibu = fields.Char('Alamat')
+    
+    #Data Wali
+    wali_id = fields.Many2one('op.data.wali', 'Nama Lengkap Wali')
 
     # Data Priodik
     tinggi_bdn = fields.Char('Tinggi Badan')
@@ -186,6 +228,199 @@ class OpAdmission(models.Model):
     jrk_tmpt_km = fields.Char('Jarak dalam KM')
     waktu_tempuh = fields.Char('Waktu Tempuh')
     jmlh_saudara_kandung = fields.Char('Jumlah Saudara Kandung')
+    
+    #Formulir Bagian 2
+    #Kandungan
+    usia_kandungan = fields.Char('Anak lahir pada usia kandungan ibu__Bulan')
+    proses_lahir = fields.Selection([
+        ('normal', 'Normal'),
+        ('operasi', 'Operasi Caesar')
+    ], 'Proses kelahiran anak melalui')
+    
+    #Makan & Minum
+    asi = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anda memberikan ASI kepada Anak?')
+    lama_asi = fields.Char('Berapa lama pemberian ASI?__BUlan')
+    susu = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anda memberikan Susu Formula kepada Anak?')
+    anak_minum = fields.Selection([
+        ('gelas', 'Gelas'),
+        ('dot', 'Dot'),
+        ('sedotan', 'Sedotan'),
+        ('gabisa', 'Belum Bisa')
+    ], 'Anak mampu minum sendiri dengan')
+    makan_padat = fields.Char('Pada umur berapa Anak pertama kali diberikan makanan padat?__Bulan')
+    favorit = fields.Char('Apakah makanan favorit Anak?')
+    ga_favorit = fields.Char('Apakah makanan yang tidak disukai Anak?')
+    makan_sendiri = fields.Selection([
+        ('sendok', 'Sendok'),
+        ('garpu', 'Garpu'),
+        ('tangan', 'Tangan'),
+        ('gabisa', 'Belum Bisa')
+    ], 'Apakah Anak mampu makan sendiri menggunakan :')
+    alergi = fields.Char('Apakah ada makanan yang memicu alergi pada anak anda?')
+    
+    #Tidur
+    tidur = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak masih tidur dengan orang tua?')
+    kamar = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak tidur di kamar sendiri?')
+    tempat_tidur = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak mempunyai tempat tidur sendiri?')
+    teman_tidur = fields.Char('Dengan siapa Anak tidur?')
+    jam_tidur = fields.Integer('Jam Tidur Malam Anak')
+    bangun_malam = fields.Selection([
+        ('ya', 'Ya'),
+        ('kadang', 'Kadang - Kadang'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak sering bangun tengah malam?')
+    jam_bangun = fields.Integer('Jam Bangun Tidur Anak')
+    tidur_siang = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak terbiasa tidur siang?')
+    mengantuk = fields.Char('Bagaimana tanda-tanda Anak Anda mengantuk?')
+    kebiasaan_tidur = fields.Text('Hal-hal lain yang perlu Anda sampaikan berkaitan dengan kebiasaan tidur anak')
+    
+    #Toilet Training
+    toilet = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak sudah mulai dilatih menggunakan Toilet?')
+    berhasil_toilet = fields.Char('Bila YA, sejauh mana keberhasilan Anda?')
+    mulai_toilet = fields.Char('Bila Tidak, kapan Anda berencana untuk memulainya?')
+    ngompol = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak masih mengompol?')
+    tidak_ngompol = fields.Char('Bila TIDAK, berapa usia Anak saat berhenti mengompol?')
+    kencing_malam = fields.Selection([
+        ('ya', 'Ya'),
+        ('kadang', 'Kadang - Kadang'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak sering buang air kecil tengah malam?')
+    bantuan_toilet = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anda membutuhkan bantuan Kami dalam memberikan toilet training?')
+    
+    #Lingkungan Rumah
+    bermain = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Adakah area untuk Anak bermain?')
+    teman_main = fields.Char('Dengan siapa Anak menghabiskan waktu di rumah?')
+    orang_rumah = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Adakah orang lain selain orang tua dan Anak di rumah?')
+    ket_bermain = fields.Char('Bila YA, Sebutkan__ ')
+    hubungan_dekat = fields.Char('Selain Anda, siapakah orang yang memiliki hubungan dekat dengan Anak?')
+    kegiatan_anak = fields.Char('Apa kegiatan yang paling sering dilakukan Anak di rumah?')
+    
+    #Kegiatan Bermain
+    mainan_anak = fields.Char('Apa mainan favorit Anak?')
+    biasa_main = fields.Char('Dengan siapa Anak biasa bermain?')
+    kecenderungan = fields.Selection([
+        ('sendiri', 'Sendiri'),
+        ('sebaya', 'Sebaya'),
+        ('orang_lain', 'Orang Lain')
+    ], 'Kecenderungan Anak bermain')
+    teman_sebaya = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak sering bermain dengan teman sebaya?')
+    warna = fields.Char('Apakah warna favorit Anak?')
+    membaca = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak suka kegiatan-kegiatan Membaca?')
+    cerita = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak suka kegiatan-kegiatan Mendengar Cerita?')
+    olahraga = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak suka kegiatan-kegiatan Olahraga?')
+    musik = fields.Selection([
+        ('ya', 'Ya'),
+        ('tidak', 'Tidak')
+    ], 'Apakah Anak suka kegiatan-kegiatan Mendengar Musik?')
+    
+    #Pembelajaran
+    atmosfer_singkat = fields.Text('Secara singkat atmosfer atau lingkungan seperti apa dimana Anak dapat belajar lebih baik?')
+    sekolah_dicari = fields.Text('Sekolah seperti apa yang Anda cari untuk Anak?')
+    deskripsi = fields.Text('', readonly=True, default="""Kami percaya bahwa orang tua memiliki peran penting dalam pendidikan anak mereka. Ketika orang tua bekerjasama dan terlibat mendukung proses pembelajaran mereka, maka mereka akan memahami pentingnya sekolah dan pembelajaran. Dan orang tua-lah yang menjadi motivator kuat bagi mereka untuk berhasil di sekolah. Oleh karena itu kami mengharapkan orang tua untuk: 
+    - Membacakan buku/mendampingi anak membaca buku
+    - Mengisi buku penghubung 
+    - Meneruskan pembiasaan baik yang sudah di terapkan di sekolah
+    - Hadir pada acara SCOPE, maupun undangan-undangan yang disampaikan oleh sekolah
+    - Aktif bekerjasama dalam proyek dan tugas anak yang melibatkan orang tua""")
+    proses_belajar = fields.Text('Selain di atas, apa hal yang ingin anda lakukan untuk mendukung proses belajar anak anda?')
+    metode_disiplin = fields.Text('Mohon gambarkan metode disiplin yang Anda terapkan pada Anak')
+    metode_aturan = fields.Text('Mohon jelaskan aturan menonton televisi yang Anda terapkan')
+    metode_pendekatan = fields.Text('Mohon gambarkan pendekatan yang Anda lakukan untuk mengenalkan perbedaan gender pada Anak.')
+    Deskripsi_2 = fields.Text('', readonly=True, default="""Setiap anak memiliki temperamen yang berbeda-beda, mengingat setiap anak memiliki keunikan tersendiri. Dengan berjalannya waktu, temperamen anak dapat mengalami perubahan. Kami menyediakan pilihan. temperamen yang dapat Bapak/Ibu beri tanda sesuai dengan pilihan yang mewakili temperamen anak anda pada saat ini.""")
+    catatan_khusus = fields.Text('Catatan Khusus')
+    
+    #Tempramen
+    agresif = fields.Boolean('Agresif')
+    aktif = fields.Boolean('Aktif')
+    berani = fields.Boolean('Berani')
+    cengeng = fields.Boolean('Cengeng')
+    cerewet = fields.Boolean('Cerewet')
+    ceria = fields.Boolean('Ceria')
+    dominan = fields.Boolean('Dominan')
+    pengikut = fields.Boolean('Pengikut')
+    humoris = fields.Boolean('Humoris')
+    ingin_tahu = fields.Boolean('Ingin Tahu')
+    keras_kepala = fields.Boolean('Keras Kepala')
+    kreatif = fields.Boolean('Kreatif')
+    mudah_akrab = fields.Boolean('Mudah Akrab')
+    mudah_bergaul = fields.Boolean('Mudah Bergaul')
+    berjiwa_pengasuh = fields.Boolean('Berjiwa Pengasuh')
+    pandai = fields.Boolean('Pandai')
+    patuh = fields.Boolean('Patuh')
+    pemaaf = fields.Boolean('Pemaaf')
+    penakut = fields.Boolean('Penakut')
+    pemalu = fields.Boolean('Pemalu')
+    pemarah = fields.Boolean('Pemarah')
+    pembangkang = fields.Boolean('Pembangkang')
+    pemberi = fields.Boolean('Pemberi')
+    pembohong = fields.Boolean('Pembohong')
+    pemurung = fields.Boolean('Pemurung')
+    pemimpin = fields.Boolean('Pemimpin')
+    pemelas = fields.Boolean('Pemalas')
+    pendiam = fields.Boolean('Pendiam')
+    penghayal = fields.Boolean('Penghayal')
+    penuh_perhatian = fields.Boolean('Penuh Perhatian')
+    penyayang = fields.Boolean('Penyayang')
+    penyendiri = fields.Boolean('Penyendiri')
+    rajin = fields.Boolean('Rajin')
+    sabar = fields.Boolean('Sabar')
+    senang_berteman = fields.Boolean('Senang Berteman')
+    sensitif = fields.Boolean('Sensitif')
+    lainnya = fields.Char('Lainnya')
+    
+    #TTD
+    hari_pengisian = fields.Char('Formulir ini diisi pada hari')
+    tanggal_pengisian = fields.Date('Tanggal')
+    ttd_ayah = fields.Binary('Tanda Tangan Ayah / Wali')
+    ttd_ibu = fields.Binary('Tanda Tangan Ibu / Wali')
+    
+    tumbuh_kembang_line_ids = fields.One2many('tumbuh.kembang.line', 'ppdb_id', 'Tumbuh Kembang Siswa')
+    saudara_kandung_sd_line_ids = fields.One2many('saudara.kandung.sd.line', 'saudara_id', 'Saudara Kandung')
 
     _sql_constraints = [
         ('unique_application_number',
@@ -589,6 +824,34 @@ class OpAdmission(models.Model):
     @api.model
     def get_import_templates(self):
         return [{
-            'label': _('Import Template for Admission'),
+            'label': _('Unduh Data PPDB'),
             'template': '/openeducat_admission/static/xls/op_admission.xls'
         }]
+
+class TumbuhKembangLine(models.Model):
+    _name = "tumbuh.kembang.line"
+    _description = "Admission"
+    
+    ppdb_id = fields.Many2one('op.admission')
+    jenis_tes = fields.Selection([
+        ('bicara', 'Bicara dan Bahasa'),
+        ('adhd', 'ADD / ADHD'),
+        ('autism', 'Autism/Autism Spectrum Disorder (ASD)'),
+        ('sensory', 'Sensory'),
+        ('sulit_belajar', 'Kesulitan Belajar'),
+        ('baca', 'Membaca'),
+        ('nulis', 'Menulis'),
+        ('emosi', 'Emosi & Behavior')
+    ], 'Jenis Tes')
+    status_tes_1 = fields.Boolean('Tidak')
+    status_tes_2 = fields.Boolean('Ya')
+    usia_tes = fields.Integer('Jika Ya, Pada Usia Berapa ?')
+    
+class SaudaraKandung(models.Model):
+    _name = "saudara.kandung.sd.line"
+    _description = "Data Saudara kandung"
+    
+    saudara_id = fields.Many2one('formulir.tk')
+    nama_saudara = fields.Char('Nama Saudara Kandung')
+    tgl_lahir = fields.Date('Tanggal Lahir')
+    sekolah = fields.Char('Nama Sekolah & Tingkat')

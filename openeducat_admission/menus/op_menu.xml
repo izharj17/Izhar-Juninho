@@ -1,55 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <menuitem id="menu_op_admission_root" name="Admissions"
+        <menuitem id="menu_op_admission_root" name="PPDB"
                   sequence="30"
                   web_icon="openeducat_admission,static/description/icon.png"/>
 
-        <menuitem id="menu_op_admission_submenu" name="Admissions"
+        <menuitem id="menu_op_admission_submenu" name="PPDB Sekolah"
                   sequence="10"
                   parent="menu_op_admission_root"/>
 
-        <menuitem id="menu_admission_register" name="Admission Registers"
+        <menuitem id="menu_admission_register" name="Registrasi PPDB"
                   sequence="10"
                   groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
                   parent="menu_op_admission_submenu"
                   action="act_open_op_admission_register_view"/>
 
-        <menuitem id="menu_formulir_register" name="--- Formulir ---"
-                  sequence="20"
-                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
-                  parent="menu_op_admission_submenu"
-                  />
-        <menuitem id="menu_formulir_register_subs" name="Formulir"
+        <!-- <menuitem id="menu_formulir_register_subs" name="Formulir"
                   sequence="10"
                   groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
                   parent="menu_formulir_register"
-                  action="act_open_op_formulir_view"/>
+                  action="act_open_op_formulir_view"/> -->
 
-        <menuitem id="menu_formulir_register_sub_sub" name="Formulir Register"
+        <!-- <menuitem id="menu_formulir_register_sub_sub" name="Registrasi Formulir"
                   sequence="30"
                   groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
                   parent="menu_formulir_register"
-                  action="act_open_op_register_formulir_view"/>
+                  action="act_open_op_register_formulir_view"/> -->
 
-        <menuitem id="menu_register_parent" name="Register Parent"
+        <!-- <menuitem id="menu_register_parent" name="Relasi Registrasi"
                   sequence="20"
                   groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
                   parent="menu_formulir_register"
-                  action="act_open_op_register_parent_view"/>
+                  action="act_open_op_register_parent_view"/> -->
 
-        <menuitem id="menu_admission" name="Applications"
+        <menuitem id="menu_admission_tk" name="PPDB TK"
                   groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
-                  sequence="30"
+                  sequence="31"
+                  parent="menu_op_admission_submenu"
+                  action="act_open_formulir_tk_view"/>
+
+        <menuitem id="menu_admission_sd" name="PPDB SD"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
+                  sequence="32"
                   parent="menu_op_admission_submenu"
                   action="act_open_op_admission_view"/>
 
-        <menuitem id="menu_admission_report_root" name="Reports"
+        <menuitem id="menu_admission_sm" name="PPDB SM"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
+                  sequence="33"
+                  parent="menu_op_admission_submenu"
+                  action="act_open_formulir_sm_view"/>
+
+        <!-- <menuitem id="menu_tumbuh_kembang_root" name="Formulir Tumbuh Kembang"
+                  sequence="30"
+                  parent="menu_op_admission_root"
+                  action="act_open_tumbuh_kembang"/> -->
+
+        <menuitem id="menu_admission_report_root" name="Laporan"
                   sequence="50"
                   groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"
                   parent="menu_op_admission_root"/>
 
-        <menuitem id="menu_admission_analysis" name="Admission Report"
+        <menuitem id="menu_admission_analysis" name="Laporan PPDB"
                   sequence="30"
                   parent="menu_admission_report_root"
                   action="admission_analysis_act"/>

@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': "OpenEduCat Admission",
+    'name': "PPDB",
     'version': '14.0.1.0',
     'license': 'LGPL-3',
     'category': 'Education',
@@ -41,7 +41,10 @@
         'data/admission_sequence.xml',
         'views/admission_register_view.xml',
         'views/admission_view.xml',
+        'views/ppdb_tk_view.xml',
+        'views/ppdb_sm_view.xml',
         'views/formulir_view.xml',
+        'views/riwayat_perkembangan_view.xml',
         'views/register_parent_view.xml',
         'views/register_formulir_view.xml',
         'report/report_admission_analysis.xml',
