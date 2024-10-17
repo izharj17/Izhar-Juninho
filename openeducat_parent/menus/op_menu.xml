@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_op_parent_root" name="Parents"
+                  sequence="110"
+                  web_icon="openeducat_parent,static/description/icon.png"/>
+
+        <!-- <menuitem id="menu_op_parent_sub_parent" name="Parents"
+                  parent="menu_op_parent_root" sequence="10"
+                  action="act_open_op_parent_view"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"/> -->
+
+        <menuitem id="menu_op_data_parent_sub_parent" name="Data Parents"
+                  parent="menu_op_parent_root" sequence="20"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"/>
+
+        <menuitem id="menu_op_ayah_sub_parent" name="Data Ayah"
+                  parent="menu_op_data_parent_sub_parent" sequence="10"
+                  action="act_open_op_data_ayah_view"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"/>
+
+        <menuitem id="menu_op_ibu_sub_parent" name="Data Ibu"
+                  parent="menu_op_data_parent_sub_parent" sequence="20"
+                  action="act_open_op_data_ibu_view"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"/>
+
+        <menuitem id="menu_op_wali_sub_parent" name="Data Wali"
+                  parent="menu_op_data_parent_sub_parent" sequence="30"
+                  action="act_open_op_data_wali_view"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"/>
+
+        <menuitem id="menu_op_parent_relationship_sub_parent" name="Relationships"
+                  parent="menu_op_parent_root" sequence="30"
+                  action="act_open_op_parent_relationship_view"
+                  groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"/>
+
+        <menuitem id="hr.menu_hr_root" name="Human Resources"
+                  sequence="110"/>
+    </data>
+</odoo>
