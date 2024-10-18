@@ -111,14 +111,14 @@ class FormulirTK(models.Model):
         string='Jenis Kelamin',
         required=True,
         states={'done': [('readonly', True)]})
-    nama_panggilan = fields.Char('Nama Panggilan')
-    nisn = fields.Char('NISN')
-    nik = fields.Char('NIK')
-    no_kk = fields.Char('No KK')
+    # nama_panggilan = fields.Char('Nama Panggilan')
+    # nisn = fields.Char('NISN')
+    # nik = fields.Char('NIK')
+    # no_kk = fields.Char('No KK')
     birth_place = fields.Char('Tempat Lahir')
     birth_date = fields.Date(
         'Tanggal Lahir', required=True, states={'done': [('readonly', True)]})
-    no_akta_lahir = fields.Char('No Regsitrasi Akta Lahir')
+    # no_akta_lahir = fields.Char('No Regsitrasi Akta Lahir')
     agama = fields.Selection([
         ('1', 'Islam'),
         ('2', 'Kristen'),
@@ -126,30 +126,30 @@ class FormulirTK(models.Model):
         ('4', 'Hindu'),
         ('5', 'Budha'),
     ], string='Agama')
-    kewarganegaraan = fields.Selection([
-        ('1', 'Indonesia (WNI)'),
-        ('2', 'Asing (WNA)'),
-    ], string="Kewarganegaraan")
+    # kewarganegaraan = fields.Selection([
+    #     ('1', 'Indonesia (WNI)'),
+    #     ('2', 'Asing (WNA)'),
+    # ], string="Kewarganegaraan")
     alamat_siswa = fields.Text('Alamat Siswa')
-    rt_rw = fields.Char('RT/RW')
-    kecamatan_id = fields.Many2one('wilayah.kecamatan', 'Kecamatan')
-    kelurahan_id = fields.Many2one('wilayah.kelurahan', 'Kelurahan')
-    kode_pos = fields.Char('Kode POS')
-    tempat_tinggal = fields.Char('Tempat Tinggal')
-    moda_transport = fields.Selection([
-        ('1', 'Jalan Kaki'),
-        ('2', 'Kendaraan Pribadi'),
-        ('3', 'Kendaraan Umum/Angkot'),
-        ('4', 'Jemputan Sekolah'),
-        ('5', 'Kereta Api'),
-        ('6', 'Ojek'),
-        ('7', 'Lainnya'),
-    ], string='Moda Transportasi')
+    # rt_rw = fields.Char('RT/RW')
+    # kecamatan_id = fields.Many2one('wilayah.kecamatan', 'Kecamatan')
+    # kelurahan_id = fields.Many2one('wilayah.kelurahan', 'Kelurahan')
+    # kode_pos = fields.Char('Kode POS')
+    # tempat_tinggal = fields.Char('Tempat Tinggal')
+    # moda_transport = fields.Selection([
+    #     ('1', 'Jalan Kaki'),
+    #     ('2', 'Kendaraan Pribadi'),
+    #     ('3', 'Kendaraan Umum/Angkot'),
+    #     ('4', 'Jemputan Sekolah'),
+    #     ('5', 'Kereta Api'),
+    #     ('6', 'Ojek'),
+    #     ('7', 'Lainnya'),
+    # ], string='Moda Transportasi')
     anak_ke = fields.Char('Urutan dalam keluarga anak ke __')
-    punya_kia = fields.Boolean('Apakah Punya KIA?')
+    # punya_kia = fields.Boolean('Apakah Punya KIA?')
     jenis_ppdb = fields.Selection([
         ('sisbar', 'Siswa Baru'),
-        ('pindah', 'Pindahan Ke Kelas__'),
+        ('pindah', 'Pindahan'),
         ('kemsek', 'Kembali Bersekolah'),
     ], string='Jenis Pendaftaran')
     asal_sekolah = fields.Text('Riwayat Sekolah')
@@ -164,11 +164,18 @@ class FormulirTK(models.Model):
     tgl_lahir_ayah = fields.Date('Tanggal Lahir')
     telp_ayah = fields.Char('Telp/Hp', required=True)
     email_ayah = fields.Char('Email', required=True)
-    suku_ayah = fields.Char('Suku Bangsa')
+    # suku_ayah = fields.Char('Suku Bangsa')
     agama_ayah = fields.Char('Agama')
     pendidikan_ayah = fields.Char('Pendidikan Terakhir')
     pekerjaan_ayah = fields.Char('Pekerjaan')
     jabatan_ayah = fields.Char('Jabatan')
+    instansi_ayah = fields.Char('Nama Instansi')
+    keahlian_ayah = fields.Char('Keahlian yang dimiliki')
+    kolab_ayah = fields.Selection([
+        ('ya', 'Ya, Bersedia'),
+        ('tidak', 'Tidak Bersedia')
+    ], 'Apakah bersedia berkolaborasi dengan sekolah ?')
+    penghasilan_ayah = fields.Float('Penghasilan Perbulan', required=True)
     penghasilan_ayah = fields.Float('Penghasilan Perbulan', required=True)
     tanggungan_ayah = fields.Integer('Jumlah Tanggungan')
     status_ayah = fields.Selection([
@@ -197,19 +204,19 @@ class FormulirTK(models.Model):
     alamat_ibu = fields.Char('Alamat')
     
     #Data Wali
-    wali_id = fields.Many2one('op.data.wali', 'Nama Lengkap Wali')
+    # wali_id = fields.Many2one('op.data.wali', 'Nama Lengkap Wali')
 
     # Data Priodik
-    tinggi_bdn = fields.Char('Tinggi Badan')
-    berat_bdn = fields.Char('Berat Badan')
-    lingkar_kpl = fields.Char('Lingkar Kepala')
-    jrk_tmpt_plhn = fields.Selection([
-        ('1', 'Kurang dari 1 KM'),
-        ('2', 'Lebih dari 1 KM'),
-    ], string='Jarak Tempat Tinggal ke Sekolah')
-    jrk_tmpt_km = fields.Char('Jarak dalam KM')
-    waktu_tempuh = fields.Char('Waktu Tempuh')
-    jmlh_saudara_kandung = fields.Char('Jumlah Saudara Kandung')
+    # tinggi_bdn = fields.Char('Tinggi Badan')
+    # berat_bdn = fields.Char('Berat Badan')
+    # lingkar_kpl = fields.Char('Lingkar Kepala')
+    # jrk_tmpt_plhn = fields.Selection([
+    #     ('1', 'Kurang dari 1 KM'),
+    #     ('2', 'Lebih dari 1 KM'),
+    # ], string='Jarak Tempat Tinggal ke Sekolah')
+    # jrk_tmpt_km = fields.Char('Jarak dalam KM')
+    # waktu_tempuh = fields.Char('Waktu Tempuh')
+    # jmlh_saudara_kandung = fields.Char('Jumlah Saudara Kandung')
     
     #Formulir Bagian 2
     #Kandungan
@@ -833,7 +840,7 @@ class SaudaraKandung(models.Model):
     _name = "saudara.kandung.tk.line"
     _description = "Data Saudara kandung"
     
-    saudara_id = fields.Many2one('formulir.tk')
+    saudara_id = fields.Many2one('formulir.tk', readonly=True)
     nama_saudara = fields.Char('Nama Saudara Kandung')
     tgl_lahir = fields.Date('Tanggal Lahir')
     sekolah = fields.Char('Nama Sekolah & Tingkat')

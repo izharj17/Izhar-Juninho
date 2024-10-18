@@ -91,7 +91,7 @@
                                     <field name="discount"/>
                                     <field name="fees" attrs="{'required': [('state','not in', ['draft', 'submit'])]}"/>
                                     <field name="due_date"/>
-                                    <field name="fees_term_id" required="1"
+                                    <field name="fees_term_id" required="0"
                                            attrs="{'readonly': [('state','not in', ['draft', 'submit', 'confirm'])]}"/>
                                     <field name="is_student"/>
                                     <field name="partner_id"/>
@@ -112,16 +112,16 @@
                             </page> -->
                             <page name="personal_detail" string="Formulir Bagian 1">
                                 <group string="Data Siswa" col="4" colspan="4">
-                                    <field name="nama_panggilan"/>
+                                    <!-- <field name="nama_panggilan"/> -->
                                     <field name="gender"/>
-                                    <field name="nisn"/>
+                                    <!-- <field name="nisn"/>
                                     <field name="nik"/>
-                                    <field name="no_kk"/>
+                                    <field name="no_kk"/> -->
                                     <field name="birth_place"/>
                                     <field name="birth_date" options="{'datepicker':{'maxDate': 'now'}}"/>
-                                    <field name="no_akta_lahir"/>
+                                    <!-- <field name="no_akta_lahir"/> -->
                                     <field name="agama"/>
-                                    <field name="kewarganegaraan"/>
+                                    <!-- <field name="kewarganegaraan"/> -->
                                     <field name="alamat_siswa"/>
                                     <!-- <field name="rt_rw"/>
                                     <field name="kecamatan_id"/>
@@ -130,7 +130,7 @@
                                     <!-- <field name="tempat_tinggal"/>
                                     <field name="moda_transport"/> -->
                                     <field name="anak_ke"/>
-                                    <field name="punya_kia"/>
+                                    <!-- <field name="punya_kia"/> -->
                                     <field name="email" placeholder="Email"/>
                                 </group>
                                 <group>
@@ -155,11 +155,13 @@
                                     <field name="tgl_lahir_ayah"/>
                                     <field name="telp_ayah"/>
                                     <field name="email_ayah"/>
-                                    <field name="suku_ayah"/>
                                     <field name="agama_ayah"/>
                                     <field name="pendidikan_ayah"/>
                                     <field name="pekerjaan_ayah"/>
                                     <field name="jabatan_ayah"/>
+                                    <field name="instansi_ayah"/>
+                                    <field name="keahlian_ayah"/>
+                                    <field name="kolab_ayah"/>
                                     <field name="penghasilan_ayah"/>
                                     <field name="tanggungan_ayah"/>
                                     <field name="status_ayah"/>
@@ -182,7 +184,7 @@
                                     <field name="alamat_ibu"/>
                                 </group>
                                 <group>
-                                    <field name="wali_id" invisible="1"/>
+                                    <!-- <field name="wali_id" invisible="1"/> -->
                                 </group>
 								<group col="4" colspan="4" string="Dokumen Pendukung">
 									<field name="file_akta"/>
