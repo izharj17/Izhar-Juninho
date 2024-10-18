@@ -1,0 +1,12 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th, .table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+.button-container {
+    margin-top: 10px;
+}

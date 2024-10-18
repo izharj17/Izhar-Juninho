@@ -1,0 +1,1487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="ppdb_form_template_SM" name="PPDB Form Template SM">
+        <xpath expr="//head" position="inside">
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var form1 = document.getElementById('form1');
+                    var form2 = document.getElementById('form2');
+                    var nextBtn = document.getElementById('nextBtn');
+                    var prevBtn = document.getElementById('prevBtn');
+
+                    // Handle Next button
+                    nextBtn.addEventListener('click', function() {
+                        form1.style.display = 'none';
+                        form2.style.display = 'block';
+                    });
+
+                    // Handle Previous button
+                    prevBtn.addEventListener('click', function() {
+                        form2.style.display = 'none';
+                        form1.style.display = 'block';
+                    });
+                });
+            </script>
+            <style>
+              
+                .column {
+                    display: flex;
+                    flex-direction: column;
+                }
+            </style>        
+        </xpath>
+        <xpath expr="//main" position="replace">
+            <t t-call="website.layout">
+
+                <div id="form-slider" class="container mt32 mb32">
+                    <h1>PPDB Formulir Pendaftaran</h1>
+
+                    <!-- Data Siswa -->
+                    <div class="border p-3 mb-3" id="form1">
+                        <div class="form-container">
+                            <h2>
+                                <strong>Data Siswa</strong>
+                            </h2>
+                            <form action="/ppdb/submit_siswa" method="post">
+                                <div class="form-group">
+                                    <label for="nama_lengkap">Nama Depan Siswa:</label>
+                                    <input type="text" name="nama_lengkap" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nama_panggilan">Nama Tengah Siswa:</label>
+                                    <input type="text" name="nama_panggilan" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nama_belakang">Nama Belakang Siswa:</label>
+                                    <input type="text" name="nama_belakang" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nisn">NISN:</label>
+                                    <input type="text" name="nisn" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kk">NO KK:</label>
+                                    <input type="text" name="kk" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="tempat_lahir" class="form-control" required="True"/>
+                                    </div>
+                                    <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" name="tanggal_lahir" class="form-control" required="True"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jenis_kelamin">Jenis Kelamin:</label>
+                                    <select name="jenis_kelamin" class="form-control" required="True">
+                                        <option value="laki-laki">Laki - Laki</option>
+                                        <option value="perempuan">Perempuan</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Alamat Email:</label>
+                                    <input type="text" name="email" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="alamat">Alamat:</label>
+                                    <textarea name="alamat" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="agama">Agama:</label>
+                                    <select name="agama" class="form-control">
+                                        <option value="">Pilih agama</option>
+                                        <option value="islam">Islam</option>
+                                        <option value="kristen">Kristen</option>
+                                        <option value="katolik">Katolik</option>
+                                        <option value="buddha">Buddha</option>
+                                        <option value="hindu">Hindu</option>
+                                        <option value="konguchu">Konguchu</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kia">Apahkah punya KIA:</label>
+                                    <select name="kia" class="form-control" required="True">
+                                        <option value="ya">Ya</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kewarganegaraan">Kewarganegaraan:</label>
+                                    <input type="text" name="kewarganegaraan" class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Anggota keluarga yang tinggal satu rumah:</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="ayah" id="ayah"/>
+                                                <label class="form-check-label" for="ayah">Ayah</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="ibu" id="ibu"/>
+                                                <label class="form-check-label" for="ibu">Ibu</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="wali" id="wali"/>
+                                                <label class="form-check-label" for="wali">Wali</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="kakek_nenek" id="kakek_nenek"/>
+                                                <label class="form-check-label" for="kakek_nenek">Kakek-Nenek</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <table>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <input class="form-check-input" type="checkbox" name="yang_lainnya" id="yang_lainnya"/>
+                                                        </td>
+                                                        <td valign="top" style="padding-left: 4px;">
+                                                            <label class="form-check-label" for="yang_lainnya">Yang Lainnya</label>
+                                                        </td>
+                                                        <td valign="top" style="padding-left: 10px;">
+                                                            <input type="text" name="lainnya_text" id="lainnya_text" size="20" style="border: none; border-bottom: 1px solid black;"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h2>
+                                    <strong>Jumlah Saudara Kandung</strong>
+                                </h2>
+                                <br/>
+                                <button type="button" class="btn btn-primary mb-2" id="add_line">Add Line</button>
+
+                                <div class="container" id="form1">
+                                    <div id="sibling_table_container">
+                                        <table class="table table-bordered" style="width: 100%; border-collapse: collapse;" id="sibling_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Saudara Kandung</th>
+                                                    <th>Tgl. Lahir</th>
+                                                    <th>Nama Sekolah dan Tingkat</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- <tr>
+                                                        <td style="border: 1px solid #000;">&#160;</td>
+                                                        <td style="border: 1px solid #000;">&#160;</td>
+                                                        <td style="border: 1px solid #000;">&#160;</td>
+                                                        <td style="border: 1px solid #000;">
+                                                            <button type="button" class="btn btn-danger btn-sm remove-line">Remove</button>
+                                                        </td>
+                                                    </tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // Add Line button
+                                            var addLineBtn = document.getElementById('add_line');
+                                            var siblingTable = document.getElementById('sibling_table').querySelector('tbody');
+                                    
+                                            // Function to remove a row
+                                            function removeLine() {
+                                                var row = this.parentElement.parentElement;
+                                                row.remove();
+                                            }
+                                    
+                                            // Add new line to the table
+                                            addLineBtn.addEventListener('click', function () {
+                                                var newRow = document.createElement('tr');
+                                    
+                                                // Column 1: Nama Saudara Kandung
+                                                var nameTd = document.createElement('td');
+                                                var nameInput = document.createElement('input');
+                                                nameInput.type = 'text';
+                                                nameInput.name = 'sibling_name[]';  // Store sibling names as an array
+                                                nameInput.className = 'form-control';
+                                                nameTd.appendChild(nameInput);
+                                    
+                                                // Column 2: Tgl. Lahir
+                                                var birthDateTd = document.createElement('td');
+                                                var birthDateInput = document.createElement('input');
+                                                birthDateInput.type = 'date';
+                                                birthDateInput.name = 'sibling_birthdate[]';  // Store sibling birthdates as an array
+                                                birthDateInput.className = 'form-control';
+                                                birthDateTd.appendChild(birthDateInput);
+                                    
+                                                // Column 3: Nama Sekolah dan Tingkat
+                                                var schoolTd = document.createElement('td');
+                                                var schoolInput = document.createElement('input');
+                                                schoolInput.type = 'text';
+                                                schoolInput.name = 'sibling_school[]';  // Store sibling schools as an array
+                                                schoolInput.className = 'form-control';
+                                                schoolTd.appendChild(schoolInput);
+                                    
+                                                // Column 4: Actions (Remove Button)
+                                                var actionsTd = document.createElement('td');
+                                                var removeBtn = document.createElement('button');
+                                                removeBtn.type = 'button';
+                                                removeBtn.className = 'btn btn-danger btn-sm remove-line';
+                                                removeBtn.innerText = 'Remove';
+                                                removeBtn.addEventListener('click', removeLine);  // Attach event to remove button
+                                                actionsTd.appendChild(removeBtn);
+                                    
+                                                // Append columns to the new row
+                                                newRow.appendChild(nameTd);
+                                                newRow.appendChild(birthDateTd);
+                                                newRow.appendChild(schoolTd);
+                                                newRow.appendChild(actionsTd);
+                                    
+                                                // Append the new row to the table body
+                                                siblingTable.appendChild(newRow);
+                                            });
+                                        });
+                                </script>
+
+                                <div class="border p-3 mb-3" id="form1">
+                                    <h2>
+                                        <strong>Mendaftar untuk :</strong>
+                                    </h2>
+                                    <div class="form-group">
+                                        <label for="agama">Tahun ajaran:</label>
+                                        <select name="agama" class="form-control">
+                                            <option value="belum_memilih">Pilih data</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jenis_daftar">Jenis pendaftaran :</label>
+                                        <select name="jenis_daftar" class="form-control">
+                                            <option value="belum_memilih">Pilih data</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="border p-3 mb-3" id="form1">
+                                    <h2>
+                                        <strong>Riwayat pendidikan:</strong>
+                                    </h2>
+                                    <div class="form-group">
+                                        <label for="Riwayat">Riwayat pendidikan anak anda</label>
+                                        <textarea name="Riwayatpendidikan" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="border p-3 mb-3" id="form1">
+                                    <h2>
+                                        <strong>Data keluarga</strong>
+                                    </h2>
+                                    <h3>
+                                        <strong>Ayah wali</strong>
+                                    </h3>
+
+                                    <br/>
+                                    <div class="form-group">
+                                        <label for="nama">Nama lengkap:</label>
+                                        <input type="text" name="nama" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="panggilan">Nama panggilan:</label>
+                                        <input type="text" name="panggilan" class="form-control"/>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="True"/>
+                                        </div>
+                                        <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
+                                        <div class="col-sm-4">
+                                            <input type="date" name="tanggal_lahir" class="form-control" required="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="agama">Agama:</label>
+                                        <select name="agama" class="form-control">
+                                            <option value="belum_memilih">Pilih agama</option>
+                                            <option value="islam">Islam</option>
+                                            <option value="kristen">Kristen</option>
+                                            <option value="katolik">Katolik</option>
+                                            <option value="buddha">Buddha</option>
+                                            <option value="hindu">Hindu</option>
+                                            <option value="konguchu">Konguchu</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pendidikan">Pendidikan:</label>
+                                        <select name="pendidikan" class="form-control">
+                                            <option value="belum_memilih">Pilih sesuai jenjang</option>
+                                            <option value="SD">SD</option>
+                                            <option value="SMP">SMP</option>
+                                            <option value="SMA/SLTA">SMA/SLTA</option>
+                                            <option value="D3">D3</option>
+                                            <option value="S1">S1</option>
+                                            <option value="S2">S2</option>
+                                            <option value="S3">S3</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Alamat">Alamat:</label>
+                                        <textarea name="Alamat" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="handphone">Nomor handphone:</label>
+                                        <input type="text" name="handphone" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Email">Alamat email:</label>
+                                        <input type="text" name="Email" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pekerjaan">Pekerjaan:</label>
+                                        <input type="text" name="pekerjaan" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Jabatan">Jabatan:</label>
+                                        <input type="text" name="Jabatan" class="form-control"/>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
+                                        </div>
+                                        <label for="ext" class="col-sm-1 col-form-label">Ext</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" name="ext" class="form-control" placeholder="Ext"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="penghasilan">Penghasilan perbulan:</label>
+                                        <input type="number" name="penghasilan" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tanggungan">Jumlah tanggungan:</label>
+                                        <input type="number" name="tanggungan" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Status Perkawinan:</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="cerai" value="cerai" required="True"/>
+                                            <label class="form-check-label" for="cerai">Bercerai</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="nikah" value="nikah" required="True"/>
+                                            <label class="form-check-label" for="nikah">Menikah</label>
+                                        </div>
+
+                                    </div>
+                                    <br/>
+
+                                    <h3>
+                                        <strong>Ibu-wali</strong>
+                                    </h3>
+
+                                    <br/>
+                                    <div class="form-group">
+                                        <label for="nama">Nama lengkap:</label>
+                                        <input type="text" name="nama" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="panggilan">Nama panggilan:</label>
+                                        <input type="text" name="panggilan" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="True"/>
+                                        </div>
+                                        <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
+                                        <div class="col-sm-4">
+                                            <input type="date" name="tanggal_lahir" class="form-control" required="True"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="agama">Agama:</label>
+                                        <select name="agama" class="form-control">
+                                            <option value="belum_memilih">Pilih agama</option>
+                                            <option value="islam">Islam</option>
+                                            <option value="kristen">Kristen</option>
+                                            <option value="katolik">Katolik</option>
+                                            <option value="buddha">Buddha</option>
+                                            <option value="hindu">Hindu</option>
+                                            <option value="konguchu">Konguchu</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="pendidikan">Pendidikan:</label>
+                                        <select name="pendidikan" class="form-control">
+                                            <option value="belum_memilih">Pilih sesuai jenjang</option>
+                                            <option value="SD">SD</option>
+                                            <option value="SMP">SMP</option>
+                                            <option value="SMA/SLTA">SMA/SLTA</option>
+                                            <option value="D3">D3</option>
+                                            <option value="S1">S1</option>
+                                            <option value="S2">S2</option>
+                                            <option value="S3">S3</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="Alamat">Alamat:</label>
+                                        <textarea name="Alamat" class="form-control"></textarea>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="handphone">Nomor handphone:</label>
+                                        <input type="text" name="handphone" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="Email">Alamat email:</label>
+                                        <input type="text" name="Email" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="pekerjaan">Pekerjaan:</label>
+                                        <input type="text" name="pekerjaan" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="Jabatan">Jabatan:</label>
+                                        <input type="text" name="Jabatan" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
+                                        </div>
+                                        <label for="ext" class="col-sm-1 col-form-label">Ext</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" name="ext" class="form-control" placeholder="Ext"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="penghasilan">Penghasilan perbulan:</label>
+                                        <input type="number" name="penghasilan" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="tanggungan">Jumlah tanggungan:</label>
+                                        <input type="number" name="tanggungan" class="form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Status Perkawinan:</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="cerai" value="cerai" required="True"/>
+                                            <label class="form-check-label" for="cerai">Bercerai</label>
+                                        </div>
+
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="nikah" value="nikah" required="True"/>
+                                            <label class="form-check-label" for="nikah">Menikah</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="border p-3 mb-3" id="form1">
+                                    <div class="form-group">
+                                        <label for="kelahiran">File Akta Kelahiran:</label>
+                                        <input type="file" name="kelahiran" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="keluarga">File Kartu Keluarga:</label>
+                                        <input type="file" name="keluarga" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="pasanak">Pas Photo Anak (3x4):</label>
+                                        <input type="file" name="pasanak" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="ktp">File KTP Orang Tua:</label>
+                                        <input type="file" name="ktp" class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <h2>
+                                    <strong>Tabel Tumbuh Kembang Anak</strong>
+                                </h2>
+                                <text>
+                                        Apakah Anak Anda pemah mendapat bantuan pembelajaran dalam bentuk apapun dan/atau pernah mengikuti test yang dilakukan Psikolog/Pedagog atau spesialis dalam perkembangan anak?
+                                </text>
+                                <br/>
+                                <button type="button" class="btn btn-primary mb-2" id="tambah_tes">Add Line</button>
+
+                                <div class="container" id="form1">
+                                    <div id="sibling_table_container">
+                                        <table class="table table-bordered" style="width: 100%; border-collapse: collapse;" id="test_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Jenis Tes</th>
+                                                    <th>Ya</th>
+                                                    <th>Tidak</th>
+                                                    <th>Jika iya, pada usia berapa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // Tombol "Add Line"
+                                            var addLineBtn = document.getElementById('tambah_tes');
+                                            var siblingTable = document.getElementById('test_table').querySelector('tbody');
+                                    
+                                            // Fungsi untuk menghapus baris
+                                            function removeLine() {
+                                                var row = this.parentElement.parentElement;
+                                                row.remove();
+                                            }
+                                    
+                                            // Menambah baris baru ke tabel
+                                            addLineBtn.addEventListener('click', function () {
+                                                var newRow = document.createElement('tr');
+                                    
+                                                // Kolom 1: Jenis Tes
+                                                var testTypeTd = document.createElement('td');
+                                                var testTypeInput = document.createElement('input');
+                                                testTypeInput.type = 'text';
+                                                testTypeInput.name = 'test_type[]';  // Store test types as an array
+                                                testTypeInput.className = 'form-control';
+                                                testTypeTd.appendChild(testTypeInput);
+                                    
+                                                // Kolom 2: Ya (Radio Button)
+                                                var yesTd = document.createElement('td');
+                                                var yesInput = document.createElement('input');
+                                                yesInput.type = 'radio';
+                                                yesInput.name = `test_status_${siblingTable.children.length}`; // Ensure unique group for each row
+                                                yesInput.value = 'yes';
+                                                yesTd.appendChild(yesInput);
+                                    
+                                                // Kolom 3: Tidak (Radio Button)
+                                                var noTd = document.createElement('td');
+                                                var noInput = document.createElement('input');
+                                                noInput.type = 'radio';
+                                                noInput.name = `test_status_${siblingTable.children.length}`;  // Ensure unique group for each row
+                                                noInput.value = 'no';
+                                                noTd.appendChild(noInput);
+                                    
+                                                // Kolom 4: Jika iya, pada usia berapa
+                                                var ageTd = document.createElement('td');
+                                                var ageInput = document.createElement('input');
+                                                ageInput.type = 'number';
+                                                ageInput.name = 'age_when_yes[]';  // Store ages as an array
+                                                ageInput.className = 'form-control';
+                                                ageInput.placeholder = 'Usia';
+                                                ageTd.appendChild(ageInput);
+                                    
+                                                // Kolom 5: Actions (Remove Button)
+                                                var actionsTd = document.createElement('td');
+                                                var removeBtn = document.createElement('button');
+                                                removeBtn.type = 'button';
+                                                removeBtn.className = 'btn btn-danger btn-sm remove-line';
+                                                removeBtn.innerText = 'Remove';
+                                                removeBtn.addEventListener('click', removeLine);  // Attach event to remove button
+                                                actionsTd.appendChild(removeBtn);
+                                    
+                                                // Menambahkan kolom ke dalam baris baru
+                                                newRow.appendChild(testTypeTd);
+                                                newRow.appendChild(yesTd);
+                                                newRow.appendChild(noTd);
+                                                newRow.appendChild(ageTd);
+                                                newRow.appendChild(actionsTd);
+                                    
+                                                // Menambahkan baris baru ke dalam tabel
+                                                siblingTable.appendChild(newRow);
+                                            });
+                                        });
+                                </script>
+
+                                <!-- <button type="button" id="nextBtn" class="btn btn-primary">Next</button> -->
+                                <button type="button" id="nextBtn" class="btn btn-secondary">Next</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Riwayat pendidikan -->
+                    <!-- <div class="border p-3 mb-3">
+                            <div class="form-container" id="form1">
+                                <h2><strong>Riwayat pendidikan:</strong></h2>
+                                <div class="form-group">
+                                    <label for="Riwayat">Riwayat pendidikan anak anda</label>
+                                    <textarea name="Riwayatpendidikan" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    <!-- Data keluarga -->
+                    <!-- <div class="border p-3 mb-3">
+                            <div class="form-container" id="form1">
+                                <h2><strong>Data keluarga</strong></h2>
+                                <strong>Ayah wali</strong>
+                                <br/>
+                                <div class="form-group">
+                                    <label for="nama">Nama lengkap:</label>
+                                    <input type="text" name="nama" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="panggilan">Nama panggilan:</label>
+                                    <input type="text" name="panggilan" class="form-control"/>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="True"/>
+                                    </div>
+                                    <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" name="tanggal_lahir" class="form-control" required="True"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="agama">Agama:</label>
+                                    <select name="agama" class="form-control">
+                                        <option value="belum_memilih">Pilih agama</option>
+                                        <option value="islam">Islam</option>
+                                        <option value="kristen">Kristen</option>
+                                        <option value="katolik">Katolik</option>
+                                        <option value="buddha">Buddha</option>
+                                        <option value="hindu">Hindu</option>
+                                        <option value="konguchu">Konguchu</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pendidikan">Pendidikan:</label>
+                                    <select name="pendidikan" class="form-control">
+                                        <option value="belum_memilih">Pilih sesuai jenjang</option>
+                                        <option value="SD">SD</option>
+                                        <option value="SMP">SMP</option>
+                                        <option value="SMA/SLTA">SMA/SLTA</option>
+                                        <option value="D3">D3</option>
+                                        <option value="S1">S1</option>
+                                        <option value="S2">S2</option>
+                                        <option value="S3">S3</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Alamat">Alamat:</label>
+                                    <textarea name="Alamat" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="handphone">Nomor handphone:</label>
+                                    <input type="text" name="handphone" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Email">Alamat email:</label>
+                                    <input type="text" name="Email" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pekerjaan">Pekerjaan:</label>
+                                    <input type="text" name="pekerjaan" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Jabatan">Jabatan:</label>
+                                    <input type="text" name="Jabatan" class="form-control"/>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
+                                    </div>
+                                    <label for="ext" class="col-sm-1 col-form-label">Ext</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" name="ext" class="form-control" placeholder="Ext"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="penghasilan">Penghasilan perbulan:</label>
+                                    <input type="number" name="penghasilan" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggungan">Jumlah tanggungan:</label>
+                                    <input type="number" name="tanggungan" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status Perkawinan:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status_perkawinan" id="cerai" value="cerai" required="True"/>
+                                        <label class="form-check-label" for="cerai">Bercerai</label>
+                                    </div>
+                                    
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status_perkawinan" id="nikah" value="nikah" required="True"/>
+                                        <label class="form-check-label" for="nikah">Menikah</label>
+                                    </div>
+            
+                                </div>
+                                <br/>
+                        
+                        
+                                <strong>Ibu-wali</strong>
+                                <br/>
+                                <div class="form-group">
+                                    <label for="nama">Nama lengkap:</label>
+                                    <input type="text" name="nama" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="panggilan">Nama panggilan:</label>
+                                    <input type="text" name="panggilan" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group row">
+                                    <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="True"/>
+                                    </div>
+                                    <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" name="tanggal_lahir" class="form-control" required="True"/>
+                                    </div>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="agama">Agama:</label>
+                                    <select name="agama" class="form-control">
+                                        <option value="belum_memilih">Pilih agama</option>
+                                        <option value="islam">Islam</option>
+                                        <option value="kristen">Kristen</option>
+                                        <option value="katolik">Katolik</option>
+                                        <option value="buddha">Buddha</option>
+                                        <option value="hindu">Hindu</option>
+                                        <option value="konguchu">Konguchu</option>
+                                    </select>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="pendidikan">Pendidikan:</label>
+                                    <select name="pendidikan" class="form-control">
+                                        <option value="belum_memilih">Pilih sesuai jenjang</option>
+                                        <option value="SD">SD</option>
+                                        <option value="SMP">SMP</option>
+                                        <option value="SMA/SLTA">SMA/SLTA</option>
+                                        <option value="D3">D3</option>
+                                        <option value="S1">S1</option>
+                                        <option value="S2">S2</option>
+                                        <option value="S3">S3</option>
+                                    </select>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="Alamat">Alamat:</label>
+                                    <textarea name="Alamat" class="form-control"></textarea>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="handphone">Nomor handphone:</label>
+                                    <input type="text" name="handphone" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="Email">Alamat email:</label>
+                                    <input type="text" name="Email" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="pekerjaan">Pekerjaan:</label>
+                                    <input type="text" name="pekerjaan" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="Jabatan">Jabatan:</label>
+                                    <input type="text" name="Jabatan" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group row">
+                                    <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
+                                    </div>
+                                    <label for="ext" class="col-sm-1 col-form-label">Ext</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" name="ext" class="form-control" placeholder="Ext"/>
+                                    </div>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="penghasilan">Penghasilan perbulan:</label>
+                                    <input type="number" name="penghasilan" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label for="tanggungan">Jumlah tanggungan:</label>
+                                    <input type="number" name="tanggungan" class="form-control"/>
+                                </div>
+            
+            
+                                <div class="form-group">
+                                    <label>Status Perkawinan:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status_perkawinan" id="cerai" value="cerai" required="True"/>
+                                        <label class="form-check-label" for="cerai">Bercerai</label>
+                                    </div>
+            
+                                    
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status_perkawinan" id="nikah" value="nikah" required="True"/>
+                                        <label class="form-check-label" for="nikah">Menikah</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                    <!-- <div class="border p-3 mb-3" id="form1">
+                            <h2><strong>Dokumen Pendukung</strong></h2>
+                            <div class="form-container" id="form1">
+                                <div class="form-group">
+                                    <label for="kelahiran">File Akta Kelahiran:</label>
+                                    <input type="file" name="kelahiran" class="form-control"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="keluarga">File Kartu Keluarga:</label>
+                                    <input type="file" name="keluarga" class="form-control"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="pasanak">Pas Photo Anak (3x4):</label>
+                                    <input type="file" name="pasanak" class="form-control"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="ktp">File KTP Orang Tua:</label>
+                                    <input type="file" name="ktp" class="form-control"/>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                    <!-- <div class="border p-3 mb-3">
+                            <h2><strong>Tabel Tumbuh Kembang Anak</strong></h2>
+                            <br/>
+                            <button type="button" class="btn btn-primary mb-2" id="add_line">Add Line</button>
+    
+                            <div class="container" id="form1">
+                                <div id="sibling_table_container">
+                                    <table class="table table-bordered" style="width: 100%; border-collapse: collapse;" id="sibling_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama Saudara Kandung</th>
+                                                <th>Tgl. Lahir</th>
+                                                <th>Nama Sekolah dan Tingkat</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="border: 1px solid #000;">&#160;</td>
+                                                <td style="border: 1px solid #000;">&#160;</td>
+                                                <td style="border: 1px solid #000;">&#160;</td>
+                                                <td style="border: 1px solid #000;">
+                                                    <button type="button" class="btn btn-danger btn-sm remove-line">Remove</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    <!-- Submit Button -->
+
+                    <div class="border p-3 mb-3" id="form1">
+                        <div class="form-container" id="form2" style="display:none;">
+                            
+                            <h2>
+                                <strong>Data Makanan / Minuman Anak</strong>
+                            </h2>
+                            <form action="/ppdb/submit_makanan" method="post">
+                                <div class="form-group">
+                                    <label>Apakah Anda memberikan ASI kepada Anak?</label>
+                                    <div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="asi" id="asi_ya" value="Ya" required="True"/>
+                                            <label class="form-check-label" for="asi_ya">
+                                                    Ya
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="asi" id="asi_tidak" value="Tidak" required="True"/>
+                                            <label class="form-check-label" for="asi_tidak">
+                                                    Tidak
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lama_asi">Berapa lama pemberian ASI? (Bulan)</label>
+                                    <input type="number" name="lama_asi" class="form-control" placeholder="Bulan" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="susu_formula">Apakah Anda memberikan Susu Formula kepada Anak?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="susu_formula" id="susu_formula" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="susu_formula">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="susu_formula" id="susu_formula" value="Tidak" required="True"/>
+                                        <label class="form-check-label" for="susu_formula">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="mampu_minum_sendiri">Anak mampu minum sendiri dengan:</label>
+                                    <select name="mampu_minum_sendiri" class="form-control" required="True">
+                                        <option value="">Pilih</option>
+                                        <option value="Gelas">Gelas</option>
+                                        <option value="Sedotan">Sedotan</option>
+                                        <option value="Botol">Botol</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="umur_makanan_padat">Pada umur berapa Anak pertama kali diberikan makanan padat? (Bulan)</label>
+                                    <input type="number" name="umur_makanan_padat" class="form-control" placeholder="Bulan" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="makanan_favorit">Apakah makanan favorit Anak?</label>
+                                    <input type="text" name="makanan_favorit" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="makanan_tidak_suka">Apakah makanan yang tidak disukai Anak?</label>
+                                    <input type="text" name="makanan_tidak_suka" class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="makan_sendiri">Apakah Anak mampu makan sendiri menggunakan:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="makan_sendiri" id="makan_sendiri" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="makan_sendiri">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="makan_sendiri" id="makan_sendiri" value="Tidak" required="True"/>
+                                        <label class="form-check-label" for="makan_sendiri">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="alergi_makanan">Apakah ada makanan yang memicu alergi pada anak anda?</label>
+                                    <input type="text" name="alergi_makanan" class="form-control"/>
+                                </div>
+
+                                <br/>
+
+                                <h2>
+                                    <strong>Kebiasaan Tidur Anak</strong>
+                                </h2>
+
+                                <div class="form-group">
+                                    <label for="tidur_dengan_orang_tua">Apakah Anak masih tidur dengan orang tua?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_dengan_orang_tua" id="tidur_dengan_orang_tua" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="tidur_dengan_orang_tua">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_dengan_orang_tua" id="tidur_dengan_orang_tua" value="Tidak" required="True"/>
+                                        <label class="form-check-label" for="tidur_dengan_orang_tua">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tidur_sendiri">Apakah Anak tidur di kamar sendiri?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="tidur_sendiri">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="tidur_sendiri" required="True"/>
+                                        <label class="form-check-label" for="tidur_sendiri">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tempat_tidur_sendiri">Apakah Anak mempunyai tempat tidur sendiri?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="tidur_sendiri">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="tidur_sendiri" required="True"/>
+                                        <label class="form-check-label" for="tidur_sendiri">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dengan_siapa_tidur">Dengan siapa Anak tidur?</label>
+                                    <input type="text" name="dengan_siapa_tidur" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jam_tidur_malam">Jam Tidur Malam Anak</label>
+                                    <input type="time" name="jam_tidur_malam" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sering_bangun">Apakah Anak sering bangun tengah malam?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sering_bangun" id="sering_bangun" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="sering_bangun">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sering_bangun" id="sering_bangun" value="sering_bangun" required="True"/>
+                                        <label class="form-check-label" for="sering_bangun">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jam_bangun_tidur">Jam Bangun Tidur Anak</label>
+                                    <input type="time" name="jam_bangun_tidur" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tidur_siang">Apakah Anak terbiasa tidur siang?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_siang" id="tidur_siang" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="tidur_siang">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tidur_siang" id="tidur_siang" value="tidur_siang" required="True"/>
+                                        <label class="form-check-label" for="tidur_siang">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tanda_ngantuk">Bagaimana tanda-tanda Anak Anda mengantuk?</label>
+                                    <textarea name="tanda_ngantuk" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hal_lain_tidur">Hal-hal lain yang perlu Anda sampaikan berkaitan dengan kebiasaan tidur anak:</label>
+                                    <textarea name="hal_lain_tidur" class="form-control"></textarea>
+                                </div>
+
+                                <br/>
+
+                                <h2>
+                                    <strong>Lingkungan Rumah</strong>
+                                </h2>
+
+                                <div class="form-group">
+                                    <label for="area_bermain">Adakah area untuk Anak bermain?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="area_bermain" id="area_bermain" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="area_bermain">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="area_bermain" id="area_bermain" value="area_bermain" required="True"/>
+                                        <label class="form-check-label" for="area_bermain">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="siapa_menghabiskan_waktu">Dengan siapa Anak menghabiskan waktu di rumah?</label>
+                                    <input type="text" name="siapa_menghabiskan_waktu" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ada_orang_lain">Adakah orang lain selain orang tua dan Anak di rumah?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ada_orang_lain" id="ada_orang_lain" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="ada_orang_lain">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ada_orang_lain" id="ada_orang_lain" value="ada_orang_lain" required="True"/>
+                                        <label class="form-check-label" for="ada_orang_lain">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="sebutkan_section" style="display:none;">
+                                    <label for="sebutkan_orang_lain">Bila YA, Sebutkan:</label>
+                                    <input type="text" name="sebutkan_orang_lain" class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orang_hubungan_dekat">Selain Anda, siapakah orang yang memiliki hubungan dekat dengan Anak?</label>
+                                    <input type="text" name="orang_hubungan_dekat" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kegiatan_sering_dilakukan">Apa kegiatan yang paling sering dilakukan Anak di rumah?</label>
+                                    <textarea name="kegiatan_sering_dilakukan" class="form-control"></textarea>
+                                </div>
+
+                                <script> document.querySelector('select[name="ada_orang_lain"]').addEventListener('change', function() {
+                                            const sebutkanSection = document.getElementById('sebutkan_section');
+                                            if (this.value === 'Ya') {
+                                                sebutkanSection.style.display = 'block';
+                                            } else {
+                                                sebutkanSection.style.display = 'none';
+                                            }
+                                        });
+                                </script>
+
+                                <br/>
+
+                                <h2>
+                                    <strong>Kegiatan Hobi dan Pertemanan</strong>
+                                </h2>
+
+                                <div class="form-group">
+                                    <label for="mainan_favorit">Apa mainan favorit Anak?</label>
+                                    <input type="text" name="mainan_favorit" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="teman_dekat">Apakah Anak Memiliki Teman Dekat?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="teman_dekat" id="teman_dekat" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="teman_dekat">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="teman_dekat" id="teman_dekat" value="teman_dekat" required="True"/>
+                                        <label class="form-check-label" for="teman_dekat">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kecenderungan_bermain">Kecenderungan Anak Bermain:</label>
+                                    <input type="text" name="kecenderungan_bermain" class="form-control" required="True"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sering_bermain_teman_sebaya">Apakah Anak sering bermain dengan teman sebaya?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sering_bermain_teman_sebaya" id="sering_bermain_teman_sebaya" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="sering_bermain_teman_sebaya">
+                                                Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="teman_dekat" id="sering_bermain_teman_sebaya" value="sering_bermain_teman_sebaya" required="True"/>
+                                        <label class="form-check-label" for="sering_bermain_teman_sebaya">
+                                                Tidak
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hal_disukai">Apakah hal yang disukai oleh Anak?</label>
+                                    <textarea name="hal_disukai" class="form-control"></textarea>
+                                </div>
+                                <br/>
+
+                                <h2>
+                                    <strong>Pembelajaran</strong>
+                                </h2>
+
+                                <div class="form-group">
+                                    <label for="atmosfer_belajar">Secara singkat atmosfer atau lingkungan seperti apa dimana Anak dapat belajar lebih baik?</label>
+                                    <textarea name="atmosfer_belajar" class="form-control" required="True"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sekolah_dicari">Sekolah seperti apa yang Anda cari untuk Anak?</label>
+                                    <textarea name="sekolah_dicari" class="form-control" required="True"></textarea>
+                                </div>
+                                <br/>
+                                <br/>
+                                
+                                <school_message>
+                                    <paragraph>
+                                        Kami percaya bahwa orang tua memiliki peran penting dalam pendidikan anak mereka.
+                                        Ketika orang tua bekerjasama dan terlibat mendukung proses pembelajaran mereka, 
+                                        maka mereka akan memahami pentingnya sekolah dan pembelajaran. Dan orang tua-lah 
+                                        yang menjadi motivator kuat bagi mereka untuk berhasil di sekolah. Oleh karena itu 
+                                        kami mengharapkan orang tua untuk:<br/>
+                                    </paragraph>
+
+                                    <list>
+                                        <item><br/>- Membacakan buku/mendampingi anak membaca buku</item>
+                                        <item><br/>- Mengisi buku penghubung</item>
+                                        <item><br/>- Meneruskan pembiasaan baik yang sudah diterapkan di sekolah</item>
+                                        <item><br/>- Hadir pada acara SCOPE, maupun undangan-undangan yang disampaikan oleh sekolah</item>
+                                        <item><br/>- Aktif bekerjasama dalam proyek dan tugas anak yang melibatkan orang tua</item>
+                                    </list>
+                                </school_message>
+                                <br/>
+                                <br/>
+
+                                <div class="form-group">
+                                    <label for="proses_belajar">Selain di atas, apa hal yang ingin anda lakukan untuk mendukung proses belajar anak anda ?</label>
+                                    <textarea name="proses_belajar" class="form-control" required="True"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="metode_disiplin">Mohon gambarkan metode disiplin yang Anda terapkan pada Anak ?</label>
+                                    <textarea name="metode_disiplin" class="form-control" required="True"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="metode_aturan">Mohon jelaskan aturan penggunaan gadget yang Anda terapkan pada Anak ?</label>
+                                    <textarea name="metode_aturan" class="form-control" required="True"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="metode_aturan">Mohon jelaskan aturan penggunaan gadget yang Anda terapkan pada Anak ?</label>
+                                    <textarea name="metode_aturan" class="form-control" required="True"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="metode_pendekatan"> Mohon gambarkan pendekatan yang Anda lakukan untuk mengenalkan perbedaan gender pada Anak. ?</label>
+                                    <textarea name="metode_pendekatan" class="form-control" required="True"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cacatan_khusus"> Catatan Khusus ?</label>
+                                    <textarea name="cacatan_khusus" class="form-control" required="True"></textarea>
+                                </div>
+                               <br/>
+                                <paragraph>
+                                    Setiap anak memiliki temperamen yang berbeda-beda, mengingat setiap anak memiliki keunikan tersendiri. Dengan berjalannya waktu, 
+                                    temperamen anak dapat mengalami perubahan. Kami menyediakan pilihan.  temperamen yang dapat Bapak/Ibu beri tanda sesuai dengan pilihan yang mewakili 
+                                    temperamen anak anda pada saat ini.<br/>
+                                </paragraph>
+                                <br/>
+                                <div class="form-group">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="column">
+                                                    <label><input type="checkbox" name="sifat" value="Agresif"/> Agresif</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Cengeng"/> Cengeng</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Dominan"/> Dominan</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Ingin Tahu"/> Ingin Tahu</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Mudah Akrab"/> Mudah Akrab</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pandai"/> Pandai</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Penakut"/> Penakut</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemberontak"/> Pemberontak</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemurung"/> Pemurung</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pendiam"/> Pendiam</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Penyayang"/> Penyayang</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Sabar"/> Sabar</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Lainnya"/> Lainnya <input type="text" name="lainnya"/></label><br/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="column">
+                                                    <label><input type="checkbox" name="sifat" value="Aktif"/> Aktif</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Cerewet"/> Cerewet</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pengikut"/> Pengikut</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Keras Kepala"/> Keras Kepala</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Mudah Bergaul"/> Mudah Bergaul</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Patuh"/> Patuh</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemalu"/> Pemalu</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemberi"/> Pemberi</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemimpin"/> Pemimpin</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Penghayal"/> Penghayal</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Penyendiri"/> Penyendiri</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Sensitif"/> Sensitif</label><br/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="column">
+                                                    <label><input type="checkbox" name="sifat" value="Berani"/> Berani</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Ceria"/> Ceria</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Humoris"/> Humoris</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Kreatif"/> Kreatif</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Berjiwa Pengasuh"/> Berjiwa Pengasuh</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemaaf"/> Pemaaf</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemarah"/> Pemarah</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pembohong"/> Pembohong</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Pemalas"/> Pemalas</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Penuh Perhatian"/> Penuh Perhatian</label><br/>
+                                                    <label><input type="checkbox" name="sifat" value="Rajin"/> Rajin</label><br/>
+                                                   
+                                                    <label><input type="checkbox" name="sifat" value="Senang Berteman"/> Senang Berteman</label><br/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="hari_pengisian">Formulir ini diisi pada hari :</label>
+                                        <input type="text" name="hari_pengisian" class="form-control" required="True"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="tanggal_pengisian">Tanggal :</label>
+                                        <input type="date" name="tanggal_pengisian" class="form-control" required="True"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="ttd_ayah">Tanda Tangan Ayah / Wali :</label>
+                                        <input type="file" name="ttd_ayah" class="form-control" required="True"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="ttd_ibu">Tanda Tangan Ibu / Wali :</label>
+                                        <input type="file" name="ttd_ibu" class="form-control" required="True"/>
+                                    </div>
+                                </div>
+                                
+
+
+
+
+                                
+                                <!-- <h2>
+                                    <strong>Support dan Pendekatan Belajar</strong>
+                                </h2>
+
+                                <div class="form-group">
+                                    <label for="dukungan_belajar">Selain di atas, apa hal yang ingin anda lakukan untuk mendukung proses belajar anak anda?</label>
+                                    <textarea name="dukungan_belajar" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="metode_disiplin">Mohon gambarkan metode disiplin yang Anda terapkan pada Anak</label>
+                                    <textarea name="metode_disiplin" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="aturan_gadget">Mohon jelaskan aturan penggunaan gadget yang Anda terapkan pada Anak</label>
+                                    <textarea name="aturan_gadget" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pendekatan_gender">Mohon gambarkan pendekatan yang Anda lakukan untuk mengenalkan perbedaan gender pada Anak</label>
+                                    <textarea name="pendekatan_gender" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="catatan_khusus">Catatan Khusus</label>
+                                    <textarea name="catatan_khusus" class="form-control"></textarea>
+                                </div> -->
+
+
+
+                                <button type="button" id="prevBtn" class="btn btn-secondary">Previous</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <!-- Include your custom JavaScript -->
+                <script type="text/javascript" src="website_ppdb/static/src/js/templatesmp.js"></script>
+
+            </t>
+
+        </xpath>
+
+
+
+
+
+    </template>
+
+    <template id="ppdb_success_template" name="PPDB Success Template">
+        <t t-call="website.layout">
+            <div class="container mt32 mb32">
+                <h1>Terima Kasih!</h1>
+                <p>Data pendaftaran PPDB Anda telah berhasil disimpan.</p>
+            </div>
+        </t>
+    </template>
+</odoo>
