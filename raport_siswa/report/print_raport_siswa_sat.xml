@@ -101,7 +101,19 @@
                         .invisible-column::before {
                             content: '\00a0'; /* Non-breaking space */
                             visibility: hidden;
+
+                        .footer-table {
+                            border-collapse: collapse; /* Removes extra space between cells */
+                            border-spacing: 0; /* Ensures no cell spacing */
                         }
+                            
+                        .footer-table td, .footer-table th {
+                            padding: 0; /* Removes default padding */
+                            margin: 0;
+                            height: 12px; /* Ensures all cells have the same height */
+                            vertical-align: middle; /* Aligns content vertically to prevent shifting */
+                        }
+                    }
                     </style>
                     <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 98%; margin-bottom: 10px;" />
 
@@ -354,29 +366,36 @@
                         
                         
                         <!-- Footer table -->
-                        <table class="footer-table">
-                            <tr style = "height: 12px; line-height: 12px;">
-                                <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <th class="small-cell kepala-sekolah" style = "height: 12px; line-height: 12px;">Kepala Sekolah</th>
+                        <table class="footer-table" style="width: 100%; table-layout: fixed; border-collapse: collapse; border-spacing: 0; margin-left: 0%;">
+                            <tr style="height: 12px; line-height: 12px;">
+                                <th class="small-cell orang-tua" style="height: 12px; line-height: 12px;">Orang Tua</th>
+                                <td class="invisible-column" style="width: 75px;"></td>
+                                <th class="small-cell wali-kelas" style="height: 12px; line-height: 12px;">Wali Kelas</th>
+                                <td class="invisible-column" style="width: 75px;"></td>
+                                <th class="small-cell kepala-sekolah" style="height: 12px; line-height: 12px;">Kepala Sekolah</th>
                             </tr>
                             <tr>
                                 <td class="large-cell orang-tua"></td>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="invisible-column" style="width: 75px;"></td>
                                 <td class="large-cell wali-kelas"></td>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="invisible-column" style="width: 75px;"></td>
                                 <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
                             </tr>
                             <tr>
-                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 20px;"> <span t-field="o.ttd_ortu"/> </td>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_walas"/> </td>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_kepsek"/> </td>
+                                <td class="small-cell orang-tua" style="height: 12px; line-height: 20px;">
+                                    <span t-field="o.ttd_ortu"/>
+                                </td>
+                                <td class="invisible-column" style="width: 75px;"></td>
+                                <td class="small-cell wali-kelas" style="height: 12px; line-height: 20px;">
+                                    <span t-field="o.ttd_walas"/>
+                                </td>
+                                <td class="invisible-column" style="width: 75px;"></td>
+                                <td class="small-cell kepala-sekolah" style="height: 12px; line-height: 20px;">
+                                    <span t-field="o.ttd_kepsek"/>
+                                </td>
                             </tr>
                         </table>
+                        
 
                         <div class="footer">
                             <div class="row">

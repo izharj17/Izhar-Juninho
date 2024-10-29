@@ -350,27 +350,33 @@
                         
                         
                         <!-- Footer table -->
-                        <table class="footer-table">
-                            <tr style = "height: 12px; line-height: 12px;">
-                                <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <th class="small-cell kepala-sekolah" style = "height: 12px; line-height: 12px;">Kepala Sekolah</th>
+                        <table class="footer-table" style="position: absolute; left: -12%; width: 100%; table-layout: fixed;">
+                            <tr style="height: 12px; line-height: 12px;">
+                                <th class="small-cell orang-tua" style="height: 12px; line-height: 12px;">Orang Tua</th>
+                                <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell wali-kelas" style="height: 12px; line-height: 12px;">Wali Kelas</th>
+                                <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <th class="small-cell kepala-sekolah" style="height: 12px; line-height: 12px;">Kepala Sekolah</th>
                             </tr>
                             <tr>
                                 <td class="large-cell orang-tua"></td>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="invisible-column" style="width: 75px;"></td> <!-- Invisible column -->
                                 <td class="large-cell wali-kelas"></td>
-                                <td class="invisible-column"></td> <!-- Invisible column -->
+                                <td class="invisible-column" style="width: 75px;"></td> <!-- Invisible column -->
                                 <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
                             </tr>
                             <tr>
-                                <td class="large-cell orang-tua " style = "height: 12px; line-height: 20px;"> <span t-field="o.ttd_ortu"/> </td>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <td class="large-cell wali-kelas" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_walas"/> </td>
-                                <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_kepsek"/> </td>
+                                <td class="large-cell orang-tua" style="height: 12px; line-height: 20px;">
+                                    <span t-field="o.ttd_ortu"/>
+                                </td>
+                                <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell wali-kelas" style="height: 12px; line-height: 20px;">
+                                    <span t-field="o.ttd_walas"/>
+                                </td>
+                                <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                <td class="large-cell kepala-sekolah" style="height: 12px; line-height: 20px;">
+                                    <span t-field="o.ttd_kepsek"/>
+                                </td>
                             </tr>
                         </table>
 

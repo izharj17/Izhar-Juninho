@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <odoo>
     <template id="print_raport_siswa_sts">
-        <t t-call="web.html_container">
+        <t t-call="web.basic_layout">
             <t t-foreach="docs" t-as="o">
-                <t t-call="web.basic_layout">
-                    <t t-set="data_report_margin_top" t-value="1"/>
+                
                     <div class="page">
                         <style>
                             .page {
@@ -124,10 +123,10 @@
                         </style>
                         
                         
-                        <!-- <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 98%; margin-bottom: 10px;" /> -->
+                        <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 98%; margin-bottom: 10px;" />
 
                         
-                        <!-- <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr> -->
+                        <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
                         
                         <h1 style="text-align: center; font-size: 2em; font-weight: bold;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
                         <h1 style="text-align: center; font-size: 2em; font-weight: bold;">TENGAH SEMESTER</h1>
@@ -263,28 +262,35 @@
                                     Tangerang Selatan, <span t-esc="time.strftime('%d')" /> <span t-esc="time.strftime('%B')" /> <span t-esc="time.strftime('%Y')" />
                                 </div>
                                     
-                                    <!-- Footer table -->
-                            <table class="footer-table">
-                                <tr style = "height: 25px; line-height: 15px;">
-                                    <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
-                                    <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                    <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
-                                    <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                    <th class="small-cell kepala-sekolah" style = "height: 12px; line-height: 12px;">Kepala Sekolah</th>
+                            
+                            <!-- Footer table -->
+                            <table class="footer-table" style="position: absolute; left: -11%; width: 100%; table-layout: fixed;">
+                                <tr style="height: 25px; line-height: 15px;">
+                                    <th class="small-cell orang-tua" style="height: 12px; line-height: 12px;">Orang Tua</th>
+                                    <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                    <th class="small-cell wali-kelas" style="height: 12px; line-height: 12px;">Wali Kelas</th>
+                                    <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                    <th class="small-cell kepala-sekolah" style="height: 12px; line-height: 12px;">Kepala Sekolah</th>
                                 </tr>
                                 <tr>
                                     <td class="large-cell orang-tua"></td>
-                                    <td class="invisible-column"></td> <!-- Invisible column -->
+                                    <td class="invisible-column" style="width: 75px;"></td> <!-- Invisible column -->
                                     <td class="large-cell wali-kelas"></td>
-                                    <td class="invisible-column"></td> <!-- Invisible column -->
+                                    <td class="invisible-column" style="width: 75px;"></td> <!-- Invisible column -->
                                     <td class="large-cell kepala-sekolah" style="width: 70px;"></td>
                                 </tr>
                                 <tr>
-                                    <td class="large-cell orang-tua " style = "height: 12px; line-height: 12px;"> <span t-field="o.ttd_ortu"/> </td>
-                                    <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                    <td class="large-cell wali-kelas" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_walas"/> </td>
-                                    <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                    <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_kepsek"/> </td>
+                                    <td class="large-cell orang-tua" style="height: 12px; line-height: 20px;">
+                                        <span t-field="o.ttd_ortu"/> 
+                                    </td>
+                                    <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                    <td class="large-cell wali-kelas" style="height: 12px; line-height: 20px;">
+                                        <span t-field="o.ttd_walas"/>
+                                    </td>
+                                    <td class="invisible-column" style="width: 75px; height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
+                                    <td class="large-cell kepala-sekolah" style="height: 12px; line-height: 20px;">
+                                        <span t-field="o.ttd_kepsek"/>
+                                    </td>
                                 </tr>
                             </table>
 
@@ -305,7 +311,7 @@
                             </div>
                         </div>
                     </div>
-                </t>
+                
             </t>
         </t>
     </template>

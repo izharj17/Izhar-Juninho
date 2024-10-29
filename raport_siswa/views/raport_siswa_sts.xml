@@ -318,7 +318,7 @@
         <!-- Menu item to access Raport Siswa -->
         <menuitem id="menu_raport_siswa_sts"
                   name="Raport SD Arrasyid"
-                  parent="openeducat_core.menu_op_rapot_sekolah"
+                  parent="openeducat_core.menu_op_report_main"
                   sequence="12"
                   action="raport_siswa_sts_action"
                   groups="openeducat_core.group_op_faculty"/>
@@ -330,7 +330,7 @@
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">7</field>
-            <field name="margin_bottom">10</field>
+            <field name="margin_bottom">5</field>
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
             <field name="header_line" eval="False"/>
