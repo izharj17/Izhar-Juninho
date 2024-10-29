@@ -14,21 +14,34 @@
                                 justify-content: space-between; /* Push content to the top and footer to the bottom */
                                 position: relative; /* Needed for absolute positioning within */
                             }
-                            
                             .full-width-table {
-                                width: 100%;
-                                border-collapse: collapse;
-                            }
-                            .full-width-table th {
-                                background-color: #a9d08e;
-                                border: 1px solid black;
-                                padding: 8px;
-                                text-align: center;
-                            }
-                            .full-width-table td {
-                                padding: 8px;
-                                text-align: left;
-                            }
+								width: 100%;
+								border-collapse: collapse;
+							}
+							.inner-table {
+								width: 100%;
+							}
+							.inner-table td {
+								padding: 5px;
+								vertical-align: top;
+								word-break: break-word; /* Agar Alamat Sekolah bisa break jika panjang */
+							}
+							/* Flexbox untuk memastikan label dan nilai selalu sejajar */
+							.flex-row {
+								display: flex;
+								align-items: center; /* Agar konten sejajar secara vertikal */
+							}
+							/* Label dengan lebar tetap agar konsisten */
+							.label {
+								white-space: nowrap; /* Mencegah label terpotong */
+								font-weight: bold;
+								width: 35%; /* Lebar tetap label agar layout rapi */
+								flex-shrink: 0; /* Mencegah label mengecil */
+							}
+							.value {
+								flex-grow: 1; /* Memastikan nilai mengambil sisa ruang */
+								word-break: break-word; /* Alamat akan break jika terlalu panjang */
+							}
                             .raport-details {
                                 width: 100%;
                                 border-collapse: collapse;
@@ -53,6 +66,10 @@
                                 width: 80%;
                                 border-collapse: collapse;
                                 margin-left: 11.5%; /* Center horizontally */
+                            }
+
+                            .footer {
+                                margin-top: 20px;
                             }
                         
                             .footer-table th,
@@ -82,7 +99,7 @@
                             .footer-table th.kepala-sekolah,
                             .footer-table td.kepala-sekolah {
                                 width: 33.33%; /* Set all columns to equal width */
-                                padding: 10px;
+                                padding: 15px;
                             }
                         
                             /* Hide the middle column */
@@ -107,105 +124,139 @@
                         </style>
                         
                         
-                        <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 98%; margin-bottom: 10px;" />
+                        <!-- <img src="/raport_siswa/static/src/img/header 4.png" alt="Header Image" style="max-width: 98%; margin-bottom: 10px;" /> -->
 
                         
-                        <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr>
+                        <!-- <hr style="border: none; border-top: 5px solid #333; margin: 20px auto;"></hr> -->
                         
-                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
-                        <h1 style="text-align: center; font-size: 1.5em; font-weight: bold;">TENGAH SEMESTER</h1>
+                        <h1 style="text-align: center; font-size: 2em; font-weight: bold;">LAPORAN HASIL BELAJAR PESERTA DIDIK</h1>
+                        <h1 style="text-align: center; font-size: 2em; font-weight: bold;">TENGAH SEMESTER</h1>
                         <table class="full-width-table">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td><![CDATA[Student&nbsp;&nbsp;&nbsp;]]></td>
-                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.student_id.name"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><![CDATA[NIS&nbsp;&nbsp;&nbsp;]]></td>
-                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.student_id.nis"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><![CDATA[Kelas&nbsp;&nbsp;&nbsp;]]></td>
-                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.kelas_id.name"/></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td><![CDATA[Semester&nbsp;&nbsp;&nbsp;]]></td>
-                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.semester_id"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><![CDATA[Tahun Pelajaran&nbsp;&nbsp;&nbsp;]]></td>
-                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.tahun_pelajaran.name"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><![CDATA[Rombel&nbsp;&nbsp;&nbsp;]]></td>
-                                                    <td>:<![CDATA[&nbsp;]]><span t-field="o.grade_id.name"/></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+							<tbody>
+								<tr>
+								<!-- Kolom Kiri -->
+								<td style="width: 60%; vertical-align: top;">
+									<table class="inner-table">
+										<tbody>
+											<tr class="flex-row">
+												<td class="label">Nama Peserta Didik</td>
+												<td class="value">: <span t-field="o.student_id.name"/></td>
+											</tr>
+											<tr class="flex-row">
+												<td class="label">NIS / NISN</td>
+												<td class="value">: <span t-field="o.student_id.nis"/> / <span t-field="o.student_id.nisn"/></td>
+											</tr>
+											<tr class="flex-row">
+												<td class="label">Nama Sekolah</td>
+												<td class="value">: <span t-field="o.sekolah"/></td>
+											</tr>
+											<tr class="flex-row">
+												<td class="label">Alamat Sekolah</td>
+												<td class="value">: <span t-field="o.alamat_sekolah"/></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+
+								<!-- Kolom Kanan -->
+								<td style="width: 40%; vertical-align: top;">
+									<table class="inner-table">
+										<tbody>
+											<tr class="flex-row">
+												<td class="label">Kelas</td>
+												<td class="value">: <span t-field="o.kelas_id.name"/></td>
+											</tr>
+											<tr class="flex-row">
+												<td class="label">Fase</td>
+												<td class="value">: <span t-field="o.fase"/></td>
+											</tr>
+											<tr class="flex-row">
+												<td class="label">Semester</td>
+												<td class="value">: <span t-field="o.semester_id"/></td>
+											</tr>
+											<tr class="flex-row">
+												<td class="label">Tahun Pelajaran</td>
+												<td class="value">: <span t-field="o.tahun_pelajaran.name"/></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								</tr>
+							</tbody>
+						</table>
 
                         <table class="raport-details">
-                            <thead>
-                                <tr>
-                                    <th rowspan="2">Mata Pelajaran</th>
-                                    <th rowspan="2" style="width 10%!important">Nilai Akhir</th>
-                                    <th colspan="2">Kompetensi</th>
-                                </tr>
-                                <tr>
-                                    <th>Capaian </th>
-                                    <th>Catatan </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-foreach="o.raport_siswa_ids" t-as="line">
-                                    <tr>
-                                        <td><span t-field="line.subject_id.name"/></td>
-                                        <td><span t-field="line.nilai_akhir"/></td>
-                                        <td><span t-field="line.note"/></td>
-                                        <td><span t-field="line.note2"/></td>
-                                    </tr>
-                                </t>
-                            </tbody>
-                        </table>
+							<thead>
+								<tr>
+									<th style="width: 5%;">No</th> <!-- Kolom No -->
+									<th>Mata Pelajaran</th>
+									<th style="width: 10%!important">Nilai Akhir</th>
+									<th>Capaian Kompetensi</th> <!-- Header tetap dalam 1 baris -->
+								</tr>
+							</thead>
+							<tbody>
+							<t t-set="index" t-value="0"/> <!-- Inisialisasi index ke 0 -->
+							<t t-foreach="o.raport_siswa_ids" t-as="line">
+								<tr>
+									<td rowspan="2">
+										<t t-esc="index + 1"/> <!-- Menampilkan nomor urut -->
+									</td>
+									<td rowspan="2" style="text-align: left;">
+										<span t-field="line.subject_id.name"/>
+									</td>
+									<td rowspan="2">
+										<span t-field="line.nilai_akhir"/>
+									</td>
+									<td style="text-align: justify;">
+										<span t-field="line.note"/>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: justify;">
+										<span t-field="line.note2"/>
+									</td>
+								</tr>
+									<t t-set="index" t-value="index + 1"/> <!-- Increment index -->
+							</t>
+							</tbody>
+						</table>
                         <div style="page-break-inside: avoid;">
                                 <h2 style="text-align: center; margin-top: 35px; font-size: 1.45em; font-weight: bold;">Muatan Lokal</h2>
                                 <table class="raport-details">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2">Mata Pelajaran</th>
-                                            <th rowspan="2" style="width 10%">Nilai Akhir</th>
-                                            <th colspan="2">Kompetensi</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Capaian </th>
-                                            <th>Catatan </th>
+											<th style="width: 5%;">No</th> <!-- Kolom No -->
+                                            <th> Mata Pelajaran</th>
+                                            <th style="width 10%!important">Nilai Akhir</th>
+                                            <th> Capaian Kompetensi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="o.mulok_siswa_ids" t-as="line">
-                                            <tr>
-                                                <td><span t-field="line.subject_id.name"/></td>
-                                                <td><span t-field="line.nilai_akhir"/></td>
-                                                <td><span t-field="line.note"/></td>
-                                                <td><span t-field="line.note2"/></td>
-                                            </tr>
-                                        </t>
-                                    </tbody>
-                                </table>
-                            
+									<t t-set="index" t-value="0"/> <!-- Inisialisasi index ke 0 -->
+									<t t-foreach="o.mulok_siswa_ids" t-as="line">
+										<tr>
+											<td rowspan="2">
+												<t t-esc="index + 1"/> <!-- Menampilkan nomor urut -->
+											</td>
+											<td rowspan="2" style="text-align: left;">
+												<span t-field="line.subject_id.name"/>
+											</td>
+											<td rowspan="2">
+												<span t-field="line.nilai_akhir"/>
+											</td>
+											<td style="text-align: justify;">
+												<span t-field="line.note"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="text-align: justify;">
+												<span t-field="line.note2"/>
+											</td>
+										</tr>
+											<t t-set="index" t-value="index + 1"/> <!-- Increment index -->
+									</t>
+									</tbody>
+								</table>
                             
                             <!-- Text above footer table -->
                                 <div style="text-align: right; margin-top: 20px; margin-right: 45px; margin-bottom: 10px; margin-top: 50px;">
@@ -214,7 +265,7 @@
                                     
                                     <!-- Footer table -->
                             <table class="footer-table">
-                                <tr style = "height: 12px; line-height: 12px;">
+                                <tr style = "height: 25px; line-height: 15px;">
                                     <th class="small-cell orang-tua" style = "height: 12px; line-height: 12px;">Orang Tua</th>
                                     <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
                                     <th class="small-cell wali-kelas" style = "height: 12px; line-height: 12px;">Wali Kelas</th>
@@ -226,26 +277,26 @@
                                     <td class="invisible-column"></td> <!-- Invisible column -->
                                     <td class="large-cell wali-kelas"></td>
                                     <td class="invisible-column"></td> <!-- Invisible column -->
-                                    <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
+                                    <td class="large-cell kepala-sekolah" style="width: 70px;"></td>
                                 </tr>
                                 <tr>
-                                    <td class="large-cell orang-tua " style = "height: 12px; line-height: 20px;"> <span t-field="o.ttd_ortu"/> </td>
+                                    <td class="large-cell orang-tua " style = "height: 12px; line-height: 12px;"> <span t-field="o.ttd_ortu"/> </td>
                                     <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                    <td class="large-cell wali-kelas" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_walas"/> </td>
+                                    <td class="large-cell wali-kelas" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_walas"/> </td>
                                     <td class="invisible-column" style = "height: 12px; line-height: 12px;"></td> <!-- Invisible column -->
-                                    <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 20px;"><span t-field="o.ttd_kepsek"/> </td>
+                                    <td class="large-cell kepala-sekolah" style = "height: 12px; line-height: 12px;"><span t-field="o.ttd_kepsek"/> </td>
                                 </tr>
                             </table>
 
                             <div class="footer">
-                                <div class="row">
+                                <div class="row" style="margin-top: 20px;">
                                     <div align="center">
                                         <i>
                                             <span style="font: bold italic 11px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.student_id.name"></span> - <span style="font: bold italic 11px Verdana, sans-serif !important; text-transform: uppercase; !important" t-field="o.kelas_id.name"></span>
                                         </i>
                                     </div>
                                     <div style="position: absolute; left: 51%;">
-                                        <span class="page" />
+                                        <span class="page"/>
                                     </div>
                                     <div style="position: absolute; left: 75%;">
                                         <span style="font: bold italic 11px Verdana, sans-serif !important;" > e-Rapor Arrasyid v.1.5.0 </span> 

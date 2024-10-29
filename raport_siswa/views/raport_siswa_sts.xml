@@ -73,9 +73,10 @@
                 <tree string="Raport">
                     <field name="jenis_raport"/>
                     <field name="student_id"/>
-                    <field name="nis_nisn"/>
+                    <field name="nis"/>
                     <field name="kelas_id"/>
-                    <field name="grade_id"/>
+                    <field name="fase"/>
+                    <!-- <field name="grade_id"/> -->
                     <field name="semester_id"/>
                     <field name="tahun_pelajaran"/>
                 </tree>
@@ -114,11 +115,15 @@
                         </group>
                         <group col="4">
                             <field name="student_id" options='{"no_create_edit": True, "no_create": True}'/>
-                            <field name="nis_nisn"/>
+                            <field name="nis"/>
+                            <field name="nisn"/>
                             <field name="kelas_id" options='{"no_create_edit": True, "no_create": True}'/>
-                            <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="fase"/>
+                            <!-- <field name="grade_id" options='{"no_create_edit": True, "no_create": True}'/> -->
                             <field name="semester_id"/>
                             <field name="tahun_pelajaran" options='{"no_create_edit": True, "no_create": True}'/>
+                            <field name="sekolah"/>
+                            <field name="alamat_sekolah"/>
                         </group>
                         <group string="Mata Pelajaran" attrs="{'invisible': [('jenis_raport', '=', 'IEP')]}">
                             <field name="raport_siswa_ids" nolabel="1" options="{'reload_on_button': True}">
@@ -242,8 +247,7 @@
                             <group string = "Motorik">
                                             <field name="motorik_indikator"/>
                                             <field name="motorik_capaian"/>
-                            </group>
-                                    
+                            </group>         
                         </group>
 
                     
@@ -293,9 +297,9 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <search string="Raport Siswa">
-                    <field name="grade_id"/>
+                    <field name="student_id"/>
                     <group expand="0" string="Group By...">
-                        <filter string="Rombel" name="group_by_grade_id" domain="[]" context="{'group_by':'grade_id'}"/>
+                        <filter string="Rombel" name="group_by_student_id" domain="[]" context="{'group_by':'student_id'}"/>
                     </group>
                 </search>
             </field>
@@ -311,7 +315,13 @@
             </field>
         </record>
 
-
+        <!-- Menu item to access Raport Siswa -->
+        <menuitem id="menu_raport_siswa_sts"
+                  name="Raport SD Arrasyid"
+                  parent="openeducat_core.menu_op_rapot_sekolah"
+                  sequence="12"
+                  action="raport_siswa_sts_action"
+                  groups="openeducat_core.group_op_faculty"/>
 
 
         <record id="paperformat_custom_a4" model="report.paperformat">

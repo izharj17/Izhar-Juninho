@@ -17,14 +17,20 @@ class RaportSiswaSTS(models.Model):
     ], 'Jenis Raport')
 
     # Identitas
-    student_id = fields.Many2one('op.student', 'Student', tracking=True)
-    nis_nisn = fields.Char('NIS/NISN', related='student_id.nis')
-    sekolah_id = fields.Many2one('res.company', 'Sekolah', default=lambda self: self.env['res.company'].search([('name', '=', 'SD Islam Arrasyid')], limit=1).id)
-    alamat_sekolah = fields.Char('Alamat Sekolah', related='sekolah_id.street')
+    student_id = fields.Many2one('op.student', 'Nama Peserta Didik', tracking=True)
+    nis = fields.Char('NIS', related='student_id.nis')
+    nisn = fields.Char('NISN', related='student_id.nisn')
+    sekolah = fields.Char('Nama Sekolah', default="""Sekolah Dasar Islam Arrasyid""", readonly=True)
+    alamat_sekolah = fields.Char('Alamat Sekolah', default="""Jl. Baru Kp. Sari Mulya, Setu, Tangerang Selatan, Banten 15314""", readonly=True)
     kelas_id = fields.Many2one('op.course', 'Kelas', readonly=False)
     grade_id = fields.Many2one('op.batch', 'Rombel')
+    fase = fields.Selection([
+        ('a', 'A'),
+        ('b', 'B'),
+        ('c', 'C')
+    ], 'Fase', default='a')
     semester_id = fields.Selection([
-        ('1', '1 (Ganjil)'),
+        ('1', '1 (Gasal)'),
         ('2', '2 (Genap)'),
     ], 'Semester')
     tahun_pelajaran = fields.Many2one('op.academic.year', 'Tahun Pelajaran')
@@ -157,7 +163,7 @@ class RaportSiswaSTS(models.Model):
         default['mulok_siswa_ids'] = [(0, 0, {
             'student_id': line.student_id.id,
             'subject_id': line.subject_id.id,
-            'nis_nisn': line.nis_nisn,
+            'nis': line.nis,
             'semester_id': line.semester_id,
             'tahun_pelajaran': line.tahun_pelajaran.id,
             'nilai_akhir': line.nilai_akhir,
