@@ -382,15 +382,15 @@
                                 <td class="large-cell kepala-sekolah" style="width: 50px;"></td>
                             </tr>
                             <tr>
-                                <td class="small-cell orang-tua" style="height: 12px; line-height: 20px;">
+                                <td class="large-cell orang-tua" style="height: 12px; line-height: 20px;">
                                     <span t-field="o.ttd_ortu"/>
                                 </td>
                                 <td class="invisible-column" style="width: 75px;"></td>
-                                <td class="small-cell wali-kelas" style="height: 12px; line-height: 20px;">
+                                <td class="large-cell wali-kelas" style="height: 12px; line-height: 20px;">
                                     <span t-field="o.ttd_walas"/>
                                 </td>
                                 <td class="invisible-column" style="width: 75px;"></td>
-                                <td class="small-cell kepala-sekolah" style="height: 12px; line-height: 20px;">
+                                <td class="large-cell kepala-sekolah" style="height: 12px; line-height: 20px;">
                                     <span t-field="o.ttd_kepsek"/>
                                 </td>
                             </tr>
