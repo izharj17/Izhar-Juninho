@@ -14,12 +14,6 @@
         'views/website_ppdb_menu.xml',
         
     ],
-     'assets': {
-        'web.assets_frontend': [
-            'website_ppdb/static/src/js/templatesmp.js',
-            'website_ppdb/static/src/js/templatesmp.css',
-        ],
-    },
     'installable': True,
     'application': True,
 }

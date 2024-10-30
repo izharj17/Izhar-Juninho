@@ -3,7 +3,7 @@ from odoo.http import request
 
 class WebsitePPDB(http.Controller):
 
-    @http.route('/ppdbsmp', type='http', auth='public', website=True)
+    @http.route('/ppdbsm', type='http', auth='public', website=True)
     def ppdb_form(self, **kwargs):
         """Render the PPDB form"""
         return request.render('website_ppdb.ppdb_form_template_SM')
@@ -13,7 +13,7 @@ class WebsitePPDB(http.Controller):
         """Render the PPDB form"""
         return request.render('website_ppdb.ppdb_form_template_SD')
     
-    @http.route('/ppdbtk', type='http', auth='public', website=True)
+    @http.route('/ppdb', type='http', auth='public', website=True)
     def ppdb_form(self, **kwargs):
         """Render the PPDB form"""
         return request.render('website_ppdb.ppdb_form_template_TK')

@@ -32,87 +32,117 @@
         </xpath>
         <xpath expr="//main" position="replace">
             <t t-call="website.layout">
+                
 
                 <div id="form-slider" class="container mt32 mb32">
-                    <h1>PPDB Formulir Pendaftaran</h1>
+                   
+
+                    <div class="header">
+                        <table style="width: 100%; border-bottom: 1px solid #000;">
+                            <tr>
+                                <!-- Left side: Logo -->
+                                <td style="width: 50%;">
+                                    <img t-attf-src="/website_ppdb/static/src/img/tunas_robbani_logo.jpg" 
+                                         alt="Tunas Robbani Logo"
+                                         style="width: 150px; height: auto;"/>
+                                </td>
+            
+                                <!-- Right side: Address -->
+                                <td style="text-align: right; width: 50%;">
+                                    <p style="font-size: 14px;">
+                                        Jl. KH Hasyim Ashari Gg. Kemandoran<br/>
+                                        RT 01/05 Nerogtog Pinang<br/>
+                                        Kota Tangerang<br/>
+                                        Telp: 021-55703737, 081317004719
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
                     <!-- Data Siswa -->
                 <div class="border p-3 mb-3" id="form1">
                     <div class="form-container">
 
-                        
                             <h2>
-                                <strong>Data Siswa</strong>
+                                <strong>FORMULIR PENDAFTARAN</strong>
+                                <br/>
+                                <strong>BAGIAN KE 1 FORMULIR PENDAFTARAN</strong>
                             </h2>
                             <form action="/ppdb/submit_siswa" method="post">
 
-                            
                                 <div class="form-group">
-                                    <label for="nama_lengkap">Nama Depan Siswa:</label>
-                                    <input type="text" name="nama_lengkap" class="form-control" required="True"/>
+                                    <label for="nama_lengkap">Nama Lengkap:</label>
+                                    <input type="nama_lengkap" name="nama_lengkap" class="form-control"  required="true"/>
                                 </div>
-                          
-
-                                <div class="form-group">
-                                    <label for="nama_panggilan">Nama Tengah Siswa:</label>
-                                    <input type="text" name="nama_panggilan" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nama_belakang">Nama Belakang Siswa:</label>
-                                    <input type="text" name="nama_belakang" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nisn">NIK:</label>
-                                    <input type="text" name="nisn" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nisn">NISN:</label>
-                                    <input type="text" name="nisn" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="no_kk">NO KK:</label>
-                                    <input type="text" name="no_kk" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="registrasi_kk">No Regsitrasi Akta Lahir :</label>
-                                    <input type="text" name="registrasi_kk" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="bird_day" class="col-sm-2 col-form-label">Tempat Lahir:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="bird_day" class="form-control" required="True"/>
+                                
+                                <!-- NO KK and Registration -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="no_kk">NO KK:</label>
+                                        <input type="text" name="no_kk" class="form-control" required="true"/>
                                     </div>
-                                    <label for="bird_place" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
-                                    <div class="col-sm-4">
-                                        <input type="date" name="tanggal_place" class="form-control" required="True"/>
+                                    <div class="form-group col-md-6">
+                                        <label for="registrasi_kk">No Registrasi Akta Lahir:</label>
+                                        <input type="text" name="registrasi_kk" class="form-control"  required="true"/>
+                                    </div>
+                                </div>
+                        
+                                <!-- Birthplace and Date -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="bird_place">Tempat Lahir:</label>
+                                        <input type="text" name="bird_place" class="form-control"  required="true"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="tanggal_place">Tanggal Lahir:</label>
+                                        <input type="date" name="tanggal_place" class="form-control"  required="true"/>
                                     </div>
                                 </div>
 
-
+                                
                                 <div class="form-group">
-                                    <label for="gender">Jenis Kelamin:</label>
-                                    <select name="gender" class="form-control" required="True">
-                                        <option value="Laki-Laki">Laki - Laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
+                                        <label for="kia">Apakah punya KIA:</label>
+                                        <select name="kia" class="form-control"  required="true">
+                                            <option value=""></option>
+                                            <option value="ya">Ya</option>
+                                        </select>
                                 </div>
                             
+                                    <!-- Nationality -->
+                                 <!-- <div class="form-group">
+                                        <label for="kewarganegaraan">Kewarganegaraan:</label>
+                                        <input type="text" name="kewarganegaraan" class="form-control"/>
+                                 </div> -->
+                                
+                                   <!--  -->
                                 <div class="form-group">
-                                    <label for="email">Alamat Email:</label>
-                                    <input type="text" name="email" class="form-control" required="True"/>
+                                        <label for="anak_ke">Anak ke:</label>
+                                        <input type="text" name="anak_ke" class="form-control" required="true"/>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="email"> Email:</label>
+                                    <input type="email" name="email" class="form-control"  required="true"/>
+                                </div>
+                                
 
                                 <div class="form-group">
                                     <label for="alamat_siswa">Alamat:</label>
                                     <textarea name="alamat_siswa" class="form-control"></textarea>
                                 </div>
 
+                                <div class="form-group">
+                                        <label for="gender">Jenis Kelamin:</label>
+                                        <select name="gender" class="form-control"  required="true">
+                                            <option value="Laki-Laki">Laki - Laki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                        </select>
+                                </div>
+                                    
+                               
+                        
+                                <!-- Religion -->
                                 <div class="form-group">
                                     <label for="agama">Agama:</label>
                                     <select name="agama" class="form-control">
@@ -125,26 +155,11 @@
                                         <option value="konguchu">Konguchu</option>
                                     </select>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="kia">Apahkah punya KIA:</label>
-                                    <select name="kia" class="form-control" required="True">
-                                        <option value=""></option>
-                                        <option value="ya">Ya</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kewarganegaraan">Kewarganegaraan:</label>
-                                    <input type="text" name="kewarganegaraan" class="form-control"/>
-                                </div>
-
-                                <div class="form-group">
-                                <label for="anak_ke">Anak ke:</label>
-                                <input type="text" name="nanak_ke" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
+                        
+                                <!-- KIA -->
+   
+                                <!-- Family Members Living Together -->
+                                <!-- <div class="form-group">
                                     <label>Anggota keluarga yang tinggal satu rumah:</label>
                                     <div class="row">
                                         <div class="col-md-4">
@@ -166,24 +181,16 @@
                                                 <input class="form-check-input" type="checkbox" name="kakek_nenek" id="kakek_nenek"/>
                                                 <label class="form-check-label" for="kakek_nenek">Kakek-Nenek</label>
                                             </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-check">
-                                                <table>
-                                                    <tr>
-                                                        <td valign="top">
-                                                            <input class="form-check-input" type="checkbox" name="yang_lainnya" id="yang_lainnya"/>
-                                                        </td>
-                                                        <td valign="top" style="padding-left: 4px;">
-                                                            <label class="form-check-label" for="yang_lainnya">Yang Lainnya</label>
-                                                        </td>
-                                                        <td valign="top" style="padding-left: 10px;">
-                                                            <input type="text" name="lainnya_text" id="lainnya_text" size="20" style="border: none; border-bottom: 1px solid black;"/>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                <input class="form-check-input" type="checkbox" name="yang_lainnya" id="yang_lainnya"/>
+                                                <label class="form-check-label" for="yang_lainnya">Yang Lainnya</label>
+                                                <input type="text" name="lainnya_text" id="lainnya_text" class="form-control" placeholder="Lainnya"/>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                  </div>
+                                </div> -->
                               
                                 <h2>
                                     <strong>Jumlah Saudara Kandung</strong>
@@ -289,8 +296,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="jenis_daftar">Jenis pendaftaran :</label>
-                                        <select name="jenis_daftar" class="form-control">
+                                        <label for="jenis_ppdb">Jenis pendaftaran :</label>
+                                        <select name="jenis_ppdb" class="form-control">
                                             <option value="belum_memilih">Pilih data</option>
                                         </select>
                                     </div>
@@ -319,23 +326,20 @@
                                         <label for="nama">Nama lengkap:</label>
                                         <input type="text" name="nama" class="form-control"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="panggilan">Nama panggilan:</label>
-                                        <input type="text" name="panggilan" class="form-control"/>
-                                    </div>
+                            
                                     <div class="form-group row">
-                                        <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir:</label>
+                                        <label for="tempat_lahir_ayah" class="col-sm-2 col-form-label">Tempat Lahir:</label>
                                         <div class="col-sm-4">
-                                            <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="True"/>
+                                            <input type="text" name="tempat_lahir_lahir" class="form-control" placeholder="Tempat Lahir" required="True"/>
                                         </div>
-                                        <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
+                                        <label for="tgl_lahir_ayah" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
                                         <div class="col-sm-4">
-                                            <input type="date" name="tanggal_lahir" class="form-control" required="True"/>
+                                            <input type="date" name="tgl_lahir_ayah" class="form-control" required="True"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="agama">Agama:</label>
-                                        <select name="agama" class="form-control">
+                                        <label for="agama_ayah">Agama:</label>
+                                        <select name="agama_ayah" class="form-control">
                                             <option value="belum_memilih">Pilih agama</option>
                                             <option value="islam">Islam</option>
                                             <option value="kristen">Kristen</option>
@@ -359,26 +363,26 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Alamat">Alamat:</label>
-                                        <textarea name="Alamat" class="form-control"></textarea>
+                                        <label for="alamat_ayah">Alamat:</label>
+                                        <textarea name="alamat_ayah" class="form-control"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="handphone">Nomor handphone:</label>
-                                        <input type="text" name="handphone" class="form-control"/>
+                                        <label for="telp_ayah">Nomor handphone:</label>
+                                        <input type="text" name="telp_ayah" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Email">Alamat email:</label>
-                                        <input type="text" name="Email" class="form-control"/>
+                                        <label for="email_ayah">Alamat email:</label>
+                                        <input type="text" name="email_ayah" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="pekerjaan">Pekerjaan:</label>
-                                        <input type="text" name="pekerjaan" class="form-control"/>
+                                        <label for="pekerjaan_ayah">Pekerjaan:</label>
+                                        <input type="text" name="pekerjaan_ayah" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Jabatan">Jabatan:</label>
-                                        <input type="text" name="Jabatan" class="form-control"/>
+                                        <label for="jabatan_ayah">Jabatan:</label>
+                                        <input type="text" name="jabatan_ayah" class="form-control"/>
                                     </div>
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
                                         <div class="col-sm-4">
                                             <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
@@ -387,24 +391,24 @@
                                         <div class="col-sm-2">
                                             <input type="text" name="ext" class="form-control" placeholder="Ext"/>
                                         </div>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label for="penghasilan_ayah">Penghasilan perbulan:</label>
+                                        <input type="number" name="penghasilan_ayah" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="penghasilan">Penghasilan perbulan:</label>
-                                        <input type="number" name="penghasilan" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tanggungan">Jumlah tanggungan:</label>
-                                        <input type="number" name="tanggungan" class="form-control"/>
+                                        <label for="tanggungan_ayah">Jumlah tanggungan:</label>
+                                        <input type="number" name="tanggungan_ayah" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label>Status Perkawinan:</label>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="cerai" value="cerai" required="True"/>
+                                            <input class="form-check-input" type="radio" name="status_ayah" id="cerai" value="cerai" required="True"/>
                                             <label class="form-check-label" for="cerai">Bercerai</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="nikah" value="nikah" required="True"/>
+                                            <input class="form-check-input" type="radio" name="status_ayah" id="nikah" value="nikah" required="True"/>
                                             <label class="form-check-label" for="nikah">Menikah</label>
                                         </div>
 
@@ -421,28 +425,21 @@
                                         <input type="text" name="nama" class="form-control"/>
                                     </div>
 
-
-                                    <div class="form-group">
-                                        <label for="panggilan">Nama panggilan:</label>
-                                        <input type="text" name="panggilan" class="form-control"/>
-                                    </div>
-
-
                                     <div class="form-group row">
-                                        <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir:</label>
+                                        <label for="tempat_lahir_ibu" class="col-sm-2 col-form-label">Tempat Lahir:</label>
                                         <div class="col-sm-4">
-                                            <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="True"/>
+                                            <input type="text" name="tempat_lahir_ibu" class="form-control" placeholder="Tempat Lahir" required="True"/>
                                         </div>
-                                        <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
+                                        <label for="tgl_lahir_ibu" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
                                         <div class="col-sm-4">
-                                            <input type="date" name="tanggal_lahir" class="form-control" required="True"/>
+                                            <input type="date" name="tgl_lahir_ibu" class="form-control" required="True"/>
                                         </div>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="agama">Agama:</label>
-                                        <select name="agama" class="form-control">
+                                        <label for="agama_ibu">Agama:</label>
+                                        <select name="agama_ibu" class="form-control">
                                             <option value="belum_memilih">Pilih agama</option>
                                             <option value="islam">Islam</option>
                                             <option value="kristen">Kristen</option>
@@ -455,8 +452,8 @@
 
 
                                     <div class="form-group">
-                                        <label for="pendidikan">Pendidikan:</label>
-                                        <select name="pendidikan" class="form-control">
+                                        <label for="pendidikan_ibu">Pendidikan:</label>
+                                        <select name="pendidikan_ibu" class="form-control">
                                             <option value="belum_memilih">Pilih sesuai jenjang</option>
                                             <option value="SD">SD</option>
                                             <option value="SMP">SMP</option>
@@ -470,36 +467,36 @@
 
 
                                     <div class="form-group">
-                                        <label for="Alamat">Alamat:</label>
-                                        <textarea name="Alamat" class="form-control"></textarea>
+                                        <label for="alamat_ibu">Alamat:</label>
+                                        <textarea name="alamat_ibu" class="form-control"></textarea>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="handphone">Nomor handphone:</label>
-                                        <input type="text" name="handphone" class="form-control"/>
+                                        <label for="telp_ibu">Nomor handphone:</label>
+                                        <input type="text" name="telp_ibu" class="form-control"/>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="Email">Alamat email:</label>
-                                        <input type="text" name="Email" class="form-control"/>
+                                        <label for="email_ibu">Alamat email:</label>
+                                        <input type="text" name="email_ibu" class="form-control"/>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="pekerjaan">Pekerjaan:</label>
-                                        <input type="text" name="pekerjaan" class="form-control"/>
+                                        <label for="pekerjaan_ibu">Pekerjaan:</label>
+                                        <input type="text" name="pekerjaan_ibu" class="form-control"/>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="Jabatan">Jabatan:</label>
-                                        <input type="text" name="Jabatan" class="form-control"/>
+                                        <label for="jabatan_ibu">Jabatan:</label>
+                                        <input type="text" name="jabatan_ibu" class="form-control"/>
                                     </div>
 
 
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
                                         <div class="col-sm-4">
                                             <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
@@ -508,31 +505,31 @@
                                         <div class="col-sm-2">
                                             <input type="text" name="ext" class="form-control" placeholder="Ext"/>
                                         </div>
+                                    </div> -->
+
+
+                                    <div class="form-group">
+                                        <label for="penghasilan_ibu">Penghasilan perbulan:</label>
+                                        <input type="number" name="penghasilan_ibu" class="form-control"/>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="penghasilan">Penghasilan perbulan:</label>
-                                        <input type="number" name="penghasilan" class="form-control"/>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="tanggungan">Jumlah tanggungan:</label>
-                                        <input type="number" name="tanggungan" class="form-control"/>
+                                        <label for="tanggungan_ibu">Jumlah tanggungan:</label>
+                                        <input type="number" name="tanggungan_ibu" class="form-control"/>
                                     </div>
 
 
                                     <div class="form-group">
                                         <label>Status Perkawinan:</label>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="cerai" value="cerai" required="True"/>
+                                            <input class="form-check-input" type="radio" name="status_ibu" id="cerai" value="cerai" required="True"/>
                                             <label class="form-check-label" for="cerai">Bercerai</label>
                                         </div>
 
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status_perkawinan" id="nikah" value="nikah" required="True"/>
+                                            <input class="form-check-input" type="radio" name="status_ibu" id="nikah" value="nikah" required="True"/>
                                             <label class="form-check-label" for="nikah">Menikah</label>
                                         </div>
                                     </div>
@@ -540,23 +537,23 @@
 
                                 <div class="border p-3 mb-3" id="form1">
                                     <div class="form-group">
-                                        <label for="kelahiran">File Akta Kelahiran:</label>
-                                        <input type="file" name="kelahiran" class="form-control"/>
+                                        <label for="file_akta">File Akta Kelahiran:</label>
+                                        <input type="file" name="file_akta" class="form-control"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="keluarga">File Kartu Keluarga:</label>
-                                        <input type="file" name="keluarga" class="form-control"/>
+                                        <label for="file_kk">File Kartu Keluarga:</label>
+                                        <input type="file" name="file_kk" class="form-control"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="pasanak">Pas Photo Anak (3x4):</label>
-                                        <input type="file" name="pasanak" class="form-control"/>
+                                        <label for="file_pas_ft">Pas Photo Anak (3x4):</label>
+                                        <input type="file" name="file_pas_ft" class="form-control"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="ktp">File KTP Orang Tua:</label>
-                                        <input type="file" name="ktp" class="form-control"/>
+                                        <input type="file" name="file_ktp_otu" class="form-control"/>
                                     </div>
                                 </div>
 
@@ -604,11 +601,19 @@
                                     
                                                 // Kolom 1: Jenis Tes
                                                 var testTypeTd = document.createElement('td');
-                                                var testTypeInput = document.createElement('input');
-                                                testTypeInput.type = 'text';
-                                                testTypeInput.name = 'test_type[]';  // Store test types as an array
-                                                testTypeInput.className = 'form-control';
-                                                testTypeTd.appendChild(testTypeInput);
+                                                var testTypeSelect = document.createElement('select');
+                                                testTypeSelect.name = 'test_type[]';  // Store test types as an array
+                                                testTypeSelect.className = 'form-control';
+                                                
+                                                // Menambahkan opsi ke dalam select
+                                                var option1 = document.createElement('option');
+                                                option1.value = 'option1_value';
+                                                option1.text = 'Option 1';
+                                                testTypeSelect.appendChild(option1);
+                                                
+                                                
+                                                testTypeTd.appendChild(testTypeSelect);
+                                                
                                     
                                                 // Kolom 2: Ya (Radio Button)
                                                 var yesTd = document.createElement('td');
@@ -965,6 +970,10 @@
                     <!-- Submit Button -->
 
                     <div class="border p-3 mb-3" id="form1">
+                        <h2>
+                            <strong>PROFIL SISWA</strong>
+                            <strong>BAGIAN KE 2 FORMULIR PENDAFTARAN</strong>
+                        </h2>
                         <div class="form-container" id="form2" style="display:none;">
                             <h2>
                                 <strong>Kelahiran </strong>
@@ -1124,14 +1133,14 @@
                                 <div class="form-group">
                                     <label for="tempat_tidur_sendiri">Apakah Anak mempunyai tempat tidur sendiri?</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="Ya" required="True"/>
-                                        <label class="form-check-label" for="tidur_sendiri">
+                                        <input class="form-check-input" type="radio" name="tempat_tidur_sendiri" id="tempat_tidur_sendiri" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="tempat_tidur_sendiri">
                                                 Ya
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="tidur_sendiri" required="True"/>
-                                        <label class="form-check-label" for="tidur_sendiri">
+                                        <input class="form-check-input" type="radio" name="tempat_tidur_sendiri" id="tempat_tidur_sendiri" value="Tidak" required="True"/>
+                                        <label class="form-check-label" for="tempat_tidur_sendiri">
                                                 Tidak
                                         </label>
                                     </div>
@@ -1169,7 +1178,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tidur_siang">Apakah Anak terbiasa tidur siang?</label>
+                                    <label for="tidur_siang">Apakah Anak terbiasa tidur siang ?</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="tidur_siang" id="tidur_siang" value="Ya" required="True"/>
                                         <label class="form-check-label" for="tidur_siang">
@@ -1225,7 +1234,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="ngompol">Apakah Anak masih mengompol? ?</label>
+                                    <label for="ngompol">Apakah Anak masih mengompol ?</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="ngompol" id="ngompol" value="Ya" required="True"/>
                                         <label class="form-check-label" for="ngompol">
@@ -1241,21 +1250,21 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="mulai_toilet">Bila TIDAK, berapa usia Anak saat berhenti mengompol? ?</label>
+                                    <label for="mulai_toilet">Bila TIDAK, berapa usia Anak saat berhenti mengompol ?</label>
                                     <input type="number"  name="mulai_toilet" class="form-control"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="kencing">Apakah Anak sering buang air kecil tengah malam? </label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ngompol" id="ngompol" value="Ya" required="True"/>
-                                        <label class="form-check-label" for="ngompol">
+                                        <input class="form-check-input" type="radio" name="kencing_malam" id="kencing_malam" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="kencing_malam">
                                                 Ya
                                         </label>
                                     </div>
                                      <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ngompol" id="ngompol" value="tidak" required="True"/>
-                                        <label class="form-check-label" for="ngompol">
+                                        <input class="form-check-input" type="radio" name="kencing_malam" id="kencing_malam" value="tidak" required="True"/>
+                                        <label class="form-check-label" for="kencing_malam">
                                                 Tidak
                                         </label>
                                     </div>
@@ -1379,7 +1388,7 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="teman_dekat" id="sering_bermain_teman_sebaya" value="sering_bermain_teman_sebaya" required="True"/>
+                                        <input class="form-check-input" type="radio" name="sering_bermain_teman_sebaya" id="sering_bermain_teman_sebaya" value="sering_bermain_teman_sebaya" required="True"/>
                                         <label class="form-check-label" for="sering_bermain_teman_sebaya">
                                                 Tidak
                                         </label>
@@ -1394,7 +1403,7 @@
                                 <div class="form-group">
                                     <label for="membaca">Apakah Anak suka kegiatan-kegiatan Membaca ?</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="sering_bermain_teman_sebaya" id="membaca" value="Ya" required="True"/>
+                                        <input class="form-check-input" type="radio" name="membaca" id="membaca" value="Ya" required="True"/>
                                         <label class="form-check-label" for="membaca">
                                                 Ya
                                         </label>
@@ -1411,13 +1420,13 @@
                                     <label for="cerita">Apakah Anak suka kegiatan-kegiatan Mendengar Cerita ?</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="cerita" id="cerita" value="Ya" required="True"/>
-                                        <label class="form-check-label" for="membaca">
+                                        <label class="form-check-label" for="cerita">
                                                 Ya
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="cerita" id="cerita" value="Tidak" required="True"/>
-                                        <label class="form-check-label" for="membaca">
+                                        <label class="form-check-label" for="cerita">
                                                 Tidak
                                         </label>
                                     </div>
@@ -1454,8 +1463,8 @@
                                         </label>
                                     </div>
                                 </div>
-
-
+                                <br/>
+                        
 
                                 <h2>
                                     <strong>Pembelajaran</strong>
@@ -1656,7 +1665,7 @@
                 </div>
 
                 <!-- Include your custom JavaScript -->
-                <script type="text/javascript" src="website_ppdb/static/src/js/templatesmp.js"></script>
+              
 
             </t>
 
@@ -1668,12 +1677,12 @@
 
     </template>
 
-    <template id="ppdb_success_template" name="PPDB Success Template">
+    <!-- <template id="ppdb_success_template" name="PPDB Success Template">
         <t t-call="website.layout">
             <div class="container mt32 mb32">
                 <h1>Terima Kasih!</h1>
                 <p>Data pendaftaran PPDB Anda telah berhasil disimpan.</p>
             </div>
         </t>
-    </template>
+    </template> -->
 </odoo>

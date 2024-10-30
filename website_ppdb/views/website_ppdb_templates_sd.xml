@@ -3,24 +3,141 @@
     <template id="ppdb_form_template_SD" name="PPDB Form Template SD">
         <xpath expr="//head" position="inside">
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Form navigation (form1 and form2)
                     var form1 = document.getElementById('form1');
                     var form2 = document.getElementById('form2');
                     var nextBtn = document.getElementById('nextBtn');
                     var prevBtn = document.getElementById('prevBtn');
-
+                
                     // Handle Next button
-                    nextBtn.addEventListener('click', function() {
+                    nextBtn.addEventListener('click', function () {
                         form1.style.display = 'none';
                         form2.style.display = 'block';
                     });
-
+                
                     // Handle Previous button
-                    prevBtn.addEventListener('click', function() {
+                    prevBtn.addEventListener('click', function () {
                         form2.style.display = 'none';
                         form1.style.display = 'block';
                     });
+                
+                    // Sibling table (Add Line and Remove Line)
+                    var addLineBtn = document.getElementById('add_line');
+                    var siblingTable = document.getElementById('sibling_table').querySelector('tbody');
+                
+                    function removeLine() {
+                        var row = this.parentElement.parentElement;
+                        row.remove();
+                    }
+                
+                    addLineBtn.addEventListener('click', function () {
+                        var newRow = document.createElement('tr');
+                
+                        // Column 1: Nama Saudara Kandung
+                        var nameTd = document.createElement('td');
+                        var nameInput = document.createElement('input');
+                        nameInput.type = 'text';
+                        nameInput.name = 'sibling_name[]'; // Store sibling names as an array
+                        nameInput.className = 'form-control';
+                        nameTd.appendChild(nameInput);
+                
+                        // Column 2: Tgl. Lahir
+                        var birthDateTd = document.createElement('td');
+                        var birthDateInput = document.createElement('input');
+                        birthDateInput.type = 'date';
+                        birthDateInput.name = 'sibling_birthdate[]'; // Store sibling birthdates as an array
+                        birthDateInput.className = 'form-control';
+                        birthDateTd.appendChild(birthDateInput);
+                
+                        // Column 3: Nama Sekolah dan Tingkat
+                        var schoolTd = document.createElement('td');
+                        var schoolInput = document.createElement('input');
+                        schoolInput.type = 'text';
+                        schoolInput.name = 'sibling_school[]'; // Store sibling schools as an array
+                        schoolInput.className = 'form-control';
+                        schoolTd.appendChild(schoolInput);
+                
+                        // Column 4: Actions (Remove Button)
+                        var actionsTd = document.createElement('td');
+                        var removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'btn btn-danger btn-sm remove-line';
+                        removeBtn.innerText = 'Remove';
+                        removeBtn.addEventListener('click', removeLine);
+                        actionsTd.appendChild(removeBtn);
+                
+                        // Append columns to the new row
+                        newRow.appendChild(nameTd);
+                        newRow.appendChild(birthDateTd);
+                        newRow.appendChild(schoolTd);
+                        newRow.appendChild(actionsTd);
+                
+                        // Append the new row to the table body
+                        siblingTable.appendChild(newRow);
+                    });
+                
+                    // Test table (Add Line and Remove Line)
+                    var addTestLineBtn = document.getElementById('tambah_tes');
+                    var testTable = document.getElementById('test_table').querySelector('tbody');
+                
+                    addTestLineBtn.addEventListener('click', function () {
+                        var newRow = document.createElement('tr');
+                
+                        // Kolom 1: Jenis Tes
+                        var testTypeTd = document.createElement('td');
+                        var testTypeInput = document.createElement('input');
+                        testTypeInput.type = 'text';
+                        testTypeInput.name = 'test_type[]'; // Store test types as an array
+                        testTypeInput.className = 'form-control';
+                        testTypeTd.appendChild(testTypeInput);
+                
+                        // Kolom 2: Ya (Radio Button)
+                        var yesTd = document.createElement('td');
+                        var yesInput = document.createElement('input');
+                        yesInput.type = 'radio';
+                        yesInput.name = `test_status_${testTable.children.length}`; // Ensure unique group for each row
+                        yesInput.value = 'yes';
+                        yesTd.appendChild(yesInput);
+                
+                        // Kolom 3: Tidak (Radio Button)
+                        var noTd = document.createElement('td');
+                        var noInput = document.createElement('input');
+                        noInput.type = 'radio';
+                        noInput.name = `test_status_${testTable.children.length}`; // Ensure unique group for each row
+                        noInput.value = 'no';
+                        noTd.appendChild(noInput);
+                
+                        // Kolom 4: Jika iya, pada usia berapa
+                        var ageTd = document.createElement('td');
+                        var ageInput = document.createElement('input');
+                        ageInput.type = 'number';
+                        ageInput.name = 'age_when_yes[]'; // Store ages as an array
+                        ageInput.className = 'form-control';
+                        ageInput.placeholder = 'Usia';
+                        ageTd.appendChild(ageInput);
+                
+                        // Kolom 5: Actions (Remove Button)
+                        var actionsTd = document.createElement('td');
+                        var removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'btn btn-danger btn-sm remove-line';
+                        removeBtn.innerText = 'Remove';
+                        removeBtn.addEventListener('click', removeLine);
+                        actionsTd.appendChild(removeBtn);
+                
+                        // Append columns to the new row
+                        newRow.appendChild(testTypeTd);
+                        newRow.appendChild(yesTd);
+                        newRow.appendChild(noTd);
+                        newRow.appendChild(ageTd);
+                        newRow.appendChild(actionsTd);
+                
+                        // Append the new row to the table body
+                        testTable.appendChild(newRow);
+                    });
                 });
+                
             </script>
             <style>
               
@@ -33,81 +150,121 @@
         <xpath expr="//main" position="replace">
             <t t-call="website.layout">
 
+
+    
                 <div id="form-slider" class="container mt32 mb32">
-                    <h1>PPDB Formulir Pendaftaran</h1>
+                    <div class="header">
+                        <table style="width: 100%; border-bottom: 1px solid #000;">
+                            <tr>
+                                <!-- Left side: Logo -->
+                                <td style="width: 50%;">
+                                    <img t-attf-src="/website_ppdb/static/src/img/Picture3.jpg" 
+                                         alt="Tunas Robbani Logo"
+                                         style="width: 150px; height: auto;"/>
+                                </td>
+            
+                                <!-- Right side: Address -->
+                                <td style="text-align: right; width: 50%;">
+                                    <p style="font-size: 14px;">
+                                        Jl. KH Hasyim Ashari Gg. Kemandoran<br/>
+                                        RT 01/05 Nerogtog Pinang<br/>
+                                        Kota Tangerang<br/>
+                                        Telp: 021-55703737, 081317004719
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                   
 
                     <!-- Data Siswa -->
                     <div class="border p-3 mb-3" id="form1">
                         <div class="form-container">
                             <h2>
-                                <strong>Data Siswa</strong>
+                                <strong>FORMULIR PENDAFTARAN</strong>
+								<br/>
+                                <strong>BAGIAN KE 1 FORMULIR PENDAFTARAN</strong>
                             </h2>
                             <form action="/ppdb/submit_siswa" method="post">
                                 <div class="form-group">
-                                    <label for="nama_lengkap">Nama Depan Siswa:</label>
-                                    <input type="text" name="nama_lengkap" class="form-control" required="True"/>
+                                    <label for="nama_lengkap">Nama Lengkap:</label>
+                                    <input type="nama_lengkap" name="nama_lengkap" class="form-control"  required="true"/>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="nama_panggilan">Nama Tengah Siswa:</label>
-                                    <input type="text" name="nama_panggilan" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nama_belakang">Nama Belakang Siswa:</label>
-                                    <input type="text" name="nama_belakang" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nisn">NIK:</label>
-                                    <input type="text" name="nisn" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nisn">NISN:</label>
-                                    <input type="text" name="nisn" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="no_kk">NO KK:</label>
-                                    <input type="text" name="no_kk" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="registrasi_kk">No Regsitrasi Akta Lahir :</label>
-                                    <input type="text" name="registrasi_kk" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="bird_day" class="col-sm-2 col-form-label">Tempat Lahir:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="bird_day" class="form-control" required="True"/>
+                                
+                                <!-- NO KK and Registration -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="no_kk">NO KK:</label>
+                                        <input type="text" name="no_kk" class="form-control" required="true"/>
                                     </div>
-                                    <label for="bird_place" class="col-sm-2 col-form-label">Tanggal Lahir:</label>
-                                    <div class="col-sm-4">
-                                        <input type="date" name="tanggal_place" class="form-control" required="True"/>
+                                    <div class="form-group col-md-6">
+                                        <label for="registrasi_kk">No Registrasi Akta Lahir:</label>
+                                        <input type="text" name="registrasi_kk" class="form-control"  required="true"/>
+                                    </div>
+                                </div>
+                        
+                                <!-- Birthplace and Date -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="bird_place">Tempat Lahir:</label>
+                                        <input type="text" name="bird_place" class="form-control"  required="true"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="tanggal_place">Tanggal Lahir:</label>
+                                        <input type="date" name="tanggal_place" class="form-control"  required="true"/>
                                     </div>
                                 </div>
 
-
+                                
+                                <!-- <div class="form-group">
+                                        <label for="kia">Apakah punya KIA:</label>
+                                        <select name="kia" class="form-control"  required="true">
+                                            <option value=""></option>
+                                            <option value="ya">Ya</option>
+                                        </select>
+                                </div> -->
+                            
+                                    <!-- Nationality -->
+                                    <!-- <div class="form-group">
+                                        <label for="kia">Apakah punya KIA:</label>
+                                        <select name="kia" class="form-control"  required="true">
+                                            <option value=""></option>
+                                            <option value="ya">Ya</option>
+                                        </select>
+                                </div> -->
+                            
+                                    <!-- Nationality -->
+                                 <!-- <div class="form-group">
+                                        <label for="kewarganegaraan">Kewarganegaraan:</label>
+                                        <input type="text" name="kewarganegaraan" class="form-control"/>
+                                 </div> -->
+                                
+                                   <!--  -->
                                 <div class="form-group">
-                                    <label for="gender">Jenis Kelamin:</label>
-                                    <select name="gender" class="form-control" required="True">
-                                        <option value="Laki-Laki">Laki - Laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
+                                        <label for="anak_ke">Anak ke:</label>
+                                        <input type="text" name="anak_ke" class="form-control" required="true"/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email">Alamat Email:</label>
-                                    <input type="text" name="email" class="form-control" required="True"/>
+                                    <label for="email"> Email:</label>
+                                    <input type="email" name="email" class="form-control"  required="true"/>
                                 </div>
+                                
 
                                 <div class="form-group">
                                     <label for="alamat_siswa">Alamat:</label>
                                     <textarea name="alamat_siswa" class="form-control"></textarea>
                                 </div>
 
+                                <div class="form-group">
+                                        <label for="gender">Jenis Kelamin:</label>
+                                        <select name="gender" class="form-control"  required="true">
+                                            <option value="Laki-Laki">Laki - Laki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                        </select>
+                                </div>
+                               
+                                <!-- Religion -->
                                 <div class="form-group">
                                     <label for="agama">Agama:</label>
                                     <select name="agama" class="form-control">
@@ -120,26 +277,11 @@
                                         <option value="konguchu">Konguchu</option>
                                     </select>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="kia">Apahkah punya KIA:</label>
-                                    <select name="kia" class="form-control" required="True">
-                                        <option value=""></option>
-                                        <option value="ya">Ya</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kewarganegaraan">Kewarganegaraan:</label>
-                                    <input type="text" name="kewarganegaraan" class="form-control"/>
-                                </div>
-
-                                <div class="form-group">
-                                <label for="anak_ke">Anak ke:</label>
-                                <input type="text" name="nanak_ke" class="form-control" required="True"/>
-                                </div>
-
-                                <div class="form-group">
+                        
+                                <!-- KIA -->
+   
+                                <!-- Family Members Living Together -->
+                                <!-- <div class="form-group">
                                     <label>Anggota keluarga yang tinggal satu rumah:</label>
                                     <div class="row">
                                         <div class="col-md-4">
@@ -161,25 +303,16 @@
                                                 <input class="form-check-input" type="checkbox" name="kakek_nenek" id="kakek_nenek"/>
                                                 <label class="form-check-label" for="kakek_nenek">Kakek-Nenek</label>
                                             </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-check">
-                                                <table>
-                                                    <tr>
-                                                        <td valign="top">
-                                                            <input class="form-check-input" type="checkbox" name="yang_lainnya" id="yang_lainnya"/>
-                                                        </td>
-                                                        <td valign="top" style="padding-left: 4px;">
-                                                            <label class="form-check-label" for="yang_lainnya">Yang Lainnya</label>
-                                                        </td>
-                                                        <td valign="top" style="padding-left: 10px;">
-                                                            <input type="text" name="lainnya_text" id="lainnya_text" size="20" style="border: none; border-bottom: 1px solid black;"/>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                <input class="form-check-input" type="checkbox" name="yang_lainnya" id="yang_lainnya"/>
+                                                <label class="form-check-label" for="yang_lainnya">Yang Lainnya</label>
+                                                <input type="text" name="lainnya_text" id="lainnya_text" class="form-control" placeholder="Lainnya"/>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
+                                  </div>
+                                </div> -->
                                 <h2>
                                     <strong>Jumlah Saudara Kandung</strong>
                                 </h2>
@@ -210,66 +343,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <script>
-                                        document.addEventListener('DOMContentLoaded', function () {
-                                            // Add Line button
-                                            var addLineBtn = document.getElementById('add_line');
-                                            var siblingTable = document.getElementById('sibling_table').querySelector('tbody');
-                                    
-                                            // Function to remove a row
-                                            function removeLine() {
-                                                var row = this.parentElement.parentElement;
-                                                row.remove();
-                                            }
-                                    
-                                            // Add new line to the table
-                                            addLineBtn.addEventListener('click', function () {
-                                                var newRow = document.createElement('tr');
-                                    
-                                                // Column 1: Nama Saudara Kandung
-                                                var nameTd = document.createElement('td');
-                                                var nameInput = document.createElement('input');
-                                                nameInput.type = 'text';
-                                                nameInput.name = 'sibling_name[]';  // Store sibling names as an array
-                                                nameInput.className = 'form-control';
-                                                nameTd.appendChild(nameInput);
-                                    
-                                                // Column 2: Tgl. Lahir
-                                                var birthDateTd = document.createElement('td');
-                                                var birthDateInput = document.createElement('input');
-                                                birthDateInput.type = 'date';
-                                                birthDateInput.name = 'sibling_birthdate[]';  // Store sibling birthdates as an array
-                                                birthDateInput.className = 'form-control';
-                                                birthDateTd.appendChild(birthDateInput);
-                                    
-                                                // Column 3: Nama Sekolah dan Tingkat
-                                                var schoolTd = document.createElement('td');
-                                                var schoolInput = document.createElement('input');
-                                                schoolInput.type = 'text';
-                                                schoolInput.name = 'sibling_school[]';  // Store sibling schools as an array
-                                                schoolInput.className = 'form-control';
-                                                schoolTd.appendChild(schoolInput);
-                                    
-                                                // Column 4: Actions (Remove Button)
-                                                var actionsTd = document.createElement('td');
-                                                var removeBtn = document.createElement('button');
-                                                removeBtn.type = 'button';
-                                                removeBtn.className = 'btn btn-danger btn-sm remove-line';
-                                                removeBtn.innerText = 'Remove';
-                                                removeBtn.addEventListener('click', removeLine);  // Attach event to remove button
-                                                actionsTd.appendChild(removeBtn);
-                                    
-                                                // Append columns to the new row
-                                                newRow.appendChild(nameTd);
-                                                newRow.appendChild(birthDateTd);
-                                                newRow.appendChild(schoolTd);
-                                                newRow.appendChild(actionsTd);
-                                    
-                                                // Append the new row to the table body
-                                                siblingTable.appendChild(newRow);
-                                            });
-                                        });
-                                </script>
+                               
 
                                 <div class="border p-3 mb-3" id="form1">
                                     <h2>
@@ -372,7 +446,7 @@
                                         <label for="Jabatan">Jabatan:</label>
                                         <input type="text" name="Jabatan" class="form-control"/>
                                     </div>
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
                                         <div class="col-sm-4">
                                             <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
@@ -381,7 +455,7 @@
                                         <div class="col-sm-2">
                                             <input type="text" name="ext" class="form-control" placeholder="Ext"/>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label for="penghasilan">Penghasilan perbulan:</label>
                                         <input type="number" name="penghasilan" class="form-control"/>
@@ -493,7 +567,7 @@
                                     </div>
 
 
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label for="no_telpon" class="col-sm-2 col-form-label">No Telp Kantor</label>
                                         <div class="col-sm-4">
                                             <input type="text" name="no_telpon" class="form-control" placeholder="No Telp Kantor" required="True"/>
@@ -502,7 +576,7 @@
                                         <div class="col-sm-2">
                                             <input type="text" name="ext" class="form-control" placeholder="Ext"/>
                                         </div>
-                                    </div>
+                                    </div> -->
 
 
                                     <div class="form-group">
@@ -580,76 +654,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <script>
-                                        document.addEventListener('DOMContentLoaded', function () {
-                                            // Tombol "Add Line"
-                                            var addLineBtn = document.getElementById('tambah_tes');
-                                            var siblingTable = document.getElementById('test_table').querySelector('tbody');
-                                    
-                                            // Fungsi untuk menghapus baris
-                                            function removeLine() {
-                                                var row = this.parentElement.parentElement;
-                                                row.remove();
-                                            }
-                                    
-                                            // Menambah baris baru ke tabel
-                                            addLineBtn.addEventListener('click', function () {
-                                                var newRow = document.createElement('tr');
-                                    
-                                                // Kolom 1: Jenis Tes
-                                                var testTypeTd = document.createElement('td');
-                                                var testTypeInput = document.createElement('input');
-                                                testTypeInput.type = 'text';
-                                                testTypeInput.name = 'test_type[]';  // Store test types as an array
-                                                testTypeInput.className = 'form-control';
-                                                testTypeTd.appendChild(testTypeInput);
-                                    
-                                                // Kolom 2: Ya (Radio Button)
-                                                var yesTd = document.createElement('td');
-                                                var yesInput = document.createElement('input');
-                                                yesInput.type = 'radio';
-                                                yesInput.name = `test_status_${siblingTable.children.length}`; // Ensure unique group for each row
-                                                yesInput.value = 'yes';
-                                                yesTd.appendChild(yesInput);
-                                    
-                                                // Kolom 3: Tidak (Radio Button)
-                                                var noTd = document.createElement('td');
-                                                var noInput = document.createElement('input');
-                                                noInput.type = 'radio';
-                                                noInput.name = `test_status_${siblingTable.children.length}`;  // Ensure unique group for each row
-                                                noInput.value = 'no';
-                                                noTd.appendChild(noInput);
-                                    
-                                                // Kolom 4: Jika iya, pada usia berapa
-                                                var ageTd = document.createElement('td');
-                                                var ageInput = document.createElement('input');
-                                                ageInput.type = 'number';
-                                                ageInput.name = 'age_when_yes[]';  // Store ages as an array
-                                                ageInput.className = 'form-control';
-                                                ageInput.placeholder = 'Usia';
-                                                ageTd.appendChild(ageInput);
-                                    
-                                                // Kolom 5: Actions (Remove Button)
-                                                var actionsTd = document.createElement('td');
-                                                var removeBtn = document.createElement('button');
-                                                removeBtn.type = 'button';
-                                                removeBtn.className = 'btn btn-danger btn-sm remove-line';
-                                                removeBtn.innerText = 'Remove';
-                                                removeBtn.addEventListener('click', removeLine);  // Attach event to remove button
-                                                actionsTd.appendChild(removeBtn);
-                                    
-                                                // Menambahkan kolom ke dalam baris baru
-                                                newRow.appendChild(testTypeTd);
-                                                newRow.appendChild(yesTd);
-                                                newRow.appendChild(noTd);
-                                                newRow.appendChild(ageTd);
-                                                newRow.appendChild(actionsTd);
-                                    
-                                                // Menambahkan baris baru ke dalam tabel
-                                                siblingTable.appendChild(newRow);
-                                            });
-                                        });
-                                </script>
+                                
 
                                 <!-- <button type="button" id="nextBtn" class="btn btn-primary">Next</button> -->
                                 <button type="button" id="nextBtn" class="btn btn-secondary">Next</button>
@@ -961,8 +966,10 @@
                     <div class="border p-3 mb-3" id="form1">
                         <div class="form-container" id="form2" style="display:none;">
                             <h2>
-                                <strong>Kelahiran </strong>
-                            </h2>
+								<strong>PROFIL SISWA</strong>
+								<br/>
+								<strong>BAGIAN KE 2 FORMULIR PENDAFTARAN</strong>
+							</h2>
                             <strong>
                             <div class="form-group">
                                 <label for="usia_kandungan">Anak lahir pada usia kandungan ibu Bulan ?</label>
@@ -1118,14 +1125,14 @@
                                 <div class="form-group">
                                     <label for="tempat_tidur_sendiri">Apakah Anak mempunyai tempat tidur sendiri?</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="Ya" required="True"/>
-                                        <label class="form-check-label" for="tidur_sendiri">
+                                        <input class="form-check-input" type="radio" name="tempat_tidur_sendiri" id="tempat_tidur_sendiri" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="tempat_tidur_sendiri">
                                                 Ya
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tidur_sendiri" id="tidur_sendiri" value="tidur_sendiri" required="True"/>
-                                        <label class="form-check-label" for="tidur_sendiri">
+                                        <input class="form-check-input" type="radio" name="tempat_tidur_sendiri" id="tempat_tidur_sendiri" value="Tidak" required="True"/>
+                                        <label class="form-check-label" for="tempat_tidur_sendiri">
                                                 Tidak
                                         </label>
                                     </div>
@@ -1242,14 +1249,14 @@
                                 <div class="form-group">
                                     <label for="kencing">Apakah Anak sering buang air kecil tengah malam? </label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ngompol" id="ngompol" value="Ya" required="True"/>
-                                        <label class="form-check-label" for="ngompol">
+                                        <input class="form-check-input" type="radio" name="kencing_malam" id="kencing_malam" value="Ya" required="True"/>
+                                        <label class="form-check-label" for="kencing_malam">
                                                 Ya
                                         </label>
                                     </div>
                                      <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ngompol" id="ngompol" value="tidak" required="True"/>
-                                        <label class="form-check-label" for="ngompol">
+                                        <input class="form-check-input" type="radio" name="kencing_malam" id="kencing_malam" value="tidak" required="True"/>
+                                        <label class="form-check-label" for="kencing_malam">
                                                 Tidak
                                         </label>
                                     </div>
@@ -1329,7 +1336,8 @@
                                     <textarea name="kegiatan_sering_dilakukan" class="form-control"></textarea>
                                 </div>
 
-                                <script> document.querySelector('select[name="ada_orang_lain"]').addEventListener('change', function() {
+                                <script> 
+                                    document.querySelector('select[name="ada_orang_lain"]').addEventListener('change', function() {
                                             const sebutkanSection = document.getElementById('sebutkan_section');
                                             if (this.value === 'Ya') {
                                                 sebutkanSection.style.display = 'block';
@@ -1405,13 +1413,13 @@
                                     <label for="cerita">Apakah Anak suka kegiatan-kegiatan Mendengar Cerita ?</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="cerita" id="cerita" value="Ya" required="True"/>
-                                        <label class="form-check-label" for="membaca">
+                                        <label class="form-check-label" for="cerita">
                                                 Ya
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="cerita" id="cerita" value="Tidak" required="True"/>
-                                        <label class="form-check-label" for="membaca">
+                                        <label class="form-check-label" for="cerita">
                                                 Tidak
                                         </label>
                                     </div>
@@ -1449,7 +1457,7 @@
                                     </div>
                                 </div>
 
-                                <br/>
+                                 <br/>
 
                                 <h2>
                                     <strong>Pembelajaran</strong>
@@ -1604,6 +1612,11 @@
                                     </div>
                                 </div>
                                 
+
+
+
+
+                                
                                 <!-- <h2>
                                     <strong>Support dan Pendekatan Belajar</strong>
                                 </h2>
@@ -1646,8 +1659,7 @@
                 </div>
 
                 <!-- Include your custom JavaScript -->
-                <script type="text/javascript" src="website_ppdb/static/src/js/templatesmp.js"></script>
-
+                
             </t>
 
         </xpath>
