@@ -118,7 +118,7 @@ class StudentController(http.Controller):
                     'relationship': parent.relationship_id.name,
                 })
 
-            
+            # Extracting father and mother names
             father_name = None
             mother_name = None
             for parent in parent_data:
@@ -148,8 +148,11 @@ class StudentController(http.Controller):
                 'city': partner.city,
                 'zip': partner.zip,
                 'parents': parent_data,
-                'father_name': father_name,
-                'mother_name': mother_name,
+                # 'father_name': father_name,
+                # 'mother_name': mother_name,
+                'father_name': student.ayah_id.name_ayah if student.ayah_id else '',
+                'mother_name': student.ibu_id.name_ibu if student.ibu_id else '',
+                'wali_name': student.wali_id.name_wali if student.wali_id else '',
             }
             name_parts = filter(None, [student_data.get('first_name'), student_data.get('middle_name'), student_data.get('last_name')])
             student_data['name'] = " ".join(name_parts)

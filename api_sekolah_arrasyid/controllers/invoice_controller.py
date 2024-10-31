@@ -7,23 +7,34 @@ class InvoiceController(http.Controller):
     @http.route('/api/get_invoices', type='http', auth='user', methods=['GET'], csrf=False)
     def get_invoices(self, **kwargs):
         try:
-            
             user = request.env.user
+            partner = request.env['res.partner'].sudo().search([('user_id', '=', user.id)])
 
-            
-            parent = request.env['op.parent'].sudo().search([('user_id', '=', user.id)], limit=1)
+            parent_ayah = request.env['op.data.ayah'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_ibu = request.env['op.data.ibu'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_wali = request.env['op.data.wali'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+
+            if not parent_ayah and not parent_ibu and not parent_wali:
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
+
+            parent = parent_ayah or parent_ibu or parent_wali
+
             if not parent:
-                return Response(json.dumps({'status': 403, 'message': 'User is not a parent'}), status=403, mimetype='application/json')
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
 
-            
-            students = parent.student_ids
+            students = request.env['op.student'].sudo().search([
+                '|', '|',
+                ('ayah_id', '=', parent_ayah.id if parent_ayah else 0),
+                ('ibu_id', '=', parent_ibu.id if parent_ibu else 0),
+                ('wali_id', '=', parent_wali.id if parent_wali else 0)
+            ])
 
             invoice_data = []
             for student in students:
-                
+                # Dapatkan ID partner dari setiap anak
                 partner_id = student.partner_id.id
 
-                
+                # Ambil faktur yang terkait dengan ID partner ini
                 account_moves = request.env['account.move'].sudo().search([('partner_id', '=', partner_id)])
 
                 for move in account_moves:

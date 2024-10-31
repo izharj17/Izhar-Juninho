@@ -21,7 +21,7 @@ class FacultyJurnalController(http.Controller):
                         'material': material_name,
                         'ketuntasan': line.ketuntasan,
                         'catatan': line.catatan,
-                        
+                        # Add more fields as needed
                     })
                 siswa = []
                 for siswa_line in journal.faculty_siswa_line_ids:
@@ -30,15 +30,15 @@ class FacultyJurnalController(http.Controller):
                         'siswa_name': siswa_name,
                         'catatan': siswa_line.catatan,
                         'taper': siswa_line.taper,
-                        
+                        # Add more fields as needed
                     })
                 jurnal_data.append({
                     'faculty_name': journal.faculty_id.name,
                     'course_name': journal.course_id.name,
-                    'date': journal.date_id.isoformat(),
+                    'date': journal.date_id.isoformat(),  # Convert date to ISO format string
                     'materi_lines': materi_lines,
                     'siswa': siswa,
-                    
+                    # Add more fields from OpFacultyJurnal model if needed
                 })
             return Response(json.dumps(jurnal_data), content_type='application/json')
 

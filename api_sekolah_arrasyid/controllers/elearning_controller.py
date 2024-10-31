@@ -56,18 +56,32 @@ class ELearningController(http.Controller):
     def get_child_quizzes(self, **kwargs):
         try:
             user = request.env.user
-            user = request.env.user
+            partner = request.env['res.partner'].sudo().search([('user_id', '=', user.id)])
 
-            parent = request.env['op.parent'].sudo().search([('user_id', '=', user.id)], limit=1)
+            parent_ayah = request.env['op.data.ayah'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_ibu = request.env['op.data.ibu'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_wali = request.env['op.data.wali'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+
+            if not parent_ayah and not parent_ibu and not parent_wali:
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
+
+            parent = parent_ayah or parent_ibu or parent_wali
 
             if not parent:
-                return Response(json.dumps({"error": "Parent not found"}), status=404, mimetype='application/json')
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
+
+            children = request.env['op.student'].sudo().search([
+                '|', '|',
+                ('ayah_id', '=', parent_ayah.id if parent_ayah else 0),
+                ('ibu_id', '=', parent_ibu.id if parent_ibu else 0),
+                ('wali_id', '=', parent_wali.id if parent_wali else 0)
+            ])
                 
             parent_partner_id = user.partner_id.id
 
-            
+            # Retrieve children associated with the parent
             # children = request.env['op.student'].sudo().search([('parent_id', '=', parent_partner_id)])
-            children = parent.student_ids
+            # children = request.env['op.student'].sudo().search({('ayah_id','=', parent.id)})
 
             if not children:
                 return Response(json.dumps({'status': 404, 'message': 'No children found for this parent'}), content_type='application/json', status=404)

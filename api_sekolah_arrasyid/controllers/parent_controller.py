@@ -8,12 +8,26 @@ class ParentController(http.Controller):
     def get_children_data(self, **kwargs):
         try:
             user = request.env.user
+            partner = request.env['res.partner'].sudo().search([('user_id', '=', user.id)])
 
-            parent = request.env['op.parent'].sudo().search([('user_id', '=', user.id)], limit=1)
+            parent_ayah = request.env['op.data.ayah'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_ibu = request.env['op.data.ibu'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_wali = request.env['op.data.wali'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+
+            if not parent_ayah and not parent_ibu and not parent_wali:
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
+
+            parent = parent_ayah or parent_ibu or parent_wali
+
             if not parent:
                 return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
 
-            students = parent.student_ids
+            students = request.env['op.student'].sudo().search([
+                '|', '|',
+                ('ayah_id', '=', parent_ayah.id if parent_ayah else 0),
+                ('ibu_id', '=', parent_ibu.id if parent_ibu else 0),
+                ('wali_id', '=', parent_wali.id if parent_wali else 0)
+            ])
 
             children_data = []
             for student in students:
@@ -107,31 +121,111 @@ class ParentController(http.Controller):
         except Exception as e:
             return Response(json.dumps({'error': str(e)}), status=500, mimetype='application/json')
 
+    # @http.route('/api/parent_data', auth='user', methods=['GET'], type='http', csrf=False)
+    # def get_parent_data(self, **kwargs):
+    #     try:
+    #         user = request.env.user
+            
+    #         parent = request.env['op.parent'].sudo().search([('user_id', '=', user.id)], limit=1)
+    #         if not parent:
+    #             return Response("Parent not found", status=404)
+
+    #         partner = parent.name
+    #         parent_data = {
+    #             'name': parent.name.name,
+    #             'student_ids': [{'id': student.id, 'name': student.name} for student in parent.student_ids],
+    #             'mobile': parent.mobile,
+    #             'email': parent.name.email,
+    #             'relationship': parent.relationship_id.name,
+    #             'address': {
+    #                 'street': partner.street,
+    #                 'street2': partner.street2,
+    #                 'city': partner.city,
+    #                 'state': partner.state_id.name if partner.state_id else None,
+    #                 'zip': partner.zip,
+    #                 'country': partner.country_id.name if partner.country_id else None
+    #             }
+    #         }
+
+    #         response_data = {
+    #             'status': 200,
+    #             'parent': parent_data
+    #         }
+
+    #         return Response(json.dumps(response_data), status=200, mimetype='application/json')
+
+    #     except Exception as e:
+    #         return Response("An error occurred: %s" % str(e), status=500)
+
     @http.route('/api/parent_data', auth='user', methods=['GET'], type='http', csrf=False)
     def get_parent_data(self, **kwargs):
         try:
             user = request.env.user
             
-            parent = request.env['op.parent'].sudo().search([('user_id', '=', user.id)], limit=1)
-            if not parent:
-                return Response("Parent not found", status=404)
+            partner = request.env['res.partner'].sudo().search([('user_id', '=', user.id)])
+            
+            parent_ayah = request.env['op.data.ayah'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_ibu = request.env['op.data.ibu'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_wali = request.env['op.data.wali'].sudo().search([('partner_id', '=', partner.id)], limit=1)
 
-            partner = parent.name
-            parent_data = {
-                'name': parent.name.name,
-                'student_ids': [{'id': student.id, 'name': student.name} for student in parent.student_ids],
-                'mobile': parent.mobile,
-                'email': parent.name.email,
-                'relationship': parent.relationship_id.name,
-                'address': {
-                    'street': partner.street,
-                    'street2': partner.street2,
-                    'city': partner.city,
-                    'state': partner.state_id.name if partner.state_id else None,
-                    'zip': partner.zip,
-                    'country': partner.country_id.name if partner.country_id else None
+            if not parent_ayah and not parent_ibu and not parent_wali:
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
+
+            parent = parent_ayah or parent_ibu or parent_wali
+            parent_type = 'ayah' if parent_ayah else 'ibu' if parent_ibu else 'wali'
+
+            parent_data = {}
+            if parent_type == 'ayah':
+                parent_data = {
+                    'name': parent.name_ayah,
+                    'mobile': str(parent.no_wa) if parent.no_wa else None,
+                    'email': parent.email,
+                    'relationship': parent.relationship_id.name,
+                    'address': {
+                        'street': partner.street,
+                        'street2': partner.street2,
+                        'city': partner.city,
+                        'state': partner.state_id.name if partner.state_id else None,
+                        'zip': partner.zip,
+                        'country': partner.country_id.name if partner.country_id else None
+                    },
+                    'student_ids': [{'id': student.id, 'name': student.name} for student in parent.student_ayah_ids],
+                    'type': 'Ayah'
                 }
-            }
+            elif parent_type == 'ibu':
+                parent_data = {
+                    'name': parent.name_ibu,
+                    'mobile': str(parent.no_wa) if parent.no_wa else None,
+                    'email': parent.email,
+                    'relationship': parent.relationship_id.name,
+                    'address': {
+                        'street': partner.street,
+                        'street2': partner.street2,
+                        'city': partner.city,
+                        'state': partner.state_id.name if partner.state_id else None,
+                        'zip': partner.zip,
+                        'country': partner.country_id.name if partner.country_id else None
+                    },
+                    'student_ids': [{'id': student.id, 'name': student.name} for student in parent.student_ibu_ids],
+                    'type': 'Ibu'
+                }
+            elif parent_type == 'wali':
+                parent_data = {
+                    'name': parent.name_wali,
+                    'mobile': str(parent.no_wa) if parent.no_wa else None,
+                    'email': parent.email,
+                    'relationship': parent.relationship_id.name,
+                    'address': {
+                        'street': partner.street,
+                        'street2': partner.street2,
+                        'city': partner.city,
+                        'state': partner.state_id.name if partner.state_id else None,
+                        'zip': partner.zip,
+                        'country': partner.country_id.name if partner.country_id else None
+                    },
+                    'student_ids': [{'id': student.id, 'name': student.name} for student in parent.student_wali_ids],
+                    'type': 'Wali'
+                }
 
             response_data = {
                 'status': 200,
@@ -142,6 +236,7 @@ class ParentController(http.Controller):
 
         except Exception as e:
             return Response("An error occurred: %s" % str(e), status=500)
+
 
             
     @http.route('/api/member/profile', type='http', auth='user', methods=['GET'], csrf=False)

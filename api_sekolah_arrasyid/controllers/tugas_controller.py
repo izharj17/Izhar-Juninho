@@ -27,15 +27,15 @@ class OpAssignmentAPI(http.Controller):
     @http.route('/api/op_assignment/user', type='json', auth='user')
     def get_user_assignments(self):
         try:
-            
+            # Get the current user from the session
             current_user = request.env.user
 
-            
+            # Search for the student's record using the current user's partner ID
             student = request.env['op.student'].sudo().search([('partner_id', '=', current_user.partner_id.id)], limit=1)
             if not student:
                 return {'success': False, 'message': 'User is not associated with any student record'}
 
-            
+            # Fetch assignments allocated to the student
             assignments = request.env['op.assignment'].sudo().search([('allocation_ids', 'in', [student.id])])
             
             data = []
@@ -154,21 +154,21 @@ class OpAssignmentAPI(http.Controller):
         try:
             user = request.env.user
 
-            
+            # Get the student record for the logged-in user
             student = request.env['op.student'].sudo().search([('user_id', '=', user.id)], limit=1)
 
             if not student:
                 return Response(json.dumps({"error": "Student not found"}), status=404, mimetype='application/json')
 
 
-            
+            # Get the batch ID from the op.student.course model
             student_course = request.env['op.student.course'].sudo().search([('student_id', '=', student.id)], limit=1)
             if not student_course:
                 return Response(json.dumps({"error": "Student course details not found"}), status=404, mimetype='application/json')
 
             batch_id = student_course.batch_id.id
 
-            
+            # Search for assignments allocated to the student's batch and with the correct state
             assignments = request.env['op.assignment'].sudo().search([
                 ('batch_id', '=', batch_id),
                 ('allocation_ids', 'in', [student.id]),
@@ -354,14 +354,14 @@ class OpAssignmentAPI(http.Controller):
             if not student:
                 return Response(json.dumps({"error": "Student not found"}), status=404, mimetype='application/json')
 
-            
+            # Get the batch ID from the op.student.course model
             student_course = request.env['op.student.course'].sudo().search([('student_id', '=', student.id)], limit=1)
             if not student_course:
                 return Response(json.dumps({"error": "Student course details not found"}), status=404, mimetype='application/json')
 
             batch_id = student_course.batch_id.id
 
-            
+            # Filter the submitted assignments by batch ID and student ID
             submitted_assignments = request.env['op.assignment.sub.line'].sudo().search([
                 ('student_id', '=', student.id),
                 ('assignment_id.batch_id', '=', batch_id),
@@ -405,13 +405,26 @@ class OpAssignmentAPI(http.Controller):
     def get_submitted_assignments_children(self, **kwargs):
         try:
             user = request.env.user
+            partner = request.env['res.partner'].sudo().search([('user_id', '=', user.id)])
 
-            parent = request.env['op.parent'].sudo().search([('user_id', '=', user.id)], limit=1)
+            parent_ayah = request.env['op.data.ayah'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_ibu = request.env['op.data.ibu'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+            parent_wali = request.env['op.data.wali'].sudo().search([('partner_id', '=', partner.id)], limit=1)
+
+            if not parent_ayah and not parent_ibu and not parent_wali:
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
+
+            parent = parent_ayah or parent_ibu or parent_wali
 
             if not parent:
-                return Response(json.dumps({"error": "Parent not found"}), status=404, mimetype='application/json')
+                return Response(json.dumps({'error': 'User is not a parent'}), status=403, mimetype='application/json')
 
-            students = parent.student_ids
+            students = request.env['op.student'].sudo().search([
+                '|', '|',
+                ('ayah_id', '=', parent_ayah.id if parent_ayah else 0),
+                ('ibu_id', '=', parent_ibu.id if parent_ibu else 0),
+                ('wali_id', '=', parent_wali.id if parent_wali else 0)
+            ])
 
             if not students:
                 return Response(json.dumps({"error": "No students found for this parent"}), status=404, mimetype='application/json')
@@ -419,13 +432,13 @@ class OpAssignmentAPI(http.Controller):
             submitted_assignments_data = []
 
             for student in students:
-                
+                # Get the batch ID for the student
                 student_course = request.env['op.student.course'].sudo().search([('student_id', '=', student.id)], limit=1)
                 if not student_course:
                     continue
                 batch_id = student_course.batch_id.id
 
-                
+                # Search for submitted assignments for the student with matching batch ID
                 submitted_assignments = request.env['op.assignment.sub.line'].sudo().search([
                     ('student_id', '=', student.id),
                     ('assignment_id.batch_id', '=', batch_id),

@@ -10,7 +10,7 @@ class CalendarController(http.Controller):
         try:
             user_id = request.env.user.id
 
-            
+            # Fetch all public calendar events or events the user is invited to
             events = request.env['calendar.event'].sudo().search([
                 '|',
                 ('privacy', '=', 'public'),

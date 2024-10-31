@@ -40,10 +40,10 @@ class MediaController(http.Controller):
     @http.route('/api/get_media_units', type='http', auth='user', methods=['GET'], csrf=False)
     def get_media_units(self, **kwargs):
         try:
-            
+            # Query the op.media.unit model
             media_units = request.env['op.media.unit'].sudo().search([])
 
-            
+            # Prepare the data to be returned
             media_unit_list = []
             for unit in media_units:
                 unit_data = {
@@ -59,7 +59,7 @@ class MediaController(http.Controller):
                 }
                 media_unit_list.append(unit_data)
 
-            
+            # Return the data in JSON format
             return request.make_response(json.dumps({'status': 200, 'data': media_unit_list}), headers={'Content-Type': 'application/json'})
 
         except Exception as e:
@@ -68,10 +68,10 @@ class MediaController(http.Controller):
     @http.route('/api/get_media_with_units', type='http', auth='user', methods=['GET'], csrf=False)
     def get_media_with_units(self, **kwargs):
         try:
-            
+            # Query the op.media model
             media_records = request.env['op.media'].sudo().search([])
 
-            
+            # Prepare the data to be returned
             media_list = []
             for media in media_records:
                 media_data = {
@@ -91,7 +91,7 @@ class MediaController(http.Controller):
                     'units': []
                 }
 
-                
+                # Query the op.media.unit model for units related to the current media
                 media_units = request.env['op.media.unit'].sudo().search([('media_id', '=', media.id)])
                 for unit in media_units:
                     unit_data = {
@@ -105,7 +105,7 @@ class MediaController(http.Controller):
 
                 media_list.append(media_data)
 
-            
+            # Return the data in JSON format
             return request.make_response(json.dumps({'status': 200, 'data': media_list}), headers={'Content-Type': 'application/json'})
 
         except Exception as e:
@@ -173,7 +173,7 @@ class MediaController(http.Controller):
                 }
                 media_queue_list.append(queue_data)
 
-            
+            # Calculate the total number of media items in the queue
             total_media_count = len(media_queue_list)
 
             response_data = {
@@ -303,12 +303,12 @@ class MediaController(http.Controller):
 
     @http.route('/api/create_queue', type='json', auth='user', methods=['POST'])
     def create_queue(self, **kwargs):
-        
+        # Get the current logged-in user
         user_id = request.env.uid
         _logger.info(f"Request headers: {request.httprequest.headers}")
         _logger.info(f"Request body: {request.httprequest.get_data()}")
 
-        
+        # Parse the JSON data from the request body
         try:
             data = json.loads(request.httprequest.get_data())
         except json.JSONDecodeError:
@@ -319,19 +319,19 @@ class MediaController(http.Controller):
 
         _logger.info(f"Parsed data: {data}")
 
-        
+        # Extract the required parameters from the parsed data
         media_id = data.get('media_id')
         date_from = data.get('date_from')
         date_to = data.get('date_to')
 
-        
+        # Validate the input parameters
         if not media_id or not date_from or not date_to:
             return {
                 'status': 'error',
                 'message': 'Missing required parameters'
             }
 
-        
+        # Create the media queue record
         try:
             media_queue = request.env['op.media.queue'].create({
                 'media_id': media_id,
