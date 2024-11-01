@@ -1,0 +1,30 @@
+<odoo>
+    <template id="ppdb_homepage" name="PPDB Homepage">
+        <t t-call="website.layout">
+            <div class="container">
+                <!-- Judul PPDB -->
+                <div class="row text-center">
+                    <h1>PPDB</h1>
+                </div>
+                
+                <!-- Tombol TK, SD, SM -->
+                <div class="row text-center">
+                    <!-- Tombol TK -->
+                    <div class="col-md-4">
+                        <a href="/ppdb/tk" class="btn btn-primary btn-lg" role="button">TK</a>
+                    </div>
+
+                    <!-- Tombol SD -->
+                    <div class="col-md-4">
+                        <a href="/ppdb/sd" class="btn btn-primary btn-lg" role="button">SD</a>
+                    </div>
+
+                    <!-- Tombol SM -->
+                    <div class="col-md-4">
+                        <a href="/ppdb/sm" class="btn btn-primary btn-lg" role="button">SM</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
