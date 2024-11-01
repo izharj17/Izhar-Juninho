@@ -176,10 +176,10 @@ class OpAdmission(models.Model):
         ('kemsek', 'Kembali Bersekolah'),
     ], string='Jenis Pendaftaran')
     asal_sekolah = fields.Text('Riwayat Sekolah')
-    file_akta = fields.Binary('File Akta Kelahiran')
-    file_pas_ft = fields.Binary('Pas Photo Anak (3x4)')
-    file_kk = fields.Binary('File Kartu Keluarga')
-    file_ktp_ortu = fields.Binary('File KTP Orang Tua')
+    file_akta = fields.Binary('File Akta Kelahiran', store=True)
+    file_pas_ft = fields.Binary('Pas Photo Anak (3x4)', store=True)
+    file_kk = fields.Binary('File Kartu Keluarga', store=True)
+    file_ktp_ortu = fields.Binary('File KTP Orang Tua', store=True)
     
     #data ayah
     ayah_id = fields.Many2one('op.data.ayah','Nama Lengkap Ayah / Wali')
@@ -427,8 +427,8 @@ class OpAdmission(models.Model):
     #TTD
     hari_pengisian = fields.Char('Formulir ini diisi pada hari')
     tanggal_pengisian = fields.Date('Tanggal')
-    ttd_ayah = fields.Binary('Tanda Tangan Ayah / Wali')
-    ttd_ibu = fields.Binary('Tanda Tangan Ibu / Wali')
+    ttd_ayah = fields.Binary('Tanda Tangan Ayah / Wali', store=True)
+    ttd_ibu = fields.Binary('Tanda Tangan Ibu / Wali', store=True)
     
     tumbuh_kembang_line_ids = fields.One2many('tumbuh.kembang.line', 'ppdb_id', 'Tumbuh Kembang Siswa')
     saudara_kandung_sd_line_ids = fields.One2many('saudara.kandung.sd.line', 'saudara_id', 'Saudara Kandung')
