@@ -1717,59 +1717,207 @@
                                     
                                     <div class="form-group">
                                         <table>
-                                            <tr>
-                                                <td>
-                                                    <div class="column">
-                                                        <label><input type="checkbox" name="sifat" value="Agresif"/> Agresif</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Cengeng"/> Cengeng</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Dominan"/> Dominan</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Ingin Tahu"/> Ingin Tahu</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Mudah Akrab"/> Mudah Akrab</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pandai"/> Pandai</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Penakut"/> Penakut</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemberontak"/> Pemberontak</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemurung"/> Pemurung</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pendiam"/> Pendiam</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Penyayang"/> Penyayang</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Sabar"/> Sabar</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Lainnya"/> Lainnya <input type="text" name="lainnya"/></label><br/>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="column">
-                                                        <label><input type="checkbox" name="sifat" value="Aktif"/> Aktif</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Cerewet"/> Cerewet</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pengikut"/> Pengikut</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Keras Kepala"/> Keras Kepala</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Mudah Bergaul"/> Mudah Bergaul</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Patuh"/> Patuh</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemalu"/> Pemalu</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemberi"/> Pemberi</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemimpin"/> Pemimpin</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Penghayal"/> Penghayal</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Penyendiri"/> Penyendiri</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Sensitif"/> Sensitif</label><br/>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="column">
-                                                        <label><input type="checkbox" name="sifat" value="Berani"/> Berani</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Ceria"/> Ceria</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Humoris"/> Humoris</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Kreatif"/> Kreatif</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Berjiwa Pengasuh"/> Berjiwa Pengasuh</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemaaf"/> Pemaaf</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemarah"/> Pemarah</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pembohong"/> Pembohong</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Pemalas"/> Pemalas</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Penuh Perhatian"/> Penuh Perhatian</label><br/>
-                                                        <label><input type="checkbox" name="sifat" value="Rajin"/> Rajin</label><br/>
-                                                    
-                                                        <label><input type="checkbox" name="sifat" value="Senang Berteman"/> Senang Berteman</label><br/>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
+											<tr>
+												<td>
+													<div class="column">
+														<label>
+															<input type="checkbox" name="agresif" value="True" />
+															Agresif
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="cengeng" value="True" />
+															Cengeng
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="dominan" value="True" />
+															Dominan
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="ingin_tahu" value="True" />
+															Ingin Tahu
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="mudah_akrab" value="True" />
+															Mudah Akrab
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pandai" value="True" />
+															Pandai
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="penakut" value="True" />
+															Penakut
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pembangkang" value="True" />
+															Pemberontak
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pemurung" value="True" />
+															Pemurung
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pendiam" value="True" />
+															Pendiam
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="penyayang" value="True" />
+															Penyayang
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="sabar" value="True" />
+															Sabar
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="lainnya" value="True" />
+															Lainnya
+															<input type="text" name="lainnya" />
+														</label>
+														<br />
+													</div>
+												</td>
+												<td>
+													<div class="column">
+														<label>
+															<input type="checkbox" name="aktif" value="True" />
+															Aktif
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="cerewet" value="True" />
+															Cerewet
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pengikut" value="True" />
+															Pengikut
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="keras_kepala" value="True" />
+															Keras Kepala
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="mudah_bergaul" value="True" />
+															Mudah Bergaul
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="patuh" value="True" />
+															Patuh
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pemalu" value="True" />
+															Pemalu
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pemberi" value="True" />
+															Pemberi
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pemimpin" value="True" />
+															Pemimpin
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="penghayal" value="True" />
+															Penghayal
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="penyendiri" value="True" />
+															Penyendiri
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="sensitif" value="True" />
+															Sensitif
+														</label>
+														<br />
+													</div>
+												</td>
+												<td>
+													<div class="column">
+														<label>
+															<input type="checkbox" name="berani" value="True" />
+															Berani
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="ceria" value="True" />
+															Ceria
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="humoris" value="True" />
+															Humoris
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="kreatif" value="True" />
+															Kreatif
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="berjiwa_pengasuh" value="True" />
+															Berjiwa Pengasuh
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pemaaf" value="True" />
+															Pemaaf
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pemarah" value="True" />
+															Pemarah
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pembohong" value="True" />
+															Pembohong
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="pemelas" value="True" />
+															Pemalas
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="penuh_perhatian" value="True" />
+															Penuh Perhatian
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="rajin" value="True" />
+															Rajin
+														</label>
+														<br />
+														<label>
+															<input type="checkbox" name="senang_berteman" value="True" />
+															Senang Berteman
+														</label>
+														<br />
+													</div>
+												</td>
+											</tr>
+										</table>
                                     </div>
 
                                     <div class="form-group row">

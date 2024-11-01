@@ -583,43 +583,43 @@ class WebsitePPDBSD(http.Controller):
             catatan_khusus = post.get('catatan_khusus')
 
             # Fields for 'Temperament'
-            agresif = post.get('agresif')
-            aktif = post.get('aktif')
-            berani = post.get('berani')
-            cengeng = post.get('cengeng')
-            cerewet = post.get('cerewet')
-            ceria = post.get('ceria')
-            dominan = post.get('dominan')
-            pengikut = post.get('pengikut')
-            humoris = post.get('humoris')
-            ingin_tahu = post.get('ingin_tahu')
-            keras_kepala = post.get('keras_kepala')
-            kreatif = post.get('kreatif')
-            mudah_akrab = post.get('mudah_akrab')
-            mudah_bergaul = post.get('mudah_bergaul')
-            berjiwa_pengasuh = post.get('berjiwa_pengasuh')
-            pandai = post.get('pandai')
-            patuh = post.get('patuh')
-            pemaaf = post.get('pemaaf')
-            penakut = post.get('penakut')
-            pemalu = post.get('pemalu')
-            pemarah = post.get('pemarah')
-            pembangkang = post.get('pembangkang')
-            pemberi = post.get('pemberi')
-            pembohong = post.get('pembohong')
-            pemurung = post.get('pemurung')
-            pemimpin = post.get('pemimpin')
-            pemelas = post.get('pemelas')
-            pendiam = post.get('pendiam')
-            penghayal = post.get('penghayal')
-            penuh_perhatian = post.get('penuh_perhatian')
-            penyayang = post.get('penyayang')
-            penyendiri = post.get('penyendiri')
-            rajin = post.get('rajin')
-            sabar = post.get('sabar')
-            senang_berteman = post.get('senang_berteman')
-            sensitif = post.get('sensitif')
-            lainnya = post.get('lainnya')
+            agresif = post.get('agresif')== "True"
+            aktif = post.get('aktif')== "True"
+            berani = post.get('berani')== "True"
+            cengeng = post.get('cengeng')== "True"
+            cerewet = post.get('cerewet')== "True"
+            ceria = post.get('ceria')== "True"
+            dominan = post.get('dominan')== "True"
+            pengikut = post.get('pengikut')== "True"
+            humoris = post.get('humoris')== "True"
+            ingin_tahu = post.get('ingin_tahu')== "True"
+            keras_kepala = post.get('keras_kepala')== "True"
+            kreatif = post.get('kreatif')== "True"
+            mudah_akrab = post.get('mudah_akrab')== "True"
+            mudah_bergaul = post.get('mudah_bergaul')== "True"
+            berjiwa_pengasuh = post.get('berjiwa_pengasuh')== "True"
+            pandai = post.get('pandai')== "True"
+            patuh = post.get('patuh')== "True"
+            pemaaf = post.get('pemaaf')== "True"
+            penakut = post.get('penakut')== "True"
+            pemalu = post.get('pemalu')== "True"
+            pemarah = post.get('pemarah')== "True"
+            pembangkang = post.get('pembangkang')== "True"
+            pemberi = post.get('pemberi')== "True"
+            pembohong = post.get('pembohong')== "True"
+            pemurung = post.get('pemurung')== "True"
+            pemimpin = post.get('pemimpin') == "True"
+            pemelas = post.get('pemelas')== "True"
+            pendiam = post.get('pendiam')== "True"
+            penghayal = post.get('penghayal')== "True"
+            penuh_perhatian = post.get('penuh_perhatian')== "True"
+            penyayang = post.get('penyayang')== "True"
+            penyendiri = post.get('penyendiri')== "True"
+            rajin = post.get('rajin')== "True"
+            sabar = post.get('sabar')== "True"
+            senang_berteman = post.get('senang_berteman')== "True"
+            sensitif = post.get('sensitif')== "True"
+            lainnya = post.get('lainnya') == "True"
 
             # TTD fields
             hari_pengisian = post.get('hari_pengisian')
