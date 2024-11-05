@@ -12,7 +12,7 @@
         'views/website_ppdb_templates_sd.xml',
         'views/website_ppdb_templates_tk.xml',
         'views/website_ppdb_menu.xml',
-        
+        'views/sucees.xml',
     ],
     'installable': True,
     'application': True,
