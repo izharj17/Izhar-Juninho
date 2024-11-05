@@ -35,7 +35,7 @@ class OpAdmission(models.Model):
 
     #MULAI DARI SINI DATA DIAMBIL KE FRONT END
     register_id = fields.Many2one(
-        'op.admission.register', 'Daftar Penerimaan PPDB', required=True,
+        'op.admission.register', 'Daftar Penerimaan PPDB', required=False,
         states={'done': [('readonly', True)]})
     name = fields.Char(
         'Nama Lengkap', size=128, required=True, translate=True)
@@ -59,11 +59,11 @@ class OpAdmission(models.Model):
         'Tanggal Penerimaan', copy=False,
         states={'done': [('readonly', True)]})
     application_date = fields.Datetime(
-        'Tanggal Pengisian Formulir', required=True, copy=False,
+        'Tanggal Pengisian Formulir', required=False, copy=False,
         states={'done': [('readonly', True)]},
         default=lambda self: fields.Datetime.now())
     course_id = fields.Many2one(
-        'op.course', 'Kelas', required=True,
+        'op.course', 'Kelas', required=False,
         states={'done': [('readonly', True)]})
     batch_id = fields.Many2one(
         'op.batch', 'Rombel', required=False,
@@ -188,8 +188,27 @@ class OpAdmission(models.Model):
     telp_ayah = fields.Integer('Telp/Hp', required=True)
     email_ayah = fields.Char('Email', required=True)
     # suku_ayah = fields.Char('Suku Bangsa')
-    agama_ayah = fields.Char('Agama')
-    pendidikan_ayah = fields.Char('Pendidikan Terakhir')
+    # agama_ayah = fields.Char('Agama')
+    agama_ayah = fields.Selection([
+        ('1', 'Islam'),
+        ('2', 'Kristen'),
+        ('3', 'Katolik'),
+        ('4', 'Hindu'),
+        ('5', 'Budha'),
+    ], string='Agama')
+    # pendidikan_ayah = fields.Char('Pendidikan Terakhir')
+    pendidikan_ayah = fields.Selection([
+        ('1', 'Tidak Sekolah'),
+        ('2', 'Putus SD'),
+        ('3', 'SD Sederajat'),
+        ('4', 'SMP Sederajat'),
+        ('5', 'SMA Sederajat'),
+        ('6', 'D1'),
+        ('7', 'D3'),
+        ('8', 'S1'),
+        ('9', 'S2'),
+        ('10', 'S3'),
+    ], string='Pendidikan Terakhir')
     pekerjaan_ayah = fields.Char('Pekerjaan')
     jabatan_ayah = fields.Char('Jabatan')
     instansi_ayah = fields.Char('Nama Instansi')
@@ -198,7 +217,16 @@ class OpAdmission(models.Model):
         ('ya', 'Ya, Bersedia'),
         ('tidak', 'Tidak Bersedia')
     ], 'Apakah bersedia berkolaborasi dengan sekolah ?')
-    penghasilan_ayah = fields.Float('Penghasilan Perbulan', required=True)
+    # penghasilan_ayah = fields.Float('Penghasilan Perbulan', required=True)
+    penghasilan_ayah = fields.Selection([
+        ('1', '< Rp. 500.000'),
+        ('2', 'Rp. 500.000-Rp.999.999'),
+        ('3', 'Rp. 1.000.000-Rp.1.999.999'),
+        ('4', 'Rp.2.000.000-Rp.4.999.999'),
+        ('5', 'Rp.5.000.000-Rp.20.000.000'),
+        ('6', '> Rp.20.000.000'),
+        ('7', 'Tidak Berpenghasilan'),
+    ], string='Penghasilan perbulan')
     tanggungan_ayah = fields.Integer('Jumlah Tanggungan')
     status_ayah = fields.Selection([
         ('menikah', 'Menikah'),
@@ -213,11 +241,39 @@ class OpAdmission(models.Model):
     telp_ibu = fields.Integer('Telp/Hp', required=True)
     email_ibu = fields.Char('Email', required=True)
     suku_ibu = fields.Char('Suku Bangsa')
-    agama_ibu = fields.Char('Agama')
-    pendidikan_ibu = fields.Char('Pendidikan Terakhir')
+    # agama_ibu = fields.Char('Agama')
+    agama_ibu = fields.Selection([
+        ('1', 'Islam'),
+        ('2', 'Kristen'),
+        ('3', 'Katolik'),
+        ('4', 'Hindu'),
+        ('5', 'Budha'),
+    ], string='Agama')
+    # pendidikan_ibu = fields.Char('Pendidikan Terakhir')
+    pendidikan_ibu = fields.Selection([
+        ('1', 'Tidak Sekolah'),
+        ('2', 'Putus SD'),
+        ('3', 'SD Sederajat'),
+        ('4', 'SMP Sederajat'),
+        ('5', 'SMA Sederajat'),
+        ('6', 'D1'),
+        ('7', 'D3'),
+        ('8', 'S1'),
+        ('9', 'S2'),
+        ('10', 'S3'),
+    ], string='Pendidikan Terakhir')
     pekerjaan_ibu = fields.Char('Pekerjaan')
     jabatan_ibu = fields.Char('Jabatan')
-    penghasilan_ibu = fields.Float('Penghasilan Perbulan', required=True)
+    # penghasilan_ibu = fields.Float('Penghasilan Perbulan', required=True)
+    penghasilan_ibu = fields.Selection([
+        ('1', '< Rp. 500.000'),
+        ('2', 'Rp. 500.000-Rp.999.999'),
+        ('3', 'Rp. 1.000.000-Rp.1.999.999'),
+        ('4', 'Rp.2.000.000-Rp.4.999.999'),
+        ('5', 'Rp.5.000.000-Rp.20.000.000'),
+        ('6', '> Rp.20.000.000'),
+        ('7', 'Tidak Berpenghasilan'),
+    ], string='Penghasilan perbulan')
     tanggungan_ibu = fields.Integer('Jumlah Tanggungan')
     status_ibu = fields.Selection([
         ('menikah', 'Menikah'),
