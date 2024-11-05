@@ -12,9 +12,9 @@ class WebsitePPDBTK(http.Controller):
     @http.route('/api/admission_tk', type='http', auth='public', methods=['POST'], csrf=False,  website=True)
     def create_admission_tk(self, **post):
         try:
-            # Ambil data dari request
+            
            # register_id = post.get('register_id')
-            register_id = 3
+            register_id = 1
             name = post.get('nama_lengkap')
             if name:
                 name_parts = name.split()
@@ -94,43 +94,64 @@ class WebsitePPDBTK(http.Controller):
             alamat_ibu = post.get('alamat_ibu')
 
 
-            # Fetch or create Ayah record based on name
+            # Buat partner ayah
             ayah_name = post.get('ayah_name')
-            ayah_id = request.env['op.data.ayah'].sudo().search([('name_ayah', '=', ayah_name)], limit=1)
-            if not ayah_id:
-                ayah_id = request.env['op.data.ayah'].sudo().create({
+            partner_ayah = request.env['res.partner'].sudo().search([('name', '=', ayah_name)], limit=1)
+            if not partner_ayah:
+                partner_ayah = request.env['res.partner'].sudo().create({
+                    'name': ayah_name,
+                    'email': post.get('email_ayah'),
+                    'phone': post.get('telp_ayah'),
+                })
+
+            # Buat data ayah
+            ayah_record = request.env['op.data.ayah'].sudo().search([('name_ayah', '=', ayah_name)], limit=1)
+            if not ayah_record:
+                ayah_record = request.env['op.data.ayah'].sudo().create({
                     'name_ayah': ayah_name,
-                    # Additional fields for Ayah can be set here if provided in post
-                    'thn_lahir': post.get('tgl_lahir_ayah')or None,
+                    'thn_lahir': post.get('tgl_lahir_ayah') or None,
                     'agama': post.get('agama_ayah'),
                     'pendidikan': post.get('pendidikan_ayah'),
                     'pekerjaan': post.get('pekerjaan_ayah'),
                     'alamat': post.get('alamat_ayah'),
                     'email': post.get('email_ayah'),
                     'no_wa': post.get('telp_ayah'),
-                    # Add other fields as necessary
-                }).id
+                    'peng_perbulan':post.get('penghasilan_ayah'),
+                    'partner_id': partner_ayah.id,
+                })
             else:
-                ayah_id = ayah_id.id
+                ayah_id = ayah_record.id    
+            ayah_id = ayah_record.id
 
-            # Fetch or create Ibu record based on name
+            # Buat partner ibu
             ibu_name = post.get('ibu_name')
-            ibu_id = request.env['op.data.ibu'].sudo().search([('name_ibu', '=', ibu_name)], limit=1)
-            if not ibu_id:
-                ibu_id = request.env['op.data.ibu'].sudo().create({
+            partner_ibu = request.env['res.partner'].sudo().search([('name', '=', ibu_name)], limit=1)
+            if not partner_ibu:
+                partner_ibu = request.env['res.partner'].sudo().create({
+                    'name': ibu_name,
+                    'email': post.get('email_ibu'),
+                    'phone': post.get('telp_ibu'),
+
+                })
+
+            #Buat data ibu
+            ibu_record = request.env['op.data.ibu'].sudo().search([('name_ibu', '=', ibu_name)], limit=1)
+            if not ibu_record:
+                ibu_record = request.env['op.data.ibu'].sudo().create({
                     'name_ibu': ibu_name,
-                    # Additional fields for Ibu can be set here if provided in post
-                    'thn_lahir': post.get('tgl_lahir_ibu')or None,
+                    'thn_lahir': post.get('tgl_lahir_ibu') or None,
                     'agama': post.get('agama_ibu'),
                     'pendidikan': post.get('pendidikan_ibu'),
                     'pekerjaan': post.get('pekerjaan_ibu'),
                     'alamat': post.get('alamat_ibu'),
                     'email': post.get('email_ibu'),
                     'no_wa': post.get('telp_ibu'),
-                    # Add other fields as necessary
-                }).id
+                    'peng_perbulan':post.get('penghasilan_ibu'),
+                    'partner_id': partner_ibu.id,
+                })
             else:
-                ibu_id = ibu_id.id
+                ibu_id = ibu_record.id    
+            ibu_id = ibu_record.id
 
 
             # Data tambahan lainnya
@@ -245,18 +266,19 @@ class WebsitePPDBTK(http.Controller):
             # TTD fields
             hari_pengisian = post.get('hari_pengisian')
             tanggal_pengisian = post.get('tanggal_pengisian')
-            ttd_ayah = post.get('ttd_ayah')
-            ttd_ibu = post.get('ttd_ibu')
-
             file_akta = request.httprequest.files.get('file_akta')
             file_pas_ft = request.httprequest.files.get('file_pas_ft')
             file_kk = request.httprequest.files.get('file_kk')
             file_ktp_ortu = request.httprequest.files.get('file_ktp_ortu')
+            ttd_ayah = request.httprequest.files.get('ttd_ayah')
+            ttd_ibu = request.httprequest.files.get('ttd_ibu')
 
             file_akta_base64 = base64.b64encode(file_akta.read()) if file_akta else None
             file_pas_ft_base64 = base64.b64encode(file_pas_ft.read()) if file_pas_ft else None
             file_kk_base64 = base64.b64encode(file_kk.read()) if file_kk else None
             file_ktp_ortu_base64 = base64.b64encode(file_ktp_ortu.read()) if file_ktp_ortu else None
+            ttd_ayah_base64 = base64.b64encode(ttd_ayah.read()) if ttd_ayah else None
+            ttd_ibu_base64= base64.b64encode(ttd_ibu.read()) if ttd_ibu else None
 
 
             # Buat record baru di model formulir.sm
@@ -421,8 +443,12 @@ class WebsitePPDBTK(http.Controller):
                 # TTD fields
                 'hari_pengisian': hari_pengisian,
                 'tanggal_pengisian': tanggal_pengisian,
-                'ttd_ayah': ttd_ayah,
-                'ttd_ibu': ttd_ibu,
+                'ttd_ayah':ttd_ayah_base64,
+                'ttd_ibu' : ttd_ibu_base64,
+                'file_akta': file_akta_base64,
+                'file_pas_ft': file_pas_ft_base64,
+                'file_kk': file_kk_base64,
+                'file_ktp_ortu': file_ktp_ortu_base64,
             })
             
             return Response(json.dumps({

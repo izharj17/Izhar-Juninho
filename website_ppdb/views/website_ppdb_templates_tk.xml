@@ -380,65 +380,54 @@
 												<input type="date" name="tgl_lahir_ayah" id="tgl_lahir_ayah"  class="form-control" required="True" />
 											</div>
 										</div>
-										<!-- <div class="form-group">
+										<div class="form-group">
 											<label for="agama_ayah">
 												Agama:
 											</label>
 											<select name="agama_ayah" class="form-control">
-												<option value="belum_memilih">
-													Pilih agama
-												</option>
-												<option value="islam">
-													Islam
-												</option>
-												<option value="kristen">
-													Kristen
-												</option>
-												<option value="katolik">
-													Katolik
-												</option>
-												<option value="buddha">
-													Buddha
-												</option>
-												<option value="hindu">
-													Hindu
-												</option>
-												<option value="konguchu">
-													Konguchu
-												</option>
+												<option value="">
+                                                    Pilih agama
+                                                </option>
+                                                <option value="1">
+                                                    Islam
+                                                </option>
+                                                <option value="2">
+                                                    Kristen
+                                                </option>
+                                                <option value="3">
+                                                    Katolik
+                                                </option>
+                                                <option value="5">
+                                                    Buddha
+                                                </option>
+                                                <option value="4">
+                                                    Hindu
+                                                </option>
+                                                <!-- <option value="konguchu">
+                                                    Konguchu
+                                                </option> -->
 											</select>
-										</div> -->
-										<!-- <div class="form-group">
-											<label for="pendidikan">
+										</div>
+										<div class="form-group">
+											<label for="pendidikan_ayah">
 												Pendidikan:
 											</label>
-											<select name="pendidikan" class="form-control">
-												<option value="belum_memilih">
+											<select name="pendidikan_ayah" class="form-control">
+												<option value="">
 													Pilih sesuai jenjang
 												</option>
-												<option value="SD">
-													SD
-												</option>
-												<option value="SMP">
-													SMP
-												</option>
-												<option value="SMA/SLTA">
-													SMA/SLTA
-												</option>
-												<option value="D3">
-													D3
-												</option>
-												<option value="S1">
-													S1
-												</option>
-												<option value="S2">
-													S2
-												</option>
-												<option value="S3">
-													S3
-												</option>
+												<option value="1">Tidak Sekolah</option>
+                                                <option value="2">Putus SD</option>
+                                                <option value="3">SD Sederajat</option>
+                                                <option value="4">SMP Sederajat</option>
+                                                <option value="5">SMA Sederajat</option>
+                                                <option value="6">D1</option>
+                                                <option value="7">D3</option>
+                                                <option value="8">S1</option>
+                                                <option value="9">S2</option>
+                                                <option value="10">S3</option>
 											</select>
-										</div> -->
+										</div>
 										<div class="form-group">
 											<label for="alamat_ayah">
 												Alamat:
@@ -481,11 +470,17 @@
                                             </div>
                                         </div> -->
                                         <div class="form-group">
-											<label for="penghasilan_ayah">
-												Penghasilan perbulan:
-											</label>
-											<input type="number" name="penghasilan_ayah" class="form-control" />
-										</div>
+                                            <label for="penghasilan_ayah">Penghasilan perbulan:</label>
+                                            <select name="penghasilan_ayah" class="form-control">
+                                                <option value="1">&lt; Rp. 500.000</option>
+                                                <option value="2">Rp. 500.000 - Rp. 999.999</option>
+                                                <option value="3">Rp. 1.000.000 - Rp. 1.999.999</option>
+                                                <option value="4">Rp. 2.000.000 - Rp. 4.999.999</option>
+                                                <option value="5">Rp. 5.000.000 - Rp. 20.000.000</option>
+                                                <option value="6">&lt; Rp. 20.000.000</option>
+                                                <option value="7">Tidak Berpenghasilan</option>
+                                            </select>
+                                        </div>
 										<div class="form-group">
 											<label for="tanggungan_ayah">
 												Jumlah tanggungan:
@@ -537,65 +532,54 @@
 												<input type="date" name="tgl_lahir_ibu" id="tgl_lahir_ibu" class="form-control" required="True" />
 											</div>
 										</div>
-										<!-- <div class="form-group">
+										<div class="form-group">
 											<label for="agama_ibu">
 												Agama:
 											</label>
 											<select name="agama_ibu" class="form-control">
-												<option value="belum_memilih">
-													Pilih agama
-												</option>
-												<option value="islam">
-													Islam
-												</option>
-												<option value="kristen">
-													Kristen
-												</option>
-												<option value="katolik">
-													Katolik
-												</option>
-												<option value="buddha">
-													Buddha
-												</option>
-												<option value="hindu">
-													Hindu
-												</option>
-												<option value="konguchu">
-													Konguchu
-												</option>
+												<option value="">
+                                                    Pilih agama
+                                                </option>
+                                                <option value="1">
+                                                    Islam
+                                                </option>
+                                                <option value="2">
+                                                    Kristen
+                                                </option>
+                                                <option value="3">
+                                                    Katolik
+                                                </option>
+                                                <option value="5">
+                                                    Buddha
+                                                </option>
+                                                <option value="4">
+                                                    Hindu
+                                                </option>
+                                                <!-- <option value="konguchu">
+                                                    Konguchu
+                                                </option> -->
 											</select>
-										</div> -->
-										<!-- <div class="form-group">
+										</div>
+										<div class="form-group">
 											<label for="pendidikan_ibu">
 												Pendidikan:
 											</label>
 											<select name="pendidikan_ibu" class="form-control">
-												<option value="belum_memilih">
+												<option value="">
 													Pilih sesuai jenjang
 												</option>
-												<option value="SD">
-													SD
-												</option>
-												<option value="SMP">
-													SMP
-												</option>
-												<option value="SMA/SLTA">
-													SMA/SLTA
-												</option>
-												<option value="D3">
-													D3
-												</option>
-												<option value="S1">
-													S1
-												</option>
-												<option value="S2">
-													S2
-												</option>
-												<option value="S3">
-													S3
-												</option>
+												<option value="1">Tidak Sekolah</option>
+                                                <option value="2">Putus SD</option>
+                                                <option value="3">SD Sederajat</option>
+                                                <option value="4">SMP Sederajat</option>
+                                                <option value="5">SMA Sederajat</option>
+                                                <option value="6">D1</option>
+                                                <option value="7">D3</option>
+                                                <option value="8">S1</option>
+                                                <option value="9">S2</option>
+                                                <option value="10">S3</option>
 											</select>
-										</div> -->
+										</div>
 										<div class="form-group">
 											<label for="alamat_ibu">
 												Alamat:
@@ -640,11 +624,17 @@
 										</div>
 										-->
 										<div class="form-group">
-											<label for="penghasilan_ibu">
-												Penghasilan perbulan:
-											</label>
-											<input type="number" name="penghasilan_ibu" class="form-control" />
-										</div>
+                                            <label for="penghasilan_ibu">Penghasilan perbulan:</label>
+                                            <select name="penghasilan_ibu" class="form-control">
+                                                <option value="1">&lt; Rp. 500.000</option>
+                                                <option value="2">Rp. 500.000 - Rp. 999.999</option>
+                                                <option value="3">Rp. 1.000.000 - Rp. 1.999.999</option>
+                                                <option value="4">Rp. 2.000.000 - Rp. 4.999.999</option>
+                                                <option value="5">Rp. 5.000.000 - Rp. 20.000.000</option>
+                                                <option value="6">&lt; Rp. 20.000.000</option>
+                                                <option value="7">Tidak Berpenghasilan</option>
+                                            </select>
+                                        </div>
 										<div class="form-group">
 											<label for="tanggungan_ibu">
 												Jumlah tanggungan:
