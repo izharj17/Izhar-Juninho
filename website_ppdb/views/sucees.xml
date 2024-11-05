@@ -1,0 +1,11 @@
+<templates xml:space="preserve">
+    <t t-name="SuccessAlert" owl="1">
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <i class="fa fa-check-circle me-2"></i>
+            <div>
+                Data berhasil disimpan!
+            </div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </t>
+</templates>
